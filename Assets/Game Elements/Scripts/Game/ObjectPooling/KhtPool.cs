@@ -95,5 +95,6 @@ public class KhtPool : KhtSingleton<KhtPool>
         Instance._pools[poolId].Enqueue(poolObject);
         poolObject.transform.SetParent(Instance.transform);
         poolObject.SetActive(false);
+
     }
 }

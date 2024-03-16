@@ -14,10 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: can_st
   levelOfCoolness: 1
-  prefab: {fileID: 7530984947063230894, guid: 083e5ef3a5176624e94f936b5922be6c, type: 3}
-  sizeOfObjectPool: 20
+  prefab: {fileID: 8241120091912376880, guid: 3cd5d3a4a227d1e4b9e9e141ba1637a9, type: 3}
+  sizeOfObjectPool: 8
   haveAttackDamage: 1
   type: 0
-  prefabProjectile: {fileID: 882134978137793148, guid: 584033c95e8626f4894a796fd5fd0136,
+  visionZoneX: 18
+  visionZoneY: 7
+  visionZoneZ: 43
+  attackZoneX: 18
+  attackZoneY: 7
+  attackZoneZ: 24
+  prefabProjectile: {fileID: 7392108315425982163, guid: bbc85240e8af93c45b951b91ceca5100,
     type: 3}
-  sizeOfProjectilePool: 12
+  sizeOfProjectilePool: 8
+  projectilePower: 3

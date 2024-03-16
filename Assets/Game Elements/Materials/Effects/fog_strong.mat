@@ -98,7 +98,7 @@ Material:
     m_Floats:
     - BOOLEAN_0107A33C3886411D8E1319901D3A8A0D: 1
     - BOOLEAN_6C4164AC: 0
-    - Vector1_BF525535: 0.32
+    - Vector1_BF525535: 0.74
     - _AlphaClip: 0
     - _AlphaToMask: 0
     - _Blend: 0
@@ -131,7 +131,7 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_58E0201D: {r: 0.30980393, g: 0.12941177, b: 0.2509804, a: 1}
+    - Color_58E0201D: {r: 0.49056602, g: 0.2217464, b: 0.0944108, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

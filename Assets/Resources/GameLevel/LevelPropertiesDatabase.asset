@@ -13,13 +13,15 @@ MonoBehaviour:
   m_Name: LevelPropertiesDatabase
   m_EditorClassIdentifier: 
   enemy_properties:
+  - {fileID: 11400000, guid: 487320ca872e38441934f67cdcf69fcb, type: 2}
+  - {fileID: 11400000, guid: 1ea1050ce77c6084c81c60f34936168a, type: 2}
+  - {fileID: 11400000, guid: 288796754b2c4f0478b46a9c8181b470, type: 2}
+  - {fileID: 11400000, guid: 40197d76e2a7d894c97da71616c5f31d, type: 2}
   - {fileID: 11400000, guid: b09cf00838bcd1545a5454eebc5f4f2d, type: 2}
   - {fileID: 11400000, guid: 6c498809195d54f43a93112fc1050a88, type: 2}
-  - {fileID: 11400000, guid: 487320ca872e38441934f67cdcf69fcb, type: 2}
-  - {fileID: 11400000, guid: 40197d76e2a7d894c97da71616c5f31d, type: 2}
-  - {fileID: 11400000, guid: 1ea1050ce77c6084c81c60f34936168a, type: 2}
   traps_properties:
   - {fileID: 11400000, guid: d1df209f3e5482c4db5149ceeb071dc4, type: 2}
+  - {fileID: 11400000, guid: 66da89282f45194459007d4de6cd5387, type: 2}
   bonuses_properties:
   - {fileID: 11400000, guid: d9b28af2ef38d014f8180d5f76f4cc00, type: 2}
   islands_properties:
@@ -63,47 +65,50 @@ MonoBehaviour:
     prefab: {fileID: 585886282769591320, guid: e5102c9fd01497c40ad01465435199f8, type: 3}
   misc_properties:
   - id: money_fish
-    sizeOfObjectPool: 30
+    sizeOfObjectPool: 20
     prefab: {fileID: 7732691636725382871, guid: 12a06a2fd4171274ebbb2a0e6fce130b,
       type: 3}
-  distanceZ_between_roads: 15.98
+  distanceZ_between_roads: 15.95
+  min_extraIslands: 1
+  max_extraIslands: 5
   num_securePlatformsAtBegin: 2
-  min_typeEnemy: 2
-  max_typeEnemy: 5
+  num_allSpawnedPlatforms: 4
+  min_typeEnemy: 3
+  max_typeEnemy: 6
   min_typeTraps: 1
-  max_typeTraps: 1
+  max_typeTraps: 2
   min_typeBonuses: 1
   max_typeBonuses: 1
   min_Enemy_stage1: 0
-  max_Enemy_stage1: 2
+  max_Enemy_stage1: 1
   min_Traps_stage1: 0
   max_Traps_stage1: 2
   min_Bonuses_stage1: 0
   max_Bonuses_stage1: 1
   chance_Bonuses_stage1: 0.05
   min_fishMoney_stage1: 0
-  max_fishMoney_stage1: 4
+  max_fishMoney_stage1: 3
   part_openItems_stage1: 0.25
   activationDistance_stage1: 0
   min_Enemy_stage2: 0
-  max_Enemy_stage2: 3
+  max_Enemy_stage2: 2
   min_Traps_stage2: 1
   max_Traps_stage2: 4
   min_Bonuses_stage2: 0
   max_Bonuses_stage2: 1
   chance_Bonuses_stage2: 0.15
   min_fishMoney_stage2: 1
-  max_fishMoney_stage2: 6
+  max_fishMoney_stage2: 5
   part_openItems_stage2: 0.5
-  activationDistance_stage2: 40
+  activationDistance_stage2: 20
   min_Enemy_stage3: 1
   max_Enemy_stage3: 3
   min_Traps_stage3: 2
-  max_Traps_stage3: 6
+  max_Traps_stage3: 5
   min_Bonuses_stage3: 0
   max_Bonuses_stage3: 2
   chance_Bonuses_stage3: 0.2
-  min_fishMoney_stage3: 3
-  max_fishMoney_stage3: 9
+  min_fishMoney_stage3: 2
+  max_fishMoney_stage3: 6
   part_openItems_stage3: 1
   activationDistance_stage3: 80

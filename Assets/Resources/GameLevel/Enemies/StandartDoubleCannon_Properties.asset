@@ -13,11 +13,19 @@ MonoBehaviour:
   m_Name: StandartDoubleCannon_Properties
   m_EditorClassIdentifier: 
   id: can_std
-  levelOfCoolness: 2
-  prefab: {fileID: 5302699801808899978, guid: 565413c6c7ff4b74ab2a81b58886799f, type: 3}
-  sizeOfObjectPool: 20
+  levelOfCoolness: 3
+  prefab: {fileID: 6747746081925311420, guid: f5299b43bd5b1ff4d933379b2418b463, type: 3}
+  sizeOfObjectPool: 8
   haveAttackDamage: 1
   type: 0
-  prefabProjectile: {fileID: 882134978137793148, guid: 584033c95e8626f4894a796fd5fd0136,
+  visionZoneX: 18
+  visionZoneY: 7
+  visionZoneZ: 43
+  attackZoneX: 18
+  attackZoneY: 7
+  attackZoneZ: 24
+  prefabProjectile: {fileID: 7392108315425982163, guid: bbc85240e8af93c45b951b91ceca5100,
     type: 3}
-  sizeOfProjectilePool: 20
+  sizeOfProjectilePool: 16
+  projectilePower: 3
+  intervalBetweenShots: 0.5

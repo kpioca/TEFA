@@ -10,7 +10,9 @@ public class SpawnNewPlatform : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.name == "player")
-        GlobalEventManager.OnPathWaySpawn();
+        if (other.gameObject.name == "despawnBorder")
+        {
+            GlobalEventManager.OnPathWaySpawn();
+        }
     }
 }

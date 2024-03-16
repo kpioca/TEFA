@@ -15,5 +15,5 @@ MonoBehaviour:
   id: immort
   levelOfCoolness: 1
   prefab: {fileID: 6178496456428993005, guid: 5975c5c86b2a7d74bbc25785f8ebd630, type: 3}
-  sizeOfObjectPool: 5
+  sizeOfObjectPool: 3
   durationSec: 10

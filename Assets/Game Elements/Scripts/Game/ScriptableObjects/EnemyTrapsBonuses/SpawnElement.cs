@@ -10,7 +10,7 @@ public class SpawnElement : ScriptableObject
     [SerializeField] private protected int levelOfCoolness = 1;
     public int LevelOfCoolness => levelOfCoolness;
 
-    [Header("Instance")]
+    [Header("Reference")]
     [SerializeField] private protected GameObject prefab;
     public GameObject Prefab => prefab;
 
@@ -23,5 +23,22 @@ public class SpawnElement : ScriptableObject
     {
         get { return chanceIfSpawnThisType; }
         set { chanceIfSpawnThisType = value; }
+    }
+
+    public virtual void setUpElement()
+    {
+
+    }
+    public SpawnElement copyElement(SpawnElement element)
+    {
+        SpawnElement copy = new SpawnElement();
+
+        copy.id = element.id;
+        copy.levelOfCoolness = element.levelOfCoolness;
+        copy.prefab = element.prefab;
+        copy.sizeOfObjectPool = element.sizeOfObjectPool;
+        copy.chanceIfSpawnThisType= element.chanceIfSpawnThisType;
+
+        return copy;
     }
 }
