@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 742136553643983396}
   - component: {fileID: 3814122838557170760}
   - component: {fileID: 9084936337914896425}
+  - component: {fileID: 530749343995058340}
   m_Layer: 0
   m_Name: tall_isl_extra1.001
   m_TagString: Untagged
@@ -83,6 +84,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &530749343995058340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2093480500423807905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3be9d321b436fa24cb84a1f9e65d7c2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3990730355553209861
 GameObject:
   m_ObjectHideFlags: 0

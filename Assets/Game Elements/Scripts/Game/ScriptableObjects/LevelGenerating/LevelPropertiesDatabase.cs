@@ -1,21 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
 using UnityEngine;
-
+using System;
 
 [CreateAssetMenu(fileName = "LevelPropertiesDatabase", menuName = "LevelProperties/Databases/New LevelPropertiesDatabase")]
+[Serializable]
 public class LevelPropertiesDatabase : ScriptableObject
 {
     [Header("Enemy Properties")]
-    [SerializeField] private List<Enemy> enemy_properties;
-    public List<Enemy> Enemy_properties => enemy_properties;
+    [SerializeField] private List<EnemyInfo> enemy_properties;
+    public List<EnemyInfo> Enemy_properties => enemy_properties;
 
-    private Dictionary<string, Enemy> enemy_propertiesDict;
-    public Dictionary<string, Enemy> Enemy_propertiesDict
+    private Dictionary<string, EnemyInfo> enemy_propertiesDict;
+    public Dictionary<string, EnemyInfo> Enemy_propertiesDict
     {
         get
         {
-            enemy_propertiesDict = new Dictionary<string, Enemy>();
+            enemy_propertiesDict = new Dictionary<string, EnemyInfo>();
             int n = enemy_properties.Count;
             for(int i = 0; i < n; i++)
                 enemy_propertiesDict.Add(enemy_properties[i].Id, enemy_properties[i]);
@@ -24,15 +28,15 @@ public class LevelPropertiesDatabase : ScriptableObject
     }
 
     [Header("Traps Properties")]
-    [SerializeField] private List<Trap> traps_properties;
-    public List<Trap> Traps_properties => traps_properties;
+    [SerializeField] private List<TrapInfo> traps_properties;
+    public List<TrapInfo> Traps_properties => traps_properties;
 
-    private Dictionary<string, Trap> traps_propertiesDict;
-    public Dictionary<string, Trap> Traps_propertiesDict
+    private Dictionary<string, TrapInfo> traps_propertiesDict;
+    public Dictionary<string, TrapInfo> Traps_propertiesDict
     {
         get
         {
-            traps_propertiesDict = new Dictionary<string, Trap>();
+            traps_propertiesDict = new Dictionary<string, TrapInfo>();
             int n = traps_properties.Count;
             for (int i = 0; i < n; i++)
                 traps_propertiesDict.Add(traps_properties[i].Id, traps_properties[i]);
@@ -41,15 +45,15 @@ public class LevelPropertiesDatabase : ScriptableObject
     }
 
     [Header("Bonuses Properties")]
-    [SerializeField] private List<Bonus> bonuses_properties;
-    public List<Bonus> Bonuses_properties => bonuses_properties;
+    [SerializeField] private List<BonusInfo> bonuses_properties;
+    public List<BonusInfo> Bonuses_properties => bonuses_properties;
 
-    private Dictionary<string, Bonus> bonuses_propertiesDict;
-    public Dictionary<string, Bonus> Bonuses_propertiesDict
+    private Dictionary<string, BonusInfo> bonuses_propertiesDict;
+    public Dictionary<string, BonusInfo> Bonuses_propertiesDict
     {
         get
         {
-            bonuses_propertiesDict = new Dictionary<string, Bonus>();
+            bonuses_propertiesDict = new Dictionary<string, BonusInfo>();
             int n = bonuses_properties.Count;
             for (int i = 0; i < n; i++)
                 bonuses_propertiesDict.Add(bonuses_properties[i].Id, bonuses_properties[i]);
@@ -108,6 +112,25 @@ public class LevelPropertiesDatabase : ScriptableObject
         }
     }
 
+    [Header("Modificators")]
+
+    [SerializeField] private List<ModificatorInfo> modificators = new List<ModificatorInfo>();
+    public List<ModificatorInfo> Modificators => modificators;
+
+    [Range(0, 1)]
+    [SerializeField] private float chanceModificator = 0.05f;
+    public float ChanceModificator => chanceModificator;
+
+    [Header("Game sets")]
+
+    [SerializeField] private List<GameSet> gameSets = new List<GameSet>();
+    public List<GameSet> GameSets => gameSets;
+
+    [Range(0, 1)]
+    [SerializeField] private float chanceSpawnGameSet = 0.1f;
+    public float ChanceSpawnGameSet => chanceSpawnGameSet;
+
+
     [Header("Other Info")]
     [SerializeField] private float distanceZ_between_roads = 15.98f;
     public float DistanceZ_between_roads => distanceZ_between_roads;
@@ -118,6 +141,7 @@ public class LevelPropertiesDatabase : ScriptableObject
     [Range(0, 6)]
     [SerializeField] private int max_extraIslands = 6;
     public int Max_extraIslands => max_extraIslands;
+
 
     [Space(30)]
     [Header("Start of generation")]
@@ -313,6 +337,32 @@ public class LevelPropertiesDatabase : ScriptableObject
         min_typeBonuses = min;
         max_typeBonuses = max;
     }
+
+    public void changeEnemiesParameters(int minEnemy1, int maxEnemy1, int minEnemy2, int maxEnemy2, int minEnemy3, int maxEnemy3)
+    {
+        min_Enemy_stage1 = minEnemy1;
+        max_Enemy_stage1 = maxEnemy1;
+
+        min_Enemy_stage2 = minEnemy2;
+        max_Enemy_stage2 = maxEnemy2;
+
+        min_Enemy_stage3 = minEnemy3;
+        max_Enemy_stage3 = maxEnemy3;
+    }
+
+    public void changeTrapsParameters(int minTraps1, int maxTraps1, int minTraps2, int maxTraps2, int minTraps3, int maxTraps3)
+    {
+        min_Traps_stage1 = minTraps1;
+        max_Traps_stage1 = maxTraps1;
+
+        min_Traps_stage2 = minTraps2;
+        max_Traps_stage2 = maxTraps2;
+
+        min_Traps_stage3 = minTraps3;
+        max_Traps_stage3 = maxTraps3;
+
+    }
+
 }
 
 

@@ -3,22 +3,95 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Linq;
+using UnityEngine.UI;
+using TMPro;
+
+
+public struct StagesSpawnParameters
+{
+    public int min_enemies1;
+    public int max_enemies1;
+
+    public int min_enemies2;
+    public int max_enemies2;
+
+    public int min_enemies3;
+    public int max_enemies3;
+
+    public int min_traps1;
+    public int max_traps1;
+
+    public int min_traps2;
+    public int max_traps2;
+
+    public int min_traps3;
+    public int max_traps3;
+
+    public int min_bonuses1;
+    public int max_bonuses1;
+
+    public int min_bonuses2;
+    public int max_bonuses2;
+
+    public int min_bonuses3;
+    public int max_bonuses3;
+
+    public float chance_Bonuses1;
+    public float chance_Bonuses2;
+    public float chance_Bonuses3;
+
+    public StagesSpawnParameters(LevelPropertiesDatabase database)
+    {
+        min_enemies1 = database.Min_Enemy_stage1;
+        min_enemies2 = database.Min_Enemy_stage2;
+        min_enemies3 = database.Min_Enemy_stage3;
+
+        max_enemies1 = database.Max_Enemy_stage1;
+        max_enemies2 = database.Max_Enemy_stage2;
+        max_enemies3 = database.Max_Enemy_stage3;
+
+        min_traps1 = database.Min_Traps_stage1;
+        min_traps2 = database.Min_Traps_stage2;
+        min_traps3 = database.Min_Traps_stage3;
+
+        max_traps1 = database.Max_Traps_stage1;
+        max_traps2 = database.Max_Traps_stage2;
+        max_traps3 = database.Max_Traps_stage3;
+
+        min_bonuses1 = database.Min_Bonuses_stage1;
+        min_bonuses2 = database.Min_Bonuses_stage2;
+        min_bonuses3 = database.Min_Bonuses_stage3;
+
+        max_bonuses1 = database.Max_Bonuses_stage1;
+        max_bonuses2 = database.Max_Bonuses_stage2;
+        max_bonuses3 = database.Max_Bonuses_stage3;
+
+        chance_Bonuses1 = database.Chance_Bonuses_stage1;
+        chance_Bonuses2 = database.Chance_Bonuses_stage2;
+        chance_Bonuses3 = database.Chance_Bonuses_stage3;
+    }
+}
 
 public class GeneratorLevel : MonoBehaviour
 {
+    
+
     GeneratorLevelProperties generator;
     [Header("References")]
     [SerializeField] LevelPropertiesDatabase database;
     [SerializeField] GameManager gameManager;
+    [SerializeField] private TMP_Text text_info_level;
+
+    private StagesSpawnParameters spawnParameters;
 
     //
     [Header("Object properties")]
-    [SerializeField] private List<Enemy> enemy_properties;
-    public List<Enemy> Enemy_properties => enemy_properties;
-    [SerializeField] private List<Trap> traps_properties;
-    public List<Trap> Traps_properties => traps_properties;
-    [SerializeField] private List<Bonus> bonuses_properties;
-    public List<Bonus> Bonuses_properties => bonuses_properties;
+    [SerializeField] private List<EnemyInfo> enemy_properties;
+    public List<EnemyInfo> Enemy_properties => enemy_properties;
+    [SerializeField] private List<TrapInfo> traps_properties;
+    public List<TrapInfo> Traps_properties => traps_properties;
+    [SerializeField] private List<BonusInfo> bonuses_properties;
+    public List<BonusInfo> Bonuses_properties => bonuses_properties;
 
     [SerializeField] private List<ObjectProperties> islands_properties;
     public List<ObjectProperties> Islands_properties => islands_properties;
@@ -32,9 +105,9 @@ public class GeneratorLevel : MonoBehaviour
 
     //
     [Header("Object dictionaries")]
-    [SerializeField] private Dictionary<string, Enemy> enemy_propertiesDict;
-    [SerializeField] private Dictionary<string, Trap> traps_propertiesDict;
-    [SerializeField] private Dictionary<string, Bonus> bonuses_propertiesDict;
+    [SerializeField] private Dictionary<string, EnemyInfo> enemy_propertiesDict;
+    [SerializeField] private Dictionary<string, TrapInfo> traps_propertiesDict;
+    [SerializeField] private Dictionary<string, BonusInfo> bonuses_propertiesDict;
     [SerializeField] private Dictionary<string, ObjectProperties> islands_propertiesDict;
     [SerializeField] private Dictionary<string, ObjectProperties> roadParts_propertiesDict;
     [SerializeField] private Dictionary<string, ObjectProperties> misc_propertiesDict;
@@ -48,9 +121,9 @@ public class GeneratorLevel : MonoBehaviour
 
     LevelSkinSetDatabase skinSet;
 
-    List<Enemy> openedEnemy;
-    List<Trap> openedTraps;
-    List<Bonus> openedBonuses;
+    List<EnemyInfo> openedEnemy;
+    List<TrapInfo> openedTraps;
+    List<BonusInfo> openedBonuses;
 
     int n_AllSpawnedPlatforms;
     int n_securePlatforms;
@@ -61,15 +134,22 @@ public class GeneratorLevel : MonoBehaviour
     List<GameObject> ready_partsOfPath = new List<GameObject>(4);
 
 
+
+
     void Start()
     {
         GlobalEventManager.OnPathWaySpawn += spawnNewPathWay;
         GlobalEventManager.OnChangeStageGame += newStageGame;
-        init(out generator, database);;
+        init(out generator, database);
+        GlobalEventManager.OnUnSubscribe += unSubscribe;
 
+    }
 
-        
-
+    void unSubscribe()
+    {
+        GlobalEventManager.OnPathWaySpawn -= spawnNewPathWay;
+        GlobalEventManager.OnChangeStageGame -= newStageGame;
+        GlobalEventManager.OnUnSubscribe -= unSubscribe;
     }
 
     // Update is called once per frame
@@ -80,7 +160,15 @@ public class GeneratorLevel : MonoBehaviour
 
     private void init(out GeneratorLevelProperties generator, LevelPropertiesDatabase database)
     {
-        generator = new GeneratorLevelProperties(database);
+        string text = "";
+        float rand_num1;
+        int rand_num2;
+
+        generator = new GeneratorLevelProperties(database, out text);
+
+        spawnParameters = new StagesSpawnParameters(database);
+
+
 
         enemy_properties = generator.Enemy_properties;
         traps_properties = generator.Traps_properties;
@@ -108,11 +196,40 @@ public class GeneratorLevel : MonoBehaviour
 
         initObjectPools(enemy_properties, traps_properties, bonuses_properties, islands_properties, roadParts_properties, misc_properties);
 
+
+        rand_num1 = UnityEngine.Random.Range(0, 1f);
+
+        text_info_level.text += $"Enemies: {enemy_properties.Count}\nTraps: {traps_properties.Count}\nBonuses: {bonuses_properties.Count}";
+
+        if (rand_num1 <= database.ChanceModificator)
+        {
+            rand_num2 = UnityEngine.Random.Range(0, database.Modificators.Count);
+            spawnParameters = database.Modificators[rand_num2].Action(spawnParameters);
+
+            text_info_level.text += $"\n\nModificator:\n{database.Modificators[rand_num2].NameModificator}";
+        }
+        text_info_level.text += text;
+
+
+        //
+        Debug.Log($"---------Spawn Elements Info---------");
+        Debug.Log($"Enemies : {enemy_properties.Count}\nTraps : {traps_properties.Count}\nBonuses : {bonuses_properties.Count}");
+        Debug.Log("-Enemies-");
+        for (int i = 0; i < enemy_properties.Count; i++)
+            Debug.Log($"Id : {enemy_properties[i].Id}");
+        Debug.Log("-Traps-");
+        for (int i = 0; i < traps_properties.Count; i++)
+            Debug.Log($"Id : {traps_properties[i].Id}");
+        Debug.Log("-Bonuses-");
+        for (int i = 0; i < bonuses_properties.Count; i++)
+            Debug.Log($"Id : {bonuses_properties[i].Id}");
+        //
+
         n_stage = changeStageGame(1, out openedEnemy, out openedTraps, out openedBonuses, openedPartItemsStage1, enemy_properties, traps_properties, bonuses_properties);
 
         initSpawnPartPath(ready_partsOfPath, n_AllSpawnedPlatforms, new Vector3(0, 0, 0), distZbetweenPlatforms, roadParts_properties, openedEnemy, openedTraps, openedBonuses, fishMoney_prefab, n_securePlatforms);
     }
-    private void initSpawnPartPath(List<GameObject> partsOfPath, int n_parts, Vector3 startPos, float DistanceZ_between_roads, List<ObjectProperties> roadParts_properties, List<Enemy> openedEnemy, List<Trap> openedTraps, List<Bonus> openedBonuses, GameObject fishMoney_prefab, int n_securePlatforms, int n_stage = 1)
+    private void initSpawnPartPath(List<GameObject> partsOfPath, int n_parts, Vector3 startPos, float DistanceZ_between_roads, List<ObjectProperties> roadParts_properties, List<EnemyInfo> openedEnemy, List<TrapInfo> openedTraps, List<BonusInfo> openedBonuses, GameObject fishMoney_prefab, int n_securePlatforms, int n_stage = 1)
     {
         GameObject temp_obj;
         int i;
@@ -136,7 +253,7 @@ public class GeneratorLevel : MonoBehaviour
         }
     }
 
-    private int changeStageGame(int stage, out List<Enemy> openedEnemy, out List<Trap> openedTraps, out List<Bonus> openedBonuses, float openedPart, List<Enemy> enemy_properties, List<Trap> traps_properties, List<Bonus> bonuses_properties)
+    private int changeStageGame(int stage, out List<EnemyInfo> openedEnemy, out List<TrapInfo> openedTraps, out List<BonusInfo> openedBonuses, float openedPart, List<EnemyInfo> enemy_properties, List<TrapInfo> traps_properties, List<BonusInfo> bonuses_properties)
     {
         openedEnemy = getOpenedItems(enemy_properties, openedPart);
         openedTraps = getOpenedItems(traps_properties, openedPart);
@@ -192,7 +309,7 @@ public class GeneratorLevel : MonoBehaviour
         placeObjectToPos(temp_obj, ready_partsOfPath[n-1].transform.position + distZbetweenPlatforms * Vector3.forward, Quaternion.identity, null);;
         ready_partsOfPath.Add(temp_obj);
     }
-    private List<T> getOpenedItems<T>(List<T> fromList, float openedPart) where T : SpawnElement
+    private List<T> getOpenedItems<T>(List<T> fromList, float openedPart) where T : SpawnElementInfo
     {
         int n = fromList.Count;
         int num_openedItems = 0;
@@ -208,7 +325,7 @@ public class GeneratorLevel : MonoBehaviour
             return listOpenedItems;
         }
     }
-    private void assignChancesToOpenedItems<T>(List<T> listOpenedItems, int num_state = 1) where T : SpawnElement
+    private void assignChancesToOpenedItems<T>(List<T> listOpenedItems, int num_state = 1) where T : SpawnElementInfo
     {
         int n = listOpenedItems.Count;
 
@@ -278,7 +395,7 @@ public class GeneratorLevel : MonoBehaviour
         }
     }
 
-    private void sortBubbleForSpawnElements<T>(List<T> list) where T : SpawnElement
+    private void sortBubbleForSpawnElements<T>(List<T> list) where T : SpawnElementInfo
     {
         bool swapped;
         int n = list.Count;
@@ -306,7 +423,7 @@ public class GeneratorLevel : MonoBehaviour
         else return false;
     }
 
-    private T getRandomElementFromList<T>(List<T> list) where T : SpawnElement
+    private T getRandomElementFromList<T>(List<T> list) where T : SpawnElementInfo
     {
         float total_probability= 0;
 
@@ -331,7 +448,7 @@ public class GeneratorLevel : MonoBehaviour
         return list[list.Count - 1];
     }
 
-    private T getRandomElementFromList<T>(List<T> list, out int numInList) where T : SpawnElement
+    private T getRandomElementFromList<T>(List<T> list, out int numInList) where T : SpawnElementInfo
     {
         float total_probability = 0;
 
@@ -358,7 +475,7 @@ public class GeneratorLevel : MonoBehaviour
         return list[numInList];
     }
 
-    private GameObject assemblingReadyPieceOfPath(GameObject road_prefab, List<Enemy> openedEnemy, List<Trap> openedTraps, List<Bonus> openedBonuses, GameObject fishMoney_prefab, int n_stage, bool secureMode = false)
+    private GameObject assemblingReadyPieceOfPath(GameObject road_prefab, List<EnemyInfo> openedEnemy, List<TrapInfo> openedTraps, List<BonusInfo> openedBonuses, GameObject fishMoney_prefab, int n_stage, bool secureMode = false)
     {
         GameObject raw_road = spawnObject(road_prefab, null);
 
@@ -368,30 +485,32 @@ public class GeneratorLevel : MonoBehaviour
 
         InfoPieceOfPath info = raw_road.GetComponent<InfoPieceOfPath>();
 
-        List<GameObject> islandsSmallMarks = new List<GameObject>(getInfoIslandsSmallMarks(raw_road));
-        List<GameObject> islandsBigMarks = new List<GameObject>(getInfoIslandsBigMarks(raw_road));
-        List<GameObject> islandsTallMarks = new List<GameObject>(getInfoIslandsTallMarks(raw_road));
-        List<GameObject> enemyIslSmMarks = new List<GameObject>(getInfoEnemyIslSmallMarks(raw_road));
-        List<GameObject> enemyIslBgMarks = new List<GameObject>(getInfoEnemyIslBigMarks(raw_road));
-        List<GameObject> enemyIslTlMarks = new List<GameObject>(getInfoEnemyIslTallMarks(raw_road));
-        List<GameObject> trapsMarks = new List<GameObject>(getInfoTrapsMarks(raw_road));
-        List<GameObject> bonusesMarks = new List<GameObject>(getInfoBonusesMarks(raw_road));
-        List<GameObject> miscMarks = new List<GameObject>(getInfoMiscMarks(raw_road));
+        List<Mark> islandsSmallMarks = new List<Mark>(getInfoIslandsSmallMarks(info));
+        List<Mark> islandsBigMarks = new List<Mark>(getInfoIslandsBigMarks(info));
+        List<Mark> islandsTallMarks = new List<Mark>(getInfoIslandsTallMarks(info));
+        List<Mark> enemyIslSmMarks = new List<Mark>(getInfoEnemyIslSmallMarks(info));
+        List<Mark> enemyIslBgMarks = new List<Mark>(getInfoEnemyIslBigMarks(info));
+        List<Mark> enemyIslTlMarks = new List<Mark>(getInfoEnemyIslTallMarks(info));
+        List<Mark> trapsMarks = new List<Mark>(getInfoTrapsMarks(info));
+        List<Mark> bonusesMarks = new List<Mark>(getInfoBonusesMarks(info));
+        List<Mark> miscMarks = new List<Mark>(getInfoMiscMarks(info));
+        List<Mark> holesInstances = new List<Mark>(getInfoHoleInstances(info));
 
-        List<GameObject> islExtraSmallMarks = new List<GameObject>(getInfoExtraIslSmallMarks(raw_road));
-        List<GameObject> islExtraBigMarks = new List<GameObject>(getInfoExtraIslBigMarks(raw_road));
-        List<GameObject> islExtraTallMarks = new List<GameObject>(getInfoExtraIslTallMarks(raw_road));
+        List<Mark> islExtraSmallMarks = new List<Mark>(getInfoExtraIslSmallMarks(info));
+        List<Mark> islExtraBigMarks = new List<Mark>(getInfoExtraIslBigMarks(info));
+        List<Mark> islExtraTallMarks = new List<Mark>(getInfoExtraIslTallMarks(info));
 
         float chanceSpawnBonus = 0;
 
-        List<GameObject> temp_marks1;
-        List<GameObject> temp_marks2;
-        List<GameObject> temp_marks3;
+        List<Mark> temp_marks1;
+        List<Mark> temp_marks2;
+        List<Mark> temp_marks3;
 
         n_extraIsl = UnityEngine.Random.Range(database.Min_extraIslands, database.Max_extraIslands + 1);
 
         switch (n_stage)
         {
+            /*
             case 1:
                 n_e = UnityEngine.Random.Range(database.Min_Enemy_stage1, database.Max_Enemy_stage1 + 1);
                 n_t = UnityEngine.Random.Range(database.Min_Traps_stage1, database.Max_Traps_stage1 + 1);
@@ -413,6 +532,29 @@ public class GeneratorLevel : MonoBehaviour
                 n_fish = UnityEngine.Random.Range(database.Min_fishMoney_stage3, database.Max_fishMoney_stage3 + 1);
                 chanceSpawnBonus = database.Chance_Bonuses_stage3;
                 break;
+            */
+
+            case 1:
+                n_e = UnityEngine.Random.Range(spawnParameters.min_enemies1, spawnParameters.max_enemies1 + 1);
+                n_t = UnityEngine.Random.Range(spawnParameters.min_traps1, spawnParameters.max_traps1 + 1);
+                n_b = UnityEngine.Random.Range(spawnParameters.min_bonuses1, spawnParameters.max_bonuses1 + 1);
+                n_fish = UnityEngine.Random.Range(database.Min_fishMoney_stage1, database.Max_fishMoney_stage1 + 1);
+                chanceSpawnBonus = spawnParameters.chance_Bonuses1;
+                break;
+            case 2:
+                n_e = UnityEngine.Random.Range(spawnParameters.min_enemies2, spawnParameters.max_enemies2 + 1);
+                n_t = UnityEngine.Random.Range(spawnParameters.min_traps2, spawnParameters.max_traps2 + 1);
+                n_b = UnityEngine.Random.Range(spawnParameters.min_bonuses2, spawnParameters.max_bonuses2 + 1);
+                n_fish = UnityEngine.Random.Range(database.Min_fishMoney_stage2, database.Max_fishMoney_stage2 + 1);
+                chanceSpawnBonus = spawnParameters.chance_Bonuses2;
+                break;
+            case 3:
+                n_e = UnityEngine.Random.Range(spawnParameters.min_enemies3, spawnParameters.max_enemies3 + 1);
+                n_t = UnityEngine.Random.Range(spawnParameters.min_traps3, spawnParameters.max_traps3 + 1);
+                n_b = UnityEngine.Random.Range(spawnParameters.min_bonuses3, spawnParameters.max_bonuses3 + 1);
+                n_fish = UnityEngine.Random.Range(database.Min_fishMoney_stage3, database.Max_fishMoney_stage3 + 1);
+                chanceSpawnBonus = spawnParameters.chance_Bonuses3;
+                break;
         }
 
         if (secureMode == true)
@@ -422,9 +564,9 @@ public class GeneratorLevel : MonoBehaviour
         }
 
 
-        temp_marks1 = new List<GameObject>();
-        temp_marks2 = new List<GameObject>();
-        temp_marks3 = new List<GameObject>();
+        temp_marks1 = new List<Mark>();
+        temp_marks2 = new List<Mark>();
+        temp_marks3 = new List<Mark>();
 
         for (int i = 0; i < n_e; i++)
         {
@@ -474,7 +616,7 @@ public class GeneratorLevel : MonoBehaviour
 
         for (int i = 0; i < n_t; i++)
             if(trapsMarks.Count != 0)
-                createTrap(raw_road, openedTraps, trapsMarks, info);
+                createTrap(raw_road, openedTraps, trapsMarks, holesInstances, info);
 
         if (probabilityFunc(chanceSpawnBonus))
             for (int i = 0; i < n_b; i++)
@@ -489,20 +631,28 @@ public class GeneratorLevel : MonoBehaviour
     }
 
 
-    private void spawnIsland(GameObject raw_road, string id_island, List<GameObject> islandsMarks, List<GameObject> enemyOnIslMarks, List<GameObject> spawnedIslandsMarks, Dictionary<string, ObjectProperties> islands_propertiesDict, InfoPieceOfPath info)
+    private void spawnIsland(GameObject raw_road, string id_island, List<Mark> islandsMarks, List<Mark> enemyOnIslMarks, List<Mark> spawnedIslandsMarks, Dictionary<string, ObjectProperties> islands_propertiesDict, InfoPieceOfPath info)
     {
         GameObject temp;
         int t;
 
         t = UnityEngine.Random.Range(0, islandsMarks.Count);
-        temp = spawnObject(islands_propertiesDict[id_island].Prefab, islandsMarks[t].transform.position, islandsMarks[t].transform.rotation, raw_road.transform);
-        info.Islands.Add(temp);
+        temp = spawnObject(islands_propertiesDict[id_island].Prefab, islandsMarks[t].obj.transform.position, islandsMarks[t].obj.transform.rotation, raw_road.transform);
+
+        int num = info.Islands.Count;
+        SpawnPlace spawnPlace = new SpawnPlace(temp, islandsMarks[t], num);
+        info.Islands.Add(spawnPlace);
+        islandsMarks[t].isTaken = true;
+
         islandsMarks.RemoveAt(t);
         spawnedIslandsMarks.Add(enemyOnIslMarks[t]);
+        enemyOnIslMarks[t].isTaken = true;
+        enemyOnIslMarks[t].spawnPlace = spawnPlace;
+
         enemyOnIslMarks.RemoveAt(t);
     }
 
-    private void spawnExtraIsland(GameObject raw_road, string[] id_islandsVariants, List<GameObject> islandsMarks, Dictionary<string, ObjectProperties> islands_propertiesDict, InfoPieceOfPath info)
+    private void spawnExtraIsland(GameObject raw_road, string[] id_islandsVariants, List<Mark> islandsMarks, Dictionary<string, ObjectProperties> islands_propertiesDict, InfoPieceOfPath info)
     {
         GameObject temp;
         int t, p, n;
@@ -511,100 +661,176 @@ public class GeneratorLevel : MonoBehaviour
         n = id_islandsVariants.Length;
         p = UnityEngine.Random.Range(0, n);
 
-        temp = spawnObject(islands_propertiesDict[id_islandsVariants[p]].Prefab, islandsMarks[t].transform.position, islandsMarks[t].transform.rotation, raw_road.transform);
+        temp = spawnObject(islands_propertiesDict[id_islandsVariants[p]].Prefab, islandsMarks[t].obj.transform.position, islandsMarks[t].obj.transform.rotation, raw_road.transform);
 
-        info.Islands.Add(temp);
+        int num = info.Islands.Count;
+        SpawnPlace spawnPlace = new SpawnPlace(temp, islandsMarks[t], num);
+        info.Islands.Add(spawnPlace);
+        islandsMarks[t].isTaken = true;
+        islandsMarks[t].spawnPlace = spawnPlace;
         islandsMarks.RemoveAt(t);
     }
 
-    private void spawnMisc(GameObject raw_road, GameObject prefab, List<GameObject> miscMarks, InfoPieceOfPath info)
+    private void spawnMisc(GameObject raw_road, GameObject prefab, List<Mark> miscMarks, InfoPieceOfPath info)
     {
         GameObject temp;
         int k;
 
         k = UnityEngine.Random.Range(0, miscMarks.Count);
-        temp = spawnObject(prefab, miscMarks[k].transform.position, miscMarks[k].transform.rotation, raw_road.transform);
-        info.Misc.Add(temp);
+        temp = spawnObject(prefab, miscMarks[k].obj.transform.position, miscMarks[k].obj.transform.rotation, raw_road.transform);
+
+        DestroyableAndCollectable destr;
+
+        destr = temp.GetComponent<DestroyableAndCollectable>();
+        if (destr != null)
+        {
+            destr.num = info.Misc.Count;
+            destr.info = info;
+            destr.type = "misc";
+        }
+
+        int num = info.Misc.Count;
+        SpawnPlace spawnPlace = new SpawnPlace(temp, miscMarks[k], num);
+        info.Misc.Add(spawnPlace);
+        miscMarks[k].isTaken = true;
+        miscMarks[k].spawnPlace = spawnPlace;
         miscMarks.RemoveAt(k);
     }
 
-    private void createEnemy(GameObject raw_road, List<Enemy> openedSpawnElements, List<GameObject> spawnElementMarks, InfoPieceOfPath info)
+    private void createEnemy(GameObject raw_road, List<EnemyInfo> openedSpawnElements, List<Mark> spawnElementMarks, InfoPieceOfPath info)
     {
         GameObject temp;
         int k, num;
-        InfoSpawnElement infoElement;
-        Enemy element;
+        ContentEnemy infoElement;
+        EnemyInfo element;
 
         k = UnityEngine.Random.Range(0, spawnElementMarks.Count);
-        temp = spawnObject(getRandomElementFromList(openedSpawnElements, out num).Prefab, spawnElementMarks[k].transform.position, spawnElementMarks[k].transform.rotation, raw_road.transform);
-        infoElement = temp.GetComponent<InfoSpawnElement>();
+        temp = spawnObject(getRandomElementFromList(openedSpawnElements, out num).Prefab, spawnElementMarks[k].obj.transform.position, spawnElementMarks[k].obj.transform.rotation, raw_road.transform);
+        infoElement = temp.GetComponent<ContentEnemy>();
         infoElement.game_Manager = gameManager;
         infoElement.visionZone.turnToInitialState();
 
         element = openedSpawnElements[num];
 
-        info.Enemies.Add(temp);
-        infoElement.setInfoSpawnElement(element);
-        infoElement.setUpSpawnElement(element);
+        int num2 = info.Enemies.Count;
+        SpawnPlace spawnPlace = new SpawnPlace(temp, spawnElementMarks[k], num2);
+        info.Enemies.Add(spawnPlace);
+        spawnElementMarks[k].isTaken = true;
+        spawnElementMarks[k].spawnPlace = spawnPlace;
+        infoElement.setInfoSpawnElement(element, info);
 
         spawnElementMarks.RemoveAt(k);
     }
 
-    private void createTrap(GameObject raw_road, List<Trap> openedSpawnElements, List<GameObject> spawnElementMarks, InfoPieceOfPath info)
+    private void createTrap(GameObject raw_road, List<TrapInfo> openedSpawnElements, List<Mark> spawnElementMarks, List<Mark> holesInstances, InfoPieceOfPath info)
     {
         GameObject temp;
         int k, num;
-        InfoSpawnElement infoElement;
-        Trap element;
+        ContentTrap infoElement;
+        TrapInfo element;
+
+        Mark hole;
+
 
         k = UnityEngine.Random.Range(0, spawnElementMarks.Count);
-        temp = spawnObject(getRandomElementFromList(openedSpawnElements, out num).Prefab, spawnElementMarks[k].transform.position, spawnElementMarks[k].transform.rotation, raw_road.transform);
-        infoElement = temp.GetComponent<InfoSpawnElement>();
-        infoElement.game_Manager = gameManager;
+        temp = spawnObjectWithPrefabParameters(getRandomElementFromList(openedSpawnElements, out num).Prefab, spawnElementMarks[k].obj.transform.position, raw_road.transform);
+        infoElement = temp.GetComponent<ContentTrap>();
+        //infoElement.game_Manager = gameManager;
 
         element = openedSpawnElements[num];
 
-        info.Traps.Add(temp);
-        infoElement.setInfoSpawnElement(element);
-        infoElement.setUpSpawnElement(element);
+        DestroyableAndCollectable destr;
+
+        destr = temp.GetComponent<DestroyableAndCollectable>();
+        if (destr != null)
+        {
+            destr.num = info.Traps.Count;
+            destr.info = info;
+            destr.type = "trap";
+        }
+
+        int num2 = info.Traps.Count;
+        SpawnPlace spawnPlace = new SpawnPlace(temp, spawnElementMarks[k], num2);
+        info.Traps.Add(spawnPlace);
+        spawnElementMarks[k].isTaken = true;
+        spawnElementMarks[k].spawnPlace = spawnPlace;
+        if (element.DoHoleInRoad)
+        {
+            
+            hole = holesInstances[k];
+            num2 = info.CurrHoles.Count;
+            spawnPlace = new SpawnPlace(hole.obj, hole, num2);
+            info.CurrHoles.Add(spawnPlace);
+            hole.isTaken = true;
+            hole.spawnPlace = spawnPlace;
+            hole.obj.SetActive(false);
+        }
+        //infoElement.setInfoSpawnElement(element);
 
         spawnElementMarks.RemoveAt(k);
+        holesInstances.RemoveAt(k);
     }
 
-    private void createBonus(GameObject raw_road, List<Bonus> openedSpawnElements, List<GameObject> spawnElementMarks, InfoPieceOfPath info)
+    private void createBonus(GameObject raw_road, List<BonusInfo> openedSpawnElements, List<Mark> spawnElementMarks, InfoPieceOfPath info)
     {
         GameObject temp;
         int k, num;
-        InfoSpawnElement infoElement;
-        Bonus element;
+        ContentBonus infoElement;
+        BonusInfo element;
 
         k = UnityEngine.Random.Range(0, spawnElementMarks.Count);
-        temp = spawnObject(getRandomElementFromList(openedSpawnElements, out num).Prefab, spawnElementMarks[k].transform.position, spawnElementMarks[k].transform.rotation, raw_road.transform);
-        infoElement = temp.GetComponent<InfoSpawnElement>();
-        infoElement.game_Manager = gameManager;
+        temp = spawnObject(getRandomElementFromList(openedSpawnElements, out num).Prefab, spawnElementMarks[k].obj.transform.position, spawnElementMarks[k].obj.transform.rotation, raw_road.transform);
+        infoElement = temp.GetComponent<ContentBonus>();
+        //infoElement.game_Manager = gameManager;
 
         element = openedSpawnElements[num];
 
-        info.Bonuses.Add(temp);
-        infoElement.setInfoSpawnElement(element);
-        infoElement.setUpSpawnElement(element);
+        DestroyableAndCollectable destr;
+
+        destr = temp.GetComponent<DestroyableAndCollectable>();
+        if (destr != null)
+        {
+            destr.num = info.Bonuses.Count;
+            destr.info = info;
+            destr.type = "bonus";
+        }
+        int num2 = info.Bonuses.Count;
+        SpawnPlace spawnPlace = new SpawnPlace(temp, spawnElementMarks[k], num2);
+        info.Bonuses.Add(spawnPlace);
+        spawnElementMarks[k].isTaken = true;
+        spawnElementMarks[k].spawnPlace = spawnPlace;
+        //infoElement.setInfoSpawnElement(element);
 
         spawnElementMarks.RemoveAt(k);
     }
 
     private void placeObjectToPos(GameObject obj, Vector3 pos, Quaternion rotation, Transform parent = null)
     {
-        obj.transform.position = pos;
-        obj.transform.rotation = rotation;
-        obj.transform.SetParent(parent);
+        Transform objTrans = obj.transform;
+        objTrans.position = pos;
+        objTrans.rotation = rotation;
+        objTrans.SetParent(parent);
     }
 
     private GameObject spawnObject(GameObject prefab, Vector3 pos, Quaternion rotation, Transform parent)
     {
         GameObject temp = KhtPool.GetObject(prefab);
-        temp.transform.position = pos;
-        temp.transform.rotation = rotation;
-        temp.transform.SetParent(parent);
+        Transform tempTrans = temp.transform;
+
+        tempTrans.position = pos;
+        tempTrans.rotation = rotation;
+        tempTrans.SetParent(parent);
+        temp.SetActive(true);
+        return temp;
+    }
+
+    private GameObject spawnObjectWithPrefabParameters(GameObject prefab, Vector3 pos, Transform parent)
+    {
+        GameObject temp = KhtPool.GetObject(prefab);
+        Transform tempTrans = temp.transform;
+
+        tempTrans.position = new Vector3(pos.x, tempTrans.position.y, pos.z);
+        tempTrans.SetParent(parent);
         temp.SetActive(true);
         return temp;
     }
@@ -622,22 +848,41 @@ public class GeneratorLevel : MonoBehaviour
         KhtPool.ReturnObject(obj);
     }
 
-    private void despawnObjectsFromList(List<GameObject> list)
+    private void despawnObjectsFromList(List<SpawnPlace> list)
     {
         int n = list.Count;
         for (int i = 0; i < n; i++)
         {
-            despawnObject(list[i]);
+            list[i].mark.isTaken = false;
+            list[i].mark.spawnPlace = null;
+            despawnObject(list[i].obj);
         }
         list.Clear();
     }
+
+    private void removeHoles(List<SpawnPlace> list)
+    {
+        int n = list.Count;
+        
+        for(int i = 0; i < n; i++)
+        {
+            list[i].mark.isTaken = false;
+            list[i].mark.spawnPlace = null;
+            list[i].obj.SetActive(true);
+        }
+        list.Clear();
+    }
+
     private void disassemblingReadyPieceOfPath(GameObject piecePath)
     {
-        List<GameObject> enemies = getInfoEnemies(piecePath);
-        List<GameObject> traps = getInfoTraps(piecePath);
-        List<GameObject> bonuses = getInfoBonuses(piecePath);
-        List<GameObject> islands = getInfoIslands(piecePath);
-        List<GameObject> misc = getInfoMisc(piecePath);
+        InfoPieceOfPath info = piecePath.GetComponent<InfoPieceOfPath>();
+        List<SpawnPlace>[] infoForDis = getInfoForDisassembling(info);
+        List<SpawnPlace> enemies = infoForDis[0];
+        List<SpawnPlace> traps = infoForDis[1];
+        List<SpawnPlace> bonuses = infoForDis[2];
+        List<SpawnPlace> islands = infoForDis[3];
+        List<SpawnPlace> misc = infoForDis[4];
+        List<SpawnPlace> holes = infoForDis[5];
 
         despawnObjectsFromList(enemies);
         despawnObjectsFromList(traps);
@@ -645,24 +890,31 @@ public class GeneratorLevel : MonoBehaviour
         despawnObjectsFromList(islands);
         despawnObjectsFromList(misc);
 
+        if (info.CurrHoles.Count != 0)
+            removeHoles(holes);
+
         despawnObject(piecePath);
     }
 
-    private void initObjectPools(List<Enemy> enemies, List<Trap> traps, List<Bonus> bonuses, List<ObjectProperties> islands, List<ObjectProperties> roadParts, List<ObjectProperties> misc)
+    private void initObjectPools(List<EnemyInfo> enemies, List<TrapInfo> traps, List<BonusInfo> bonuses, List<ObjectProperties> islands, List<ObjectProperties> roadParts, List<ObjectProperties> misc)
     {
         int n_e = enemies.Count;
         int n_t = traps.Count;
         int n_b = bonuses.Count;
 
-        List<Cannon> cannons = new List<Cannon>();
+        List<CannonInfo> cannons = new List<CannonInfo>();
+        List<MageBattleInfo> mage_battles = new List<MageBattleInfo>();
 
         for (int i = 0; i < n_e; i++) {
-            if (enemies[i].Type == Enemy.enemyType.cannon)
-                cannons.Add((Cannon)enemies[i]);
+            if (enemies[i] is CannonInfo)
+                cannons.Add((CannonInfo)enemies[i]);
+            else if (enemies[i] is MageBattleInfo)
+                mage_battles.Add((MageBattleInfo)enemies[i]);
         }
 
         initObjectPool(enemies);
         initProjectilesPool(cannons);
+        initProjectilesPool(mage_battles);
         initObjectPool(traps);
         initObjectPool(bonuses);
 
@@ -671,7 +923,7 @@ public class GeneratorLevel : MonoBehaviour
         initObjectPool(misc);
     }
 
-    private void initObjectPool<T>(List<T> listObjects) where T : SpawnElement
+    private void initObjectPool<T>(List<T> listObjects) where T : SpawnElementInfo
     {
         int n = listObjects.Count;
         int m = 0;
@@ -701,7 +953,7 @@ public class GeneratorLevel : MonoBehaviour
         for (int i = 0; i < tempList.Count; i++) KhtPool.ReturnObject(tempList[i]);
     }
 
-    private void initProjectilesPool<T>(List<T> listObjects) where T : Cannon
+    private void initProjectilesPool<T>(List<T> listObjects) where T : CannonInfo
     {
         int n = listObjects.Count;
         int m = 0;
@@ -711,7 +963,22 @@ public class GeneratorLevel : MonoBehaviour
         {
             m = listObjects[i].SizeOfProjectilePool;
             for (int j = 0; j < m; j++)
-                tempList.Add(KhtPool.GetObject(listObjects[i].PrefabProjectile));
+                tempList.Add(KhtPool.GetObject(listObjects[i].bulletInfo.Prefab));
+        }
+        for (int i = 0; i < tempList.Count; i++) KhtPool.ReturnObject(tempList[i]);
+    }
+
+    private void initProjectilesPool(List<MageBattleInfo> listObjects)
+    {
+        int n = listObjects.Count;
+        int m = 0;
+        List<GameObject> tempList = new List<GameObject>();
+
+        for (int i = 0; i < n; i++)
+        {
+            m = listObjects[i].SizeOfProjectilePool;
+            for (int j = 0; j < m; j++)
+                tempList.Add(KhtPool.GetObject(listObjects[i].bulletInfo.Prefab));
         }
         for (int i = 0; i < tempList.Count; i++) KhtPool.ReturnObject(tempList[i]);
     }
@@ -724,89 +991,84 @@ public class GeneratorLevel : MonoBehaviour
         for (int i = 0; i < n; i++) KhtPool.ReturnObject(_object);
     }
 
-    private GameObject[] getInfoIslandsSmallMarks(GameObject road)
+    private Mark[] getInfoIslandsSmallMarks(InfoPieceOfPath info)
     {
-        return road.GetComponent<InfoPieceOfPath>().Marks_islandsSmall;
+        return info.Marks_islandsSmall;
     }
 
-    private GameObject[] getInfoIslandsBigMarks(GameObject road)
+    private Mark[] getInfoIslandsBigMarks(InfoPieceOfPath info)
     {
-        return road.GetComponent<InfoPieceOfPath>().Marks_islandsBig;
+        return info.Marks_islandsBig;
     }
 
-    private GameObject[] getInfoIslandsTallMarks(GameObject road)
+    private Mark[] getInfoIslandsTallMarks(InfoPieceOfPath info)
     {
-        return road.GetComponent<InfoPieceOfPath>().Marks_islandsTall;
+        return info.Marks_islandsTall;
     }
 
-    private GameObject[] getInfoEnemyIslSmallMarks(GameObject road)
+    private Mark[] getInfoEnemyIslSmallMarks(InfoPieceOfPath info)
     {
-        return road.GetComponent<InfoPieceOfPath>().Marks_enemyIslSmall;
+        return info.Marks_enemyIslSmall;
     }
 
-    private GameObject[] getInfoEnemyIslBigMarks(GameObject road)
+    private Mark[] getInfoEnemyIslBigMarks(InfoPieceOfPath info)
     {
-        return road.GetComponent<InfoPieceOfPath>().Marks_enemyIslBig;
+        return info.Marks_enemyIslBig;
     }
 
-    private GameObject[] getInfoEnemyIslTallMarks(GameObject road)
+    private Mark[] getInfoEnemyIslTallMarks(InfoPieceOfPath info)
     {
-        return road.GetComponent<InfoPieceOfPath>().Marks_enemyIslTall;
+        return info.Marks_enemyIslTall;
     }
 
-    private GameObject[] getInfoTrapsMarks(GameObject road)
+    private Mark[] getInfoTrapsMarks(InfoPieceOfPath info)
     {
-        return road.GetComponent<InfoPieceOfPath>().Marks_traps;
+        return info.Marks_traps;
     }
 
-    private GameObject[] getInfoBonusesMarks(GameObject road)
+    private Mark[] getInfoBonusesMarks(InfoPieceOfPath info)
     {
-        return road.GetComponent<InfoPieceOfPath>().Marks_bonuses;
+        return info.Marks_bonuses;
     }
 
-    private GameObject[] getInfoMiscMarks(GameObject road)
+    private Mark[] getInfoMiscMarks(InfoPieceOfPath info)
     {
-        return road.GetComponent<InfoPieceOfPath>().Marks_misc;
+        return info.Marks_misc;
     }
 
-    private GameObject[] getInfoExtraIslSmallMarks(GameObject road)
+    private Mark[] getInfoExtraIslSmallMarks(InfoPieceOfPath info)
     {
-        return road.GetComponent<InfoPieceOfPath>().Marks_extraIslandsSmall;
+        return info.Marks_extraIslandsSmall;
     }
 
-    private GameObject[] getInfoExtraIslBigMarks(GameObject road)
+    private Mark[] getInfoExtraIslBigMarks(InfoPieceOfPath info)
     {
-        return road.GetComponent<InfoPieceOfPath>().Marks_extraIslandsBig;
+        return info.Marks_extraIslandsBig;
     }
 
-    private GameObject[] getInfoExtraIslTallMarks(GameObject road)
+    private Mark[] getInfoExtraIslTallMarks(InfoPieceOfPath info)
     {
-        return road.GetComponent<InfoPieceOfPath>().Marks_extraIslandsTall;
+        return info.Marks_extraIslandsTall;
     }
 
-    private List<GameObject> getInfoEnemies(GameObject piecePath)
+    private Mark[] getInfoHoleInstances(InfoPieceOfPath info)
     {
-        return piecePath.GetComponent<InfoPieceOfPath>().Enemies;
+        return info.HolesInstances;
     }
 
-    private List<GameObject> getInfoTraps(GameObject piecePath)
+    private List<SpawnPlace>[] getInfoForDisassembling(InfoPieceOfPath info)
     {
-        return piecePath.GetComponent<InfoPieceOfPath>().Traps;
-    }
+        List<SpawnPlace> enemies = info.Enemies;
+        List<SpawnPlace> traps = info.Traps;
+        List<SpawnPlace> bonuses = info.Bonuses;
+        List<SpawnPlace> islands = info.Islands;
+        List<SpawnPlace> misc = info.Misc;
+        List<SpawnPlace> holes = info.CurrHoles;
 
-    private List<GameObject> getInfoBonuses(GameObject piecePath)
-    {
-        return piecePath.GetComponent<InfoPieceOfPath>().Bonuses;
-    }
+        List<SpawnPlace>[] infoForDis = new List<SpawnPlace>[] {enemies, traps, bonuses, islands, misc, holes};
 
-    private List<GameObject> getInfoIslands(GameObject piecePath)
-    {
-        return piecePath.GetComponent<InfoPieceOfPath>().Islands;
-    }
-
-    private List<GameObject> getInfoMisc(GameObject piecePath)
-    {
-        return piecePath.GetComponent<InfoPieceOfPath>().Misc;
+        return infoForDis;
     }
 
 }
+

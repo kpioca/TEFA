@@ -10,12 +10,12 @@ public class GeneratorLevelProperties
     private int amount_typeTraps;
     private int amount_typeBonuses;
 
-    private List<Enemy> enemy_properties;
-    public List<Enemy> Enemy_properties => enemy_properties;
-    private List<Trap> traps_properties;
-    public List <Trap> Traps_properties => traps_properties;
-    private List<Bonus> bonuses_properties;
-    public List<Bonus> Bonuses_properties => bonuses_properties;
+    private List<EnemyInfo> enemy_properties;
+    public List<EnemyInfo> Enemy_properties => enemy_properties;
+    private List<TrapInfo> traps_properties;
+    public List <TrapInfo> Traps_properties => traps_properties;
+    private List<BonusInfo> bonuses_properties;
+    public List<BonusInfo> Bonuses_properties => bonuses_properties;
 
     private List<ObjectProperties> islands_properties;
     public List<ObjectProperties> Islands_properties => islands_properties;
@@ -23,65 +23,173 @@ public class GeneratorLevelProperties
     private List<ObjectProperties> roadParts_properties;
     public List<ObjectProperties> RoadParts_properties => roadParts_properties;
 
-    private List<Enemy> temp_e;
-    private List<Trap> temp_t;
-    private List<Bonus> temp_b;
+    private List<EnemyInfo> temp_e;
+    private List<TrapInfo> temp_t;
+    private List<BonusInfo> temp_b;
+
+    private GameSet gameSet;
+    private float chanceGameSet;
     private int n;
-    private int rand_num;
+    private float rand_num;
 
     private bool isReadySet = false;
     private int num_set = -1;
+    private string setName = "";
 
-    public GeneratorLevelProperties(LevelPropertiesDatabase database)
+    public GeneratorLevelProperties(LevelPropertiesDatabase database, out string setName)
     {
         this.database = database;
-        makeLevelProperties();
+        setName = makeLevelProperties();
     }
 
-    public void makeLevelProperties()
+    public string makeLevelProperties()
     {
-        amount_typeEnemy = Random.Range(database.Min_typeEnemy, database.Max_typeEnemy + 1);
-        amount_typeTraps = Random.Range(database.Min_typeTraps, database.Max_typeTraps + 1);
-        amount_typeBonuses = Random.Range(database.Min_typeBonuses, database.Max_typeBonuses + 1);
+        chanceGameSet = database.ChanceSpawnGameSet;
 
-        enemy_properties = new List<Enemy>();
-        traps_properties = new List<Trap>();
-        bonuses_properties = new List<Bonus>();
-
-        temp_e = new List<Enemy>(database.Enemy_properties);
-        temp_t = new List<Trap>(database.Traps_properties);
-        temp_b = new List<Bonus>(database.Bonuses_properties);
-
-        //check amount of items
-        if(amount_typeEnemy <= database.Enemy_properties.Count &&
-           amount_typeTraps <= database.Traps_properties.Count &&
-           amount_typeBonuses <= database.Bonuses_properties.Count)
+        rand_num = Random.Range(0, 1f);
+        if (rand_num <= chanceGameSet)
         {
-            n = database.Enemy_properties.Count;
-            addRandomItemsFromTo<Enemy>(temp_e, amount_typeEnemy, n, enemy_properties);
+            num_set = Random.Range(0, database.GameSets.Count);
 
-            n = database.Traps_properties.Count;
-            addRandomItemsFromTo<Trap>(temp_t, amount_typeTraps, n, traps_properties);
+            gameSet = database.GameSets[num_set];
 
-            n = database.Bonuses_properties.Count;
-            addRandomItemsFromTo<Bonus>(temp_b, amount_typeBonuses, n, bonuses_properties);
+            amount_typeEnemy = gameSet.enemies.Count;
+            amount_typeTraps = gameSet.traps.Count;
+            amount_typeBonuses = gameSet.bonuses.Count;
+
+            enemy_properties = new List<EnemyInfo>(gameSet.enemies);
+            traps_properties = new List<TrapInfo>(gameSet.traps);
+            bonuses_properties = new List<BonusInfo>(gameSet.bonuses);
 
             islands_properties = database.Islands_properties;
             roadParts_properties = database.RoadParts_properties;
+
+            Debug.Log($"GAMESET - {gameSet.nameSet}");
+            return $"\n\nGameset:\n{gameSet.nameSet}";
         }
-        else { Debug.Log("Wrong amount of enemy, traps or bonuses"); }
+        else
+        {
+            amount_typeEnemy = Random.Range(database.Min_typeEnemy, database.Max_typeEnemy + 1);
+            amount_typeTraps = Random.Range(database.Min_typeTraps, database.Max_typeTraps + 1);
+            amount_typeBonuses = Random.Range(database.Min_typeBonuses, database.Max_typeBonuses + 1);
+
+            enemy_properties = new List<EnemyInfo>();
+            traps_properties = new List<TrapInfo>();
+            bonuses_properties = new List<BonusInfo>();
+
+            temp_e = new List<EnemyInfo>(database.Enemy_properties);
+            temp_t = new List<TrapInfo>(database.Traps_properties);
+            temp_b = new List<BonusInfo>(database.Bonuses_properties);
+
+            //check amount of items
+            if (amount_typeEnemy <= database.Enemy_properties.Count &&
+               amount_typeTraps <= database.Traps_properties.Count &&
+               amount_typeBonuses <= database.Bonuses_properties.Count)
+            {
+                n = database.Enemy_properties.Count;
+                addRandomItemsFromTo<EnemyInfo>(temp_e, amount_typeEnemy, out enemy_properties);
+
+                n = database.Traps_properties.Count;
+                addRandomItemsFromTo<TrapInfo>(temp_t, amount_typeTraps, out traps_properties);
+
+                n = database.Bonuses_properties.Count;
+                addRandomItemsFromTo<BonusInfo>(temp_b, amount_typeBonuses, out bonuses_properties);
+
+                islands_properties = database.Islands_properties;
+                roadParts_properties = database.RoadParts_properties;
+            }
+            else { Debug.Log("Wrong amount of enemy, traps or bonuses"); }
+        }
+        return "";
     }
 
-    public void addRandomItemsFromTo<T>(List<T> fromList, int amount, int randMaxExclusive, List<T> toList)
+    //public void addRandomItemsFromTo<T>(List<T> fromList, int amount, int randMaxExclusive, List<T> toList)
+    //{
+    //    int rand_num;
+
+    //    for(int i = 0; i < amount; i++)
+    //    {
+    //        rand_num = Random.Range(0, randMaxExclusive);
+    //        toList.Add(fromList[rand_num]);
+    //        fromList.RemoveAt(rand_num);
+    //        randMaxExclusive--;
+    //    }
+    //}
+
+    public void addRandomItemsFromTo<T>(List<T> fromList, int amount, out List<T> toList) where T : SpawnElementInfo
     {
-        int rand_num;
-        
-        for(int i = 0; i < amount; i++)
+        toList = getElementsWithChance(fromList, amount);
+    }
+
+    private List<T> getElementsWithChance<T>(List<T> listItems, int amount) where T : SpawnElementInfo
+    {
+        int n;
+        int k;
+        int j = 0;
+        int i = 0;
+
+        List<T> elements = new List<T>();
+
+        for (j = 0; j < amount; j++)
         {
-            rand_num = Random.Range(0, randMaxExclusive);
-            toList.Add(fromList[rand_num]);
-            fromList.RemoveAt(rand_num);
-            randMaxExclusive--;
+            n = listItems.Count;
+            if (n == 0) return elements;
+            else
+            {
+                int sum = 0;
+                float medium;
+                float chance = 0;
+                List<float> chances = new List<float>();
+
+                List<int> levelOfCoolnessItems = new List<int>();
+                for (i = 0; i < n; i++)
+                {
+                    levelOfCoolnessItems.Add(listItems[i].LevelOfCoolness);
+                    sum += listItems[i].LevelOfCoolness;
+                }
+
+                List<int> rateItems = new List<int>(levelOfCoolnessItems);
+                rateItems.Reverse();
+
+                medium = (float)sum / n;
+
+                for (i = 0; i < n; i++)
+                {
+                    chance = rateItems[i] / (float)sum;
+                    chances.Add(chance);
+                }
+
+                elements.Add(getRandomElementFromList(listItems, chances, out k));
+                listItems.RemoveAt(k);
+            }
         }
+        return elements;
+    }
+
+    private T getRandomElementFromList<T>(List<T> list, List<float> chances, out int numInList) where T : SpawnElementInfo
+    {
+        float total_probability = 0;
+
+        for(int i = 0; i < list.Count; i++)
+        {
+            total_probability += chances[i];
+        }
+
+        float randomPoint = UnityEngine.Random.value * total_probability;
+
+        for (int i = 0; i < list.Count; i++)
+        {
+            if (randomPoint < chances[i])
+            {
+                numInList = i;
+                return list[numInList];
+            }
+            else
+            {
+                randomPoint -= chances[i];
+            }
+        }
+        numInList = list.Count - 1;
+        return list[numInList];
     }
 }

@@ -15,9 +15,9 @@ public class LevelSkinSet
     [SerializeField] private List<SkinProperties> traps;
     [SerializeField] private List<SkinProperties> bonuses;
 
-    private List<Enemy> enemy_properties;
-    private List<Trap> traps_properties;
-    private List<Bonus> bonuses_properties;
+    private List<EnemyInfo> enemy_properties;
+    private List<TrapInfo> traps_properties;
+    private List<BonusInfo> bonuses_properties;
     private List<ObjectProperties> islands_properties;
     private List<ObjectProperties> roadParts_properties;
 

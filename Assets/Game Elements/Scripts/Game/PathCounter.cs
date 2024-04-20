@@ -18,6 +18,8 @@ public class PathCounter : MonoBehaviour
     private int activDist3;
     public int PathScore => pathScore;
 
+    private Coroutine PathCounterCoroutine;
+
     [SerializeField] private float speedCount;
     // Start is called before the first frame update
     void Start()
@@ -25,8 +27,16 @@ public class PathCounter : MonoBehaviour
         activDist2 = database.ActivationDistance_stage2;
         activDist3 = database.ActivationDistance_stage3;
         speedCount = gameManager.SpeedCount;
-        StartCoroutine(pathCounterCoroutine());
+        PathCounterCoroutine = StartCoroutine(pathCounterCoroutine());
 
+        GlobalEventManager.OnGameOver += GameOver;
+        GlobalEventManager.OnUnSubscribe += unSubscribe;
+    }
+
+    void unSubscribe()
+    {
+        GlobalEventManager.OnGameOver -= GameOver;
+        GlobalEventManager.OnUnSubscribe -= unSubscribe;
     }
 
     IEnumerator pathCounterCoroutine()
@@ -44,4 +54,22 @@ public class PathCounter : MonoBehaviour
         }
     }
 
+    void GameOver()
+    {
+        StopCoroutine(PathCounterCoroutine);
+    }
+
+    public void changeSpeedCount(float speedCount)
+    {
+        this.speedCount = speedCount;
+
+        if (speedCount == 0)
+        {
+            StopCoroutine(PathCounterCoroutine);
+        }
+        else if (this.speedCount == 0)
+        {
+            PathCounterCoroutine = StartCoroutine(pathCounterCoroutine());
+        }
+    }
 }

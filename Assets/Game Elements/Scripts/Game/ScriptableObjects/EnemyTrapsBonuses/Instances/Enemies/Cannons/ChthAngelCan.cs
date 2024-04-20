@@ -1,0 +1,64 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using static CannonInfo;
+using static UnityEngine.Rendering.DebugUI;
+
+public class ChthAngelCan : Cannon
+{
+    public ChthAngelCan(ChthAngelCanInfo info) : base(info)
+    {
+        spinningSpeed = info.SpinningSpeed;
+    }
+
+    [SerializeField] private float spinningSpeed = 10;
+    public float SpinningSpeed => spinningSpeed;
+
+    public override void Attack(GameObject markGun, float platformsSpeed, Vector3 target, MonoBehaviour toUseCoroutines)
+    {
+        GameObject bullet;
+        bullet = spawnBullet(bulletInfo.Prefab, markGun, null);
+
+        MoveToPos(toUseCoroutines, bullet, target + bullet.transform.forward * 2, bulletInfo, platformsSpeed);
+    }
+
+    public override void MoveToPos(MonoBehaviour toUseCoroutines, GameObject obj, Vector3 target, BulletInfo bulletInfo, float platformsSpeed)
+    {
+        toUseCoroutines.StartCoroutine(MovementCoroutine(obj, target, bulletInfo.Speed + platformsSpeed, toUseCoroutines));
+    }
+
+    private protected IEnumerator MovementCoroutine(GameObject obj, Vector3 target, float speed, MonoBehaviour toUseCoroutines)
+    {
+        Coroutine spiningCoroutine = toUseCoroutines.StartCoroutine(SpinningCoroutine(obj, spinningSpeed));
+        Vector3 start_pos = obj.transform.position;
+
+        float runningTime = 0;
+        float totalRunningTime = Vector3.Distance(start_pos, target) / speed;
+
+        while (runningTime < totalRunningTime)
+        {
+            runningTime += Time.deltaTime;
+            obj.transform.position = Vector3.Lerp(start_pos, target, runningTime / totalRunningTime);
+            yield return 1;
+        }
+        toUseCoroutines.StopCoroutine(spiningCoroutine);
+    }
+
+    private IEnumerator SpinningCoroutine(GameObject bullet, float speed = 10)
+    {
+        float currentAngle;
+        while (true)
+        {
+            //currentAngle = bullet.transform.rotation.eulerAngles.y;
+            bullet.transform.eulerAngles += new Vector3(0.0f, speed, 0.0f);
+            //bullet.transform.eulerAngles -= new Vector3(speed/2f, 0.0f, 0.0f);
+            yield return new WaitForSeconds(0.05f);
+        }
+    }
+
+
+
+
+
+
+}

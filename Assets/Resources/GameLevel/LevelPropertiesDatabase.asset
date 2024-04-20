@@ -13,16 +13,23 @@ MonoBehaviour:
   m_Name: LevelPropertiesDatabase
   m_EditorClassIdentifier: 
   enemy_properties:
-  - {fileID: 11400000, guid: 487320ca872e38441934f67cdcf69fcb, type: 2}
-  - {fileID: 11400000, guid: 1ea1050ce77c6084c81c60f34936168a, type: 2}
+  - {fileID: 11400000, guid: 75bb605aa4137a0468c7ea79c1c97dea, type: 2}
+  - {fileID: 11400000, guid: 58057b5392eb88848bbd54a412abe464, type: 2}
+  - {fileID: 11400000, guid: 84b0cff53645bc54f9ebba9331fb1f78, type: 2}
+  - {fileID: 11400000, guid: db443f2f8c809ce429abbe87a3b46a32, type: 2}
+  - {fileID: 11400000, guid: bc424cc45aabc1f43b0fe561b8c685a7, type: 2}
   - {fileID: 11400000, guid: 288796754b2c4f0478b46a9c8181b470, type: 2}
   - {fileID: 11400000, guid: 40197d76e2a7d894c97da71616c5f31d, type: 2}
-  - {fileID: 11400000, guid: b09cf00838bcd1545a5454eebc5f4f2d, type: 2}
+  - {fileID: 11400000, guid: 5f3b645db4b40984396af142e59d1060, type: 2}
   - {fileID: 11400000, guid: 6c498809195d54f43a93112fc1050a88, type: 2}
+  - {fileID: 11400000, guid: 26f5b364b30946f4e90b4ef23754cc8a, type: 2}
+  - {fileID: 11400000, guid: ccd159625dc283243a97813c83e9e120, type: 2}
   traps_properties:
+  - {fileID: 11400000, guid: 30c3cab9c175b8e4da2b8371edeca811, type: 2}
   - {fileID: 11400000, guid: d1df209f3e5482c4db5149ceeb071dc4, type: 2}
   - {fileID: 11400000, guid: 66da89282f45194459007d4de6cd5387, type: 2}
   bonuses_properties:
+  - {fileID: 11400000, guid: 6830d3dbf12f6824889a0385a9d2a423, type: 2}
   - {fileID: 11400000, guid: d9b28af2ef38d014f8180d5f76f4cc00, type: 2}
   islands_properties:
   - id: isl_sm
@@ -68,6 +75,22 @@ MonoBehaviour:
     sizeOfObjectPool: 20
     prefab: {fileID: 7732691636725382871, guid: 12a06a2fd4171274ebbb2a0e6fce130b,
       type: 3}
+  modificators:
+  - {fileID: 11400000, guid: dfd9abb7f1fb98c4a9645807f8982fac, type: 2}
+  - {fileID: 11400000, guid: 3cadc1611b30d8642869e8ddfebfa6bb, type: 2}
+  - {fileID: 11400000, guid: b03471e4cc4f31246bf6a4464d323d68, type: 2}
+  - {fileID: 11400000, guid: da614105cbbf57e44bae61e948c334de, type: 2}
+  chanceModificator: 0.15
+  gameSets:
+  - {fileID: 11400000, guid: 2fec9b1228e9c024b9c2c02821b6d273, type: 2}
+  - {fileID: 11400000, guid: 805656c328380e34f97dd14a943f661f, type: 2}
+  - {fileID: 11400000, guid: 38c3f3ab4b6123245ba7a1e5a9f102e1, type: 2}
+  - {fileID: 11400000, guid: afa5fd6e675b0554a872702624d530fa, type: 2}
+  - {fileID: 11400000, guid: 4a02a9406afd1db4ea1803b86bbc0d07, type: 2}
+  - {fileID: 11400000, guid: 66c5ff97355ea2243a988a3f977633e0, type: 2}
+  - {fileID: 11400000, guid: 3d99e36a564eeb443a18b07a1f656a3e, type: 2}
+  - {fileID: 11400000, guid: 2f3925cf60bf42649b7f0776a887cfc3, type: 2}
+  chanceSpawnGameSet: 0.2
   distanceZ_between_roads: 15.95
   min_extraIslands: 1
   max_extraIslands: 5
@@ -76,13 +99,13 @@ MonoBehaviour:
   min_typeEnemy: 3
   max_typeEnemy: 6
   min_typeTraps: 1
-  max_typeTraps: 2
+  max_typeTraps: 3
   min_typeBonuses: 1
-  max_typeBonuses: 1
+  max_typeBonuses: 2
   min_Enemy_stage1: 0
-  max_Enemy_stage1: 1
+  max_Enemy_stage1: 0
   min_Traps_stage1: 0
-  max_Traps_stage1: 2
+  max_Traps_stage1: 0
   min_Bonuses_stage1: 0
   max_Bonuses_stage1: 1
   chance_Bonuses_stage1: 0.05
@@ -92,7 +115,7 @@ MonoBehaviour:
   activationDistance_stage1: 0
   min_Enemy_stage2: 0
   max_Enemy_stage2: 2
-  min_Traps_stage2: 1
+  min_Traps_stage2: 2
   max_Traps_stage2: 4
   min_Bonuses_stage2: 0
   max_Bonuses_stage2: 1
@@ -100,14 +123,14 @@ MonoBehaviour:
   min_fishMoney_stage2: 1
   max_fishMoney_stage2: 5
   part_openItems_stage2: 0.5
-  activationDistance_stage2: 20
-  min_Enemy_stage3: 1
-  max_Enemy_stage3: 3
-  min_Traps_stage3: 2
+  activationDistance_stage2: 5
+  min_Enemy_stage3: 2
+  max_Enemy_stage3: 4
+  min_Traps_stage3: 3
   max_Traps_stage3: 5
   min_Bonuses_stage3: 0
   max_Bonuses_stage3: 2
-  chance_Bonuses_stage3: 0.2
+  chance_Bonuses_stage3: 0.15
   min_fishMoney_stage3: 2
   max_fishMoney_stage3: 6
   part_openItems_stage3: 1

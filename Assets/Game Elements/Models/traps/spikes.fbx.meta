@@ -3,7 +3,12 @@ guid: e8282240072dfea4b9d44cde8bc9a1a7
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: spikes_Material
+    second: {fileID: 2100000, guid: 9fe14980e49a84444a5eab7d968f926a, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fbbf21b725b6644ab7f9f6f81f169a7, type: 3}
+  m_Name: Hole_Properties
+  m_EditorClassIdentifier: 
+  id: hole
+  levelOfCoolness: 2
+  prefab: {fileID: 332606834867309102, guid: be7fa73ecd0d82740a7c9e328209a381, type: 3}
+  sizeOfObjectPool: 16
+  haveAttackDamage: 1
+  attackDamage: 1
+  doHoleInRoad: 1

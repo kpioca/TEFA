@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b0b85aa652642748a6b3536c970f619, type: 3}
+  m_Name: WallFrosty_Properties
+  m_EditorClassIdentifier: 
+  id: wall_fr
+  levelOfCoolness: 2
+  prefab: {fileID: 1143935151030011577, guid: 50518cf200c5c124ab869f2d83d2acfc, type: 3}
+  sizeOfObjectPool: 16
+  haveAttackDamage: 0
+  attackDamage: 0
+  hasEffect: 1
+  effectInfo: {fileID: 11400000, guid: 38f9c9cb11ca90840b3b52bbb3bf082c, type: 2}
+  doHoleInRoad: 0

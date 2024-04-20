@@ -3,7 +3,12 @@ guid: acc871bf5dd42a749823a67d3b4f72bb
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: immortality_Material
+    second: {fileID: 2100000, guid: b5a338a4083ceaa43853ea4c93f5ab3e, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

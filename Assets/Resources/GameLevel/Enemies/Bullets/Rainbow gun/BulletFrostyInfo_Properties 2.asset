@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff9b9fdf77ccf594ea8861571f28d9ae, type: 3}
+  m_Name: BulletFrostyInfo_Properties 2
+  m_EditorClassIdentifier: 
+  id: b_fr
+  prefab: {fileID: 3985175187386274661, guid: 2a2925999f243484e971072a2248771b, type: 3}
+  speed: 1
+  damage: 0
+  hasEffect: 1
+  isBreakInCollision: 1
+  effectInfo: {fileID: 11400000, guid: 38f9c9cb11ca90840b3b52bbb3bf082c, type: 2}

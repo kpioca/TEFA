@@ -3,15 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class GlobalEventManager
+public class GlobalEventManager: MonoBehaviour 
 {
     public static Action OnPathWaySpawn;
+    public static Action<float> OnChangeSpeedRouteMovement;
     public static Action<int> OnChangeStageGame;
-    public static Action<int> a;
+    public static Action OnGameOver;
+    public static Action OnUnSubscribe;
 
-    public static void Test(int b)
+    public void Start()
     {
-        if (a != null) a.Invoke(b);
+    }
+
+    public static void UnSubscribe()
+    {
+        if (OnUnSubscribe != null) OnUnSubscribe.Invoke();
+    }
+    public static void GameOver()
+    {
+        if (OnGameOver != null) OnGameOver.Invoke();
     }
     public static void SpawnPathWay()
     {
@@ -21,5 +31,10 @@ public class GlobalEventManager
     public static void ChangeStageGame(int n_stage)
     {
         if (OnChangeStageGame != null) OnChangeStageGame.Invoke(n_stage);
+    }
+
+    public static void ChangeSpeedRouteMovement(float speed)
+    {
+        if(OnChangeSpeedRouteMovement != null) OnChangeSpeedRouteMovement.Invoke(speed);
     }
 }

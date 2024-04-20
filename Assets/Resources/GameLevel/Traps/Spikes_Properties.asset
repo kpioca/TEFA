@@ -17,3 +17,5 @@ MonoBehaviour:
   prefab: {fileID: 4759618294780571254, guid: 86e2675577dbe7d41b530d89fa0e5549, type: 3}
   sizeOfObjectPool: 16
   haveAttackDamage: 1
+  attackDamage: 1
+  doHoleInRoad: 0

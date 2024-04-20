@@ -93,6 +93,7 @@ public class KhtPool : KhtSingleton<KhtPool>
 
         // Возвращаем объект в пул
         Instance._pools[poolId].Enqueue(poolObject);
+        poolObject.transform.position = new Vector3(100, poolObject.transform.position.y, poolObject.transform.position.z);
         poolObject.transform.SetParent(Instance.transform);
         poolObject.SetActive(false);
 

@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad2e203e5891dc24c84c7fd80332291b, type: 3}
+  m_Name: SniperCannon_Properties
+  m_EditorClassIdentifier: 
+  id: can_sn
+  levelOfCoolness: 3
+  prefab: {fileID: 7369788904375545268, guid: d04916bbd613ed6479bc5df6b8e74fdb, type: 3}
+  sizeOfObjectPool: 8
+  haveAttackDamage: 1
+  type: 0
+  visionZoneX: 18
+  visionZoneY: 7
+  visionZoneZ: 53
+  attackZoneX: 18
+  attackZoneY: 7
+  attackZoneZ: 40
+  bullet_Info: {fileID: 11400000, guid: ce736f22e875fd0459b8556882f07601, type: 2}
+  sizeOfProjectilePool: 8

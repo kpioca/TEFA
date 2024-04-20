@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb77adead1c5b0d4dbb6f3e478b9e5b2, type: 3}
+  m_Name: StunAngelCannon_Properties
+  m_EditorClassIdentifier: 
+  id: can_stu_ang
+  levelOfCoolness: 6
+  prefab: {fileID: 1685321416666824426, guid: a85eeee2d8ab56b49bd46e1a7d13b4f6, type: 3}
+  sizeOfObjectPool: 8
+  haveAttackDamage: 0
+  type: 0
+  visionZoneX: 18
+  visionZoneY: 7
+  visionZoneZ: 53
+  attackZoneX: 18
+  attackZoneY: 7
+  attackZoneZ: 35
+  bullet_Info: {fileID: 11400000, guid: d3df5c278ce242d4c8a189a7723db2e0, type: 2}
+  sizeOfProjectilePool: 8

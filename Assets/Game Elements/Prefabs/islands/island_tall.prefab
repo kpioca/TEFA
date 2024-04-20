@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 7689669874519210177}
   - component: {fileID: 3770347138695883650}
   - component: {fileID: 4474995428382967836}
+  - component: {fileID: 4231124567755333267}
   m_Layer: 0
   m_Name: tall_island.001
   m_TagString: Untagged
@@ -115,3 +116,15 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &4231124567755333267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2901239969666699985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3be9d321b436fa24cb84a1f9e65d7c2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

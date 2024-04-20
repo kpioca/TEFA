@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b4099e40a211ae46aba6da647912f54, type: 3}
+  m_Name: RainbowCannon_Properties
+  m_EditorClassIdentifier: 
+  id: can_rb
+  levelOfCoolness: 5
+  prefab: {fileID: 7855831155646338418, guid: 6cc2709fb34dd8f42870c585c9c9c118, type: 3}
+  sizeOfObjectPool: 8
+  haveAttackDamage: 1
+  type: 0
+  visionZoneX: 18
+  visionZoneY: 7
+  visionZoneZ: 53
+  attackZoneX: 18
+  attackZoneY: 7
+  attackZoneZ: 24
+  bullet_Info: {fileID: 11400000, guid: 985327067df93ee4da2ebefe12538b5d, type: 2}
+  sizeOfProjectilePool: 1
+  intervalBetweenShots: 0.5
+  bullets:
+  - {fileID: 11400000, guid: 73398f685b25a984090422e450bc59f7, type: 2}
+  - {fileID: 11400000, guid: ad20dcac33cd12248b1531e997a4871d, type: 2}
+  - {fileID: 11400000, guid: 27a7cef06305ec0488ce89ff295a7191, type: 2}
+  - {fileID: 11400000, guid: 3898f98deee6fe04eafbf392206f1458, type: 2}

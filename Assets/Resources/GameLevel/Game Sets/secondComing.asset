@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa85dae3e47b88a44925bf8e60192a57, type: 3}
+  m_Name: secondComing
+  m_EditorClassIdentifier: 
+  nameSet: The second coming
+  levelOfCoolness: 3
+  enemies:
+  - {fileID: 11400000, guid: 84b0cff53645bc54f9ebba9331fb1f78, type: 2}
+  - {fileID: 11400000, guid: 26f5b364b30946f4e90b4ef23754cc8a, type: 2}
+  - {fileID: 11400000, guid: 58057b5392eb88848bbd54a412abe464, type: 2}
+  - {fileID: 11400000, guid: bc424cc45aabc1f43b0fe561b8c685a7, type: 2}
+  - {fileID: 11400000, guid: ccd159625dc283243a97813c83e9e120, type: 2}
+  traps:
+  - {fileID: 11400000, guid: 30c3cab9c175b8e4da2b8371edeca811, type: 2}
+  bonuses:
+  - {fileID: 11400000, guid: d9b28af2ef38d014f8180d5f76f4cc00, type: 2}
