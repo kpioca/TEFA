@@ -36,15 +36,16 @@ public class GeneratorLevelProperties
     private int num_set = -1;
     private string setName = "";
 
-    public GeneratorLevelProperties(LevelPropertiesDatabase database, out string setName)
+    public GeneratorLevelProperties(LevelPropertiesDatabase database, out string setName, out List<float>[] chances)
     {
         this.database = database;
-        setName = makeLevelProperties();
+        setName = makeLevelProperties(out chances);
     }
 
-    public string makeLevelProperties()
+    public string makeLevelProperties(out List<float>[] chances)
     {
         chanceGameSet = database.ChanceSpawnGameSet;
+        chances = new List<float>[3];
 
         rand_num = Random.Range(0, 1f);
         if (rand_num <= chanceGameSet)
@@ -60,6 +61,14 @@ public class GeneratorLevelProperties
             enemy_properties = new List<EnemyInfo>(gameSet.enemies);
             traps_properties = new List<TrapInfo>(gameSet.traps);
             bonuses_properties = new List<BonusInfo>(gameSet.bonuses);
+
+            temp_e = new List<EnemyInfo>(database.Enemy_properties);
+            temp_t = new List<TrapInfo>(database.Traps_properties);
+            temp_b = new List<BonusInfo>(database.Bonuses_properties);
+
+            chances[0] = getChances(temp_e);
+            chances[1] = getChances(temp_t);
+            chances[2] = getChances(temp_b);
 
             islands_properties = database.Islands_properties;
             roadParts_properties = database.RoadParts_properties;
@@ -80,6 +89,10 @@ public class GeneratorLevelProperties
             temp_e = new List<EnemyInfo>(database.Enemy_properties);
             temp_t = new List<TrapInfo>(database.Traps_properties);
             temp_b = new List<BonusInfo>(database.Bonuses_properties);
+
+            chances[0] = getChances(temp_e);
+            chances[1] = getChances(temp_t);
+            chances[2] = getChances(temp_b);
 
             //check amount of items
             if (amount_typeEnemy <= database.Enemy_properties.Count &&
@@ -164,6 +177,42 @@ public class GeneratorLevelProperties
             }
         }
         return elements;
+    }
+
+    private List<float> getChances<T>(List<T> listItems) where T : SpawnElementInfo
+    {
+        int n;
+        int k;
+        int j = 0;
+        int i = 0;
+
+        List<float> chances = new List<float>();
+
+        n = listItems.Count;
+        if (n == 0) return chances;
+        else
+        {
+            int sum = 0;
+            float chance = 0;
+
+            List<int> levelOfCoolnessItems = new List<int>();
+            for (i = 0; i < n; i++)
+            {
+                levelOfCoolnessItems.Add(listItems[i].LevelOfCoolness);
+                sum += listItems[i].LevelOfCoolness;
+            }
+
+            List<int> rateItems = new List<int>(levelOfCoolnessItems);
+            rateItems.Reverse();
+
+            for (i = 0; i < n; i++)
+            {
+                chance = rateItems[i] / (float)sum;
+                chances.Add(chance);
+            }
+        }
+
+        return chances;
     }
 
     private T getRandomElementFromList<T>(List<T> list, List<float> chances, out int numInList) where T : SpawnElementInfo

@@ -11,9 +11,11 @@ public class GlobalEventManager: MonoBehaviour
     public static Action OnGameOver;
     public static Action OnUnSubscribe;
 
+
     public void Start()
     {
     }
+
 
     public static void UnSubscribe()
     {

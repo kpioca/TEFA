@@ -2,10 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyInfo : SpawnElementInfo
 {
 
+    [Header("Icon")]
+    [SerializeField] private protected Sprite icon;
+    public Sprite Icon => icon;
 
     [Header("Attack damage")]
     [SerializeField] private protected bool haveAttackDamage = true;

@@ -16,8 +16,8 @@ MonoBehaviour:
   levelOfCoolness: 2
   prefab: {fileID: 4547470945222992957, guid: d4f7f6455f97cb34fbe1b11a2d30a727, type: 3}
   sizeOfObjectPool: 8
+  icon: {fileID: 21300000, guid: f7e9c53c61437634b86757b71b3544e2, type: 3}
   haveAttackDamage: 1
-  type: 0
   visionZoneX: 18
   visionZoneY: 7
   visionZoneZ: 43

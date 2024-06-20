@@ -81,6 +81,7 @@ public class GeneratorLevel : MonoBehaviour
     [SerializeField] LevelPropertiesDatabase database;
     [SerializeField] GameManager gameManager;
     [SerializeField] private TMP_Text text_info_level;
+    [SerializeField] private RouletteSpawnElements rouletteSpawnElements;
 
     private StagesSpawnParameters spawnParameters;
 
@@ -131,8 +132,8 @@ public class GeneratorLevel : MonoBehaviour
 
     [SerializeField]int n_stage;
 
-    List<GameObject> ready_partsOfPath = new List<GameObject>(4);
-
+    public List<GameObject> ready_partsOfPath = new List<GameObject>(4); //roads
+    public List<float>[] chancesForRoulette;
 
 
 
@@ -164,7 +165,8 @@ public class GeneratorLevel : MonoBehaviour
         float rand_num1;
         int rand_num2;
 
-        generator = new GeneratorLevelProperties(database, out text);
+        generator = new GeneratorLevelProperties(database, out text, out chancesForRoulette);
+        
 
         spawnParameters = new StagesSpawnParameters(database);
 
@@ -176,6 +178,8 @@ public class GeneratorLevel : MonoBehaviour
         islands_properties = generator.Islands_properties;
         roadParts_properties = generator.RoadParts_properties;
         misc_properties = database.Misc_properties;
+
+        rouletteSpawnElements.startRoulette(chancesForRoulette, enemy_properties, traps_properties, bonuses_properties, database.Enemy_properties, database.Traps_properties, database.Bonuses_properties);
 
         enemy_propertiesDict = database.Enemy_propertiesDict;
         traps_propertiesDict = database.Traps_propertiesDict;
@@ -199,7 +203,6 @@ public class GeneratorLevel : MonoBehaviour
 
         rand_num1 = UnityEngine.Random.Range(0, 1f);
 
-        text_info_level.text += $"Enemies: {enemy_properties.Count}\nTraps: {traps_properties.Count}\nBonuses: {bonuses_properties.Count}";
 
         if (rand_num1 <= database.ChanceModificator)
         {
@@ -228,6 +231,8 @@ public class GeneratorLevel : MonoBehaviour
         n_stage = changeStageGame(1, out openedEnemy, out openedTraps, out openedBonuses, openedPartItemsStage1, enemy_properties, traps_properties, bonuses_properties);
 
         initSpawnPartPath(ready_partsOfPath, n_AllSpawnedPlatforms, new Vector3(0, 0, 0), distZbetweenPlatforms, roadParts_properties, openedEnemy, openedTraps, openedBonuses, fishMoney_prefab, n_securePlatforms);
+        gameManager.roads = ready_partsOfPath;
+        gameManager.allDisable();
     }
     private void initSpawnPartPath(List<GameObject> partsOfPath, int n_parts, Vector3 startPos, float DistanceZ_between_roads, List<ObjectProperties> roadParts_properties, List<EnemyInfo> openedEnemy, List<TrapInfo> openedTraps, List<BonusInfo> openedBonuses, GameObject fishMoney_prefab, int n_securePlatforms, int n_stage = 1)
     {
@@ -394,6 +399,8 @@ public class GeneratorLevel : MonoBehaviour
             }
         }
     }
+
+
 
     private void sortBubbleForSpawnElements<T>(List<T> list) where T : SpawnElementInfo
     {

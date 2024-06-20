@@ -66,7 +66,11 @@ public class ContentPlayer : MonoBehaviour
             if (destr != null)
             {
                 if (destr.DestroyInPlayerCollision)
+                {
+                    Debug.Log("huy");
+                    StartCoroutine(destr.destruction(destr.destructionParticles, other.gameObject.transform.position));
                     deleteTrap(other.gameObject, destr);
+                }
             }
         }
         else if (!isImmortal)

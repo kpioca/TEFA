@@ -52,6 +52,8 @@ MonoBehaviour:
   type: trap
   destroyInEnemyAttackCollision: 1
   destroyInPlayerCollision: 1
+  destructionParticles: {fileID: 586265465599792263, guid: 21dbcd48713367643bd32325f77aa090,
+    type: 3}
 --- !u!65 &-3481746929899745848
 BoxCollider:
   m_ObjectHideFlags: 0

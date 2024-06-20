@@ -18,6 +18,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ContentPlayer contentPlayer;
 
     [SerializeField] private GameObject deathPanel;
+    [SerializeField] private GeneratorLevel generator_Level;
+    public GeneratorLevel generatorLevel => generator_Level;
+
+    public List<GameObject> roads;
 
     [Header("Player parameters")]
     [SerializeField] private float speed_playerDash = 7;
@@ -46,26 +50,34 @@ public class GameManager : MonoBehaviour
     public float SpeedCount => speedCount;
 
 
-    [Header("Game")]
-    [SerializeField] private bool isGameOver = false;
+
+    //[Header("Game")]
+    //[SerializeField] private bool isGameOver = false;
 
     [Header("Collectables")]
     [SerializeField] private int fishMoney = 0;
-    public bool IsGameOver
-    {
-        get { return isGameOver; }
-        set { isGameOver = value; }
-    }
+    //public bool IsGameOver
+    //{
+    //    get { return isGameOver; }
+    //    set { isGameOver = value; }
+    //}
     void Awake()
     {
         GlobalEventManager.OnGameOver += GameOver;
         GlobalEventManager.OnUnSubscribe += unSubscribe;
+
         speedCount = speedRouteMovement / (start_speedRouteMovement - 1);
 
         moneyCounterText.text = fishMoney.ToString();
 
         changeHealth(contentPlayer.Health);
         changeArmor(contentPlayer.Armor);
+    }
+
+    private void Start()
+    {
+        roads = generatorLevel.ready_partsOfPath;
+        allDisable();
     }
 
     void unSubscribe()
@@ -76,9 +88,27 @@ public class GameManager : MonoBehaviour
 
     void GameOver()
     {
-        isGameOver = true;
+        //isGameOver = true;
         playerControl.enabled = false;
         deathPanel.SetActive(true);
+    }
+
+    public void allDisable()
+    {
+        playerControl.enabled = false;
+        int n = roads.Count;
+        for(int i = 0; i < n; i++)
+            roads[i].GetComponent<PlatformMovement>().enabled = false;
+        pathCounter.stopPathCounter();
+    }
+
+    public void allEnable()
+    {
+        playerControl.enabled = true;
+        int n = roads.Count;
+        for (int i = 0; i < n; i++)
+            roads[i].GetComponent<PlatformMovement>().enabled = true;
+        pathCounter.startPathCounter();
     }
 
     public void RestartGame()

@@ -25,9 +25,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 26f5b364b30946f4e90b4ef23754cc8a, type: 2}
   - {fileID: 11400000, guid: ccd159625dc283243a97813c83e9e120, type: 2}
   traps_properties:
+  - {fileID: 11400000, guid: 66da89282f45194459007d4de6cd5387, type: 2}
   - {fileID: 11400000, guid: 30c3cab9c175b8e4da2b8371edeca811, type: 2}
   - {fileID: 11400000, guid: d1df209f3e5482c4db5149ceeb071dc4, type: 2}
-  - {fileID: 11400000, guid: 66da89282f45194459007d4de6cd5387, type: 2}
   bonuses_properties:
   - {fileID: 11400000, guid: 6830d3dbf12f6824889a0385a9d2a423, type: 2}
   - {fileID: 11400000, guid: d9b28af2ef38d014f8180d5f76f4cc00, type: 2}
@@ -99,7 +99,7 @@ MonoBehaviour:
   min_typeEnemy: 3
   max_typeEnemy: 6
   min_typeTraps: 1
-  max_typeTraps: 3
+  max_typeTraps: 1
   min_typeBonuses: 1
   max_typeBonuses: 2
   min_Enemy_stage1: 0
@@ -123,7 +123,7 @@ MonoBehaviour:
   min_fishMoney_stage2: 1
   max_fishMoney_stage2: 5
   part_openItems_stage2: 0.5
-  activationDistance_stage2: 5
+  activationDistance_stage2: 25
   min_Enemy_stage3: 2
   max_Enemy_stage3: 4
   min_Traps_stage3: 3

@@ -16,8 +16,10 @@ MonoBehaviour:
   levelOfCoolness: 2
   prefab: {fileID: 1143935151030011577, guid: 50518cf200c5c124ab869f2d83d2acfc, type: 3}
   sizeOfObjectPool: 16
+  icon: {fileID: 21300000, guid: 609b33f5f652b794394fcaccd428726a, type: 3}
   haveAttackDamage: 0
   attackDamage: 0
   hasEffect: 1
+  ignoreArmor: 0
   effectInfo: {fileID: 11400000, guid: 38f9c9cb11ca90840b3b52bbb3bf082c, type: 2}
   doHoleInRoad: 0
