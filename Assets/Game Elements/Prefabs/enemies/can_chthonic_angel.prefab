@@ -233,7 +233,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   contentEnemy: {fileID: 4455521296770660999}
-  markGun: {fileID: 7752431234136810697}
+  marksGun:
+  - {fileID: 7752431234136810697}
   animator: {fileID: 1560239059141598138}
   attackAnimationClip: {fileID: 7400000, guid: 690040356f0825a45929c6a0dfe7da76, type: 2}
 --- !u!1 &1594404352181009871
@@ -453,6 +454,12 @@ MonoBehaviour:
   attackZoneZ: -1
   element1: {fileID: 0}
   element2: {fileID: 0}
+  enemy_Parts:
+  - {fileID: 7691750781531347473}
+  - {fileID: 584457714699922893}
+  - {fileID: 3538099057541058084}
+  - {fileID: 6992801666911578673}
+  - {fileID: 185672197412851992}
 --- !u!95 &1560239059141598138
 Animator:
   serializedVersion: 5

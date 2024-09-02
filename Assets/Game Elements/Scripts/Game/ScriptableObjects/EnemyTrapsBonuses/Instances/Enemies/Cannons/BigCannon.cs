@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BigCannon : Cannon
 {
-    public BigCannon(BigCannonInfo info) : base(info)
+    public BigCannon(BigCannonInfo info, GameObject instance, Stamp stamp = null) : base(info, instance, stamp)
     {
     }
 }

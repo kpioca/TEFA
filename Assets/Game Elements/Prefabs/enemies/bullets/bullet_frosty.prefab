@@ -192,3 +192,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet_Info: {fileID: 11400000, guid: f773600d3ea0a02499e57a0dc6291302, type: 2}
+  bulletMainObject: {fileID: 3894474337963971126}

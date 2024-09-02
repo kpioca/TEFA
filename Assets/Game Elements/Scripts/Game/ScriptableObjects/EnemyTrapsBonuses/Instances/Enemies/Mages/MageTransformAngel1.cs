@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MageTransformAngel : Mage
 {
-    public MageTransformAngel(MageInfo info) : base(info)
+    public MageTransformAngel(MageInfo info, GameObject instance) : base(info, instance)
     {
 
     }

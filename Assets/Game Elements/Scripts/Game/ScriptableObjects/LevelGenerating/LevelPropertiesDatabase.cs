@@ -5,6 +5,102 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 using UnityEngine;
 using System;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
+using Unity.Collections;
+
+[Serializable]
+public class StageParameters
+{
+    [Header("Stage parameters")]
+
+    [Header("Enemy parameters")]
+    [Range(0, 6)]
+    [SerializeField] private int min_Enemy_stage = 0;
+    public int Min_Enemy_stage
+    {
+        get { return min_Enemy_stage; }
+        set { min_Enemy_stage = value;}
+    }
+    [Range(0, 6)]
+    [SerializeField] private int max_Enemy_stage = 3;
+    public int Max_Enemy_stage
+    {
+        get { return max_Enemy_stage; }
+        set { max_Enemy_stage = value;}
+    }
+
+    [Header("Traps parameters")]
+    [Range(0, 8)]
+    [SerializeField] private int min_Traps_stage = 0;
+    public int Min_Traps_stage
+    {
+        get { return min_Traps_stage; }
+        set { min_Traps_stage = value;}
+    }
+    [Range(0, 8)]
+    [SerializeField] private int max_Traps_stage = 4;
+    public int Max_Traps_stage
+    {
+        get { return max_Traps_stage; }
+        set { max_Traps_stage = value;}
+    }
+
+    [Header("Bonuses parameters")]
+    [Range(0, 2)]
+    [SerializeField] private int min_Bonuses_stage = 0;
+    public int Min_Bonuses_stage
+    {
+        get { return min_Bonuses_stage; }
+        set { min_Bonuses_stage = value;}
+    }
+    [Range(0, 2)]
+    [SerializeField] private int max_Bonuses_stage = 1;
+    public int Max_Bonuses_stage
+    {
+        get { return max_Bonuses_stage; }
+        set { max_Bonuses_stage = value;}
+    }
+    [Range(0, 1)]
+    [SerializeField] private float chance_Bonuses_stage = 0.25f;
+    public float Chance_Bonuses_stage
+    {
+        get { return chance_Bonuses_stage; }
+        set {  chance_Bonuses_stage = value;}
+    }
+
+    [Header("Fish money parameters")]
+    [Range(0, 12)]
+    [SerializeField] private int min_fishMoney_stage = 0;
+    public int Min_fishMoney_stage
+    {
+        get { return min_fishMoney_stage; }
+        set { min_fishMoney_stage = value; }
+    }
+    [Range(0, 12)]
+    [SerializeField] private int max_fishMoney_stage = 5;
+    public int Max_fishMoney_stage
+    {
+        get { return max_fishMoney_stage;}
+        set { max_fishMoney_stage = value;}
+    }
+
+    [Header("Other parameters")]
+    [Range(0, 1)]
+    [SerializeField] private float part_openItems_stage = 0.25f;
+    public float Part_openItems_stage
+    {
+        get { return part_openItems_stage; }
+        set { part_openItems_stage = value; }
+    }
+    [Range(0, 300)]
+    [SerializeField] private int activationDistance_stage = 0;
+    public int ActivationDistance_stage
+    {
+        get { return activationDistance_stage; }
+        set { activationDistance_stage = value; }
+    }
+
+}
 
 [CreateAssetMenu(fileName = "LevelPropertiesDatabase", menuName = "LevelProperties/Databases/New LevelPropertiesDatabase")]
 [Serializable]
@@ -130,6 +226,18 @@ public class LevelPropertiesDatabase : ScriptableObject
     [SerializeField] private float chanceSpawnGameSet = 0.1f;
     public float ChanceSpawnGameSet => chanceSpawnGameSet;
 
+    [Header("Stamps")]
+    [SerializeField] private List<StampInfo> stampInfos = new List<StampInfo>();
+    public List<StampInfo> StampInfos => stampInfos;
+
+    [Range(0, 6)]
+    [SerializeField] private int maxNumStamps = 1;
+    public int MaxNumStamps => maxNumStamps;
+
+    [Range(0, 1)]
+    [SerializeField] private float chanceAppearanceStamp = 0.1f;
+    public float ChanceAppearanceStamp => chanceAppearanceStamp;
+
 
     [Header("Other Info")]
     [SerializeField] private float distanceZ_between_roads = 15.98f;
@@ -177,147 +285,8 @@ public class LevelPropertiesDatabase : ScriptableObject
 
     [Space(30)]
 
-    [Header("Stage 1")]
-    [Header("Stage parameters")]
-
-    [Header("Enemy parameters")]
-    [Range(0, 6)]
-    [SerializeField] private int min_Enemy_stage1 = 0;
-    public int Min_Enemy_stage1 => min_Enemy_stage1;
-    [Range(0, 6)]
-    [SerializeField] private int max_Enemy_stage1 = 3;
-    public int Max_Enemy_stage1 => max_Enemy_stage1;
-
-    [Header("Traps parameters")]
-    [Range(0, 8)]
-    [SerializeField] private int min_Traps_stage1 = 0;
-    public int Min_Traps_stage1 => min_Traps_stage1;
-    [Range(0, 8)]
-    [SerializeField] private int max_Traps_stage1 = 4;
-    public int Max_Traps_stage1 => max_Traps_stage1;
-
-    [Header("Bonuses parameters")]
-    [Range(0, 2)]
-    [SerializeField] private int min_Bonuses_stage1 = 0;
-    public int Min_Bonuses_stage1 => min_Bonuses_stage1;
-    [Range(0, 2)]
-    [SerializeField] private int max_Bonuses_stage1 = 1;
-    public int Max_Bonuses_stage1 => max_Bonuses_stage1;
-    [Range(0, 1)]
-    [SerializeField] private float chance_Bonuses_stage1 = 0.25f;
-    public float Chance_Bonuses_stage1 => chance_Bonuses_stage1;
-
-    [Header("Fish money parameters")]
-    [Range(0, 12)]
-    [SerializeField] private int min_fishMoney_stage1 = 0;
-    public int Min_fishMoney_stage1 => min_fishMoney_stage1;
-    [Range(0, 12)]
-    [SerializeField] private int max_fishMoney_stage1 = 5;
-    public int Max_fishMoney_stage1 => max_fishMoney_stage1;
-
-    [Header("Other parameters")]
-    [Range(0, 1)]
-    [SerializeField] private float part_openItems_stage1 = 0.25f;
-    public float Part_openItems_stage1 => part_openItems_stage1;
-    [Range(0, 300)]
-    [SerializeField] private int activationDistance_stage1 = 0;
-    public int ActivationDistance_stage1 => activationDistance_stage1;
-
-    [Space(10)]
-
-    [Header("Stage 2")]
-    [Header("Stage parameters")]
-
-    [Header("Enemy parameters")]
-    [Range(0, 6)]
-    [SerializeField] private int min_Enemy_stage2 = 1;
-    public int Min_Enemy_stage2 => min_Enemy_stage2;
-    [Range(0, 6)]
-    [SerializeField] private int max_Enemy_stage2 = 4;
-    public int Max_Enemy_stage2 => max_Enemy_stage2;
-
-    [Header("Traps parameters")]
-    [Range(0, 8)]
-    [SerializeField] private int min_Traps_stage2 = 2;
-    public int Min_Traps_stage2 => min_Traps_stage2;
-    [Range(0, 8)]
-    [SerializeField] private int max_Traps_stage2 = 6;
-    public int Max_Traps_stage2 => max_Traps_stage2;
-
-    [Header("Bonuses parameters")]
-    [Range(0, 2)]
-    [SerializeField] private int min_Bonuses_stage2 = 0;
-    public int Min_Bonuses_stage2 => min_Bonuses_stage2;
-    [Range(0, 2)]
-    [SerializeField] private int max_Bonuses_stage2 = 1;
-    public int Max_Bonuses_stage2 => max_Bonuses_stage2;
-    [Range(0, 1)]
-    [SerializeField] private float chance_Bonuses_stage2 = 0.35f;
-    public float Chance_Bonuses_stage2 => chance_Bonuses_stage2;
-
-    [Header("Fish money parameters")]
-    [Range(0, 12)]
-    [SerializeField] private int min_fishMoney_stage2 = 1;
-    public int Min_fishMoney_stage2 => min_fishMoney_stage2;
-    [Range(0, 12)]
-    [SerializeField] private int max_fishMoney_stage2 = 7;
-    public int Max_fishMoney_stage2 => max_fishMoney_stage2;
-
-    [Header("Other parameters")]
-    [Range(0, 1)]
-    [SerializeField] private float part_openItems_stage2 = 0.5f;
-    public float Part_openItems_stage2 => part_openItems_stage2;
-    [Range(0, 300)]
-    [SerializeField] private int activationDistance_stage2 = 40;
-    public int ActivationDistance_stage2 => activationDistance_stage2;
-
-    [Space(10)]
-
-    [Header("Stage 3")]
-    [Header("Stage parameters")]
-
-    [Header("Enemy parameters")]
-    [Range(0, 6)]
-    [SerializeField] private int min_Enemy_stage3 = 2;
-    public int Min_Enemy_stage3 => min_Enemy_stage3;
-    [Range(0, 6)]
-    [SerializeField] private int max_Enemy_stage3 = 5;
-    public int Max_Enemy_stage3 => max_Enemy_stage3;
-
-    [Header("Traps parameters")]
-    [Range(0, 8)]
-    [SerializeField] private int min_Traps_stage3 = 4;
-    public int Min_Traps_stage3 => min_Traps_stage3;
-    [Range(0, 8)]
-    [SerializeField] private int max_Traps_stage3 = 8;
-    public int Max_Traps_stage3 => max_Traps_stage3;
-
-    [Header("Bonuses parameters")]
-    [Range(0, 2)]
-    [SerializeField] private int min_Bonuses_stage3 = 0;
-    public int Min_Bonuses_stage3 => min_Bonuses_stage3;
-    [Range(0, 2)]
-    [SerializeField] private int max_Bonuses_stage3 = 2;
-    public int Max_Bonuses_stage3 => max_Bonuses_stage3;
-    [Range(0, 1)]
-    [SerializeField] private float chance_Bonuses_stage3 = 0.5f;
-    public float Chance_Bonuses_stage3 => chance_Bonuses_stage3;
-
-    [Header("Fish money parameters")]
-    [Range(0, 12)]
-    [SerializeField] private int min_fishMoney_stage3 = 3;
-    public int Min_fishMoney_stage3 => min_fishMoney_stage3;
-    [Range(0, 12)]
-    [SerializeField] private int max_fishMoney_stage3 = 9;
-    public int Max_fishMoney_stage3 => max_fishMoney_stage3;
-
-    [Header("Other parameters")]
-    [Range(0, 1)]
-    [SerializeField] private float part_openItems_stage3 = 1f;
-    public float Part_openItems_stage3 => part_openItems_stage3;
-    [Range(0, 300)]
-    [SerializeField] private int activationDistance_stage3 = 80;
-    public int ActivationDistance_stage3 => activationDistance_stage3;
+    [SerializeField] private List<StageParameters> _stageParameters = new List<StageParameters>();
+    public List<StageParameters> stageParameters => _stageParameters;
 
 
     public void changeTypeEnemyLimits(int min, int max)
@@ -338,28 +307,25 @@ public class LevelPropertiesDatabase : ScriptableObject
         max_typeBonuses = max;
     }
 
-    public void changeEnemiesParameters(int minEnemy1, int maxEnemy1, int minEnemy2, int maxEnemy2, int minEnemy3, int maxEnemy3)
+    public void changeEnemiesParameters(int[] minEnemy, int[] maxEnemy)
     {
-        min_Enemy_stage1 = minEnemy1;
-        max_Enemy_stage1 = maxEnemy1;
+        int n = stageParameters.Count;
 
-        min_Enemy_stage2 = minEnemy2;
-        max_Enemy_stage2 = maxEnemy2;
-
-        min_Enemy_stage3 = minEnemy3;
-        max_Enemy_stage3 = maxEnemy3;
+        for(int i = 0; i < n; i++)
+        {
+            stageParameters[i].Min_Enemy_stage = minEnemy[i];
+            stageParameters[i].Max_Enemy_stage = maxEnemy[i];
+        }
     }
 
-    public void changeTrapsParameters(int minTraps1, int maxTraps1, int minTraps2, int maxTraps2, int minTraps3, int maxTraps3)
+    public void changeTrapsParameters(int[] minTraps, int[] maxTraps)
     {
-        min_Traps_stage1 = minTraps1;
-        max_Traps_stage1 = maxTraps1;
-
-        min_Traps_stage2 = minTraps2;
-        max_Traps_stage2 = maxTraps2;
-
-        min_Traps_stage3 = minTraps3;
-        max_Traps_stage3 = maxTraps3;
+        int n = stageParameters.Count;
+        for (int i = 0; i < n; i++)
+        {
+            stageParameters[i].Min_Traps_stage = minTraps[i];
+            stageParameters[i].Max_Traps_stage = maxTraps[i];
+        }
 
     }
 

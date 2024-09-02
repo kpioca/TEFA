@@ -9,18 +9,14 @@ public class RainbowCannon : Cannon
     [SerializeField] float intervalBetweenShots = 0.5f;
     public float IntervalBetweenShots => intervalBetweenShots;
 
-    [Header("References of usable bullets")]
-    [SerializeField] private protected List<BulletInfo> bullets;
-
     //private GameObject charge1;
     private GameObject charge2;
 
     private int n_charges = -1;
 
-    public RainbowCannon(RainbowCannonInfo info, GameObject charge2, out float intervalBetweenShots, out int n_shots) : base(info)
+    public RainbowCannon(RainbowCannonInfo info, GameObject charge2, out float intervalBetweenShots, out int n_shots, GameObject instance, Stamp stamp = null) : base(info,instance, stamp)
     {
         intervalBetweenShots = info.IntervalBetweenShots;
-        bullets = info.Bullets;
         this.charge2 = charge2;
         intervalBetweenShots = this.intervalBetweenShots;
         setUpElement(charge2, out n_charges);
@@ -78,15 +74,15 @@ public class RainbowCannon : Cannon
 
 
 
-    public override void Attack(GameObject markGun, float platformsSpeed, Vector3 target, MonoBehaviour toUseCoroutines)
+    public override void Attack(GameObject[] markGun, float platformsSpeed, Vector3 target, MonoBehaviour toUseCoroutines)
     {
         List<BulletInfo> projectiles = new List<BulletInfo>();
 
         setUpNumCharges(charge2, out n_charges);
 
-        projectiles = getRandomBulletsFromListBullets(bullets, n_charges);
+        projectiles = getRandomBulletsFromListBullets(new List<BulletInfo>(bulletsInfo), n_charges);
 
-        toUseCoroutines.StartCoroutine(AttackCoroutine(markGun, target, platformsSpeed, projectiles, n_charges, toUseCoroutines));
+        toUseCoroutines.StartCoroutine(AttackCoroutine(markGun[0], target, platformsSpeed, projectiles, n_charges, toUseCoroutines));
     }
 
     private IEnumerator AttackCoroutine(GameObject markGun, Vector3 target, float platformsSpeed, List<BulletInfo> projectiles, int n_charges, MonoBehaviour toUseCoroutines)
@@ -95,7 +91,7 @@ public class RainbowCannon : Cannon
 
         for(int i = 0; i < n_charges; i++)
         {
-            bullet = spawnBullet(projectiles[i].Prefab, markGun, null);
+            bullet = projectiles[i].spawnBullet(projectiles[i].Prefab, markGun, null, stamp);
             MoveToPos(toUseCoroutines, bullet, target + bullet.transform.forward * 2, projectiles[i].Speed, platformsSpeed);
 
             yield return new WaitForSeconds(intervalBetweenShots);
@@ -105,7 +101,8 @@ public class RainbowCannon : Cannon
 
     public virtual void MoveToPos(MonoBehaviour toUseCoroutines, GameObject obj, Vector3 target, float speed, float platformsSpeed)
     {
-        toUseCoroutines.StartCoroutine(MovementCoroutine(obj, target, speed + platformsSpeed));
+        float speedMultiplier = stamp == null ? 1 : stamp.getStampValue();
+        toUseCoroutines.StartCoroutine(MovementCoroutine(obj, target, speed * speedMultiplier + platformsSpeed));
 
         //projectile_rb = obj.GetComponent<Rigidbody>();
         //projectile_rb.velocity = obj.transform.forward * (bulletInfo.Speed + platformsSpeed);

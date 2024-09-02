@@ -24,5 +24,6 @@ MonoBehaviour:
   attackZoneX: 18
   attackZoneY: 7
   attackZoneZ: 20
-  bullet_Info: {fileID: 11400000, guid: f773600d3ea0a02499e57a0dc6291302, type: 2}
+  bullets_Info:
+  - {fileID: 11400000, guid: f773600d3ea0a02499e57a0dc6291302, type: 2}
   sizeOfProjectilePool: 8

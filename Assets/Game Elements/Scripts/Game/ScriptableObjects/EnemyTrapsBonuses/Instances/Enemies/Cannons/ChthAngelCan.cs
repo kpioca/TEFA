@@ -6,7 +6,7 @@ using static UnityEngine.Rendering.DebugUI;
 
 public class ChthAngelCan : Cannon
 {
-    public ChthAngelCan(ChthAngelCanInfo info) : base(info)
+    public ChthAngelCan(ChthAngelCanInfo info, GameObject instance, Stamp stamp = null) : base(info, instance, stamp)
     {
         spinningSpeed = info.SpinningSpeed;
     }
@@ -14,17 +14,18 @@ public class ChthAngelCan : Cannon
     [SerializeField] private float spinningSpeed = 10;
     public float SpinningSpeed => spinningSpeed;
 
-    public override void Attack(GameObject markGun, float platformsSpeed, Vector3 target, MonoBehaviour toUseCoroutines)
+    public override void Attack(GameObject[] markGun, float platformsSpeed, Vector3 target, MonoBehaviour toUseCoroutines)
     {
         GameObject bullet;
-        bullet = spawnBullet(bulletInfo.Prefab, markGun, null);
+        bullet = bulletsInfo[0].spawnBullet(bulletsInfo[0].Prefab, markGun[0], null, stamp);
 
-        MoveToPos(toUseCoroutines, bullet, target + bullet.transform.forward * 2, bulletInfo, platformsSpeed);
+        MoveToPos(toUseCoroutines, bullet, target + bullet.transform.forward * 2, bulletsInfo[0], platformsSpeed);
     }
 
     public override void MoveToPos(MonoBehaviour toUseCoroutines, GameObject obj, Vector3 target, BulletInfo bulletInfo, float platformsSpeed)
     {
-        toUseCoroutines.StartCoroutine(MovementCoroutine(obj, target, bulletInfo.Speed + platformsSpeed, toUseCoroutines));
+        float speedMultiplier = stamp == null ? 1 : stamp.getStampValue();
+        toUseCoroutines.StartCoroutine(MovementCoroutine(obj, target, bulletInfo.Speed * speedMultiplier + platformsSpeed, toUseCoroutines));
     }
 
     private protected IEnumerator MovementCoroutine(GameObject obj, Vector3 target, float speed, MonoBehaviour toUseCoroutines)

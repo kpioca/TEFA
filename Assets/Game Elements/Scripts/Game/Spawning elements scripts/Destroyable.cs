@@ -29,7 +29,7 @@ public class DestroyableAndCollectable : MonoBehaviour
                     {
                         case "trap":
                             info.deleteTrapElement(num);
-                            StartCoroutine(destruction(destructionParticles, gameObject.transform.position));
+                            //StartCoroutine(destruction(destructionParticles, gameObject.transform.position));
                             break;
                         case "misc":
                             info.deleteMiscElement(num);

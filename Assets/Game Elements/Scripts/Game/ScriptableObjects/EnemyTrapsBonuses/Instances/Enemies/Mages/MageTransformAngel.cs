@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MageBattleAngel : MageBattle
 {
-    public MageBattleAngel(MageBattleInfo info) : base(info)
+    public MageBattleAngel(MageBattleInfo info, GameObject instance) : base(info, instance)
     {
 
     }

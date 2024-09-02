@@ -24,7 +24,10 @@ public class Enemy : SpawnElement
     [SerializeField] private protected float attackZoneZ = 24f;
     public float AttackZoneZ => attackZoneZ;
 
-    public Enemy(EnemyInfo info) : base(info)
+    private protected Stamp stamp;
+    public GameObject instance { get; set; }
+
+    public Enemy(EnemyInfo info, GameObject instance, Stamp stamp = null) : base(info)
     {
         this.haveAttackDamage = info.HasAttackDamage;
         this.visionZoneX = info.VisionZoneX;
@@ -33,6 +36,8 @@ public class Enemy : SpawnElement
         this.attackZoneX = info.AttackZoneX;
         this.attackZoneY = info.AttackZoneY;
         this.attackZoneZ = info.AttackZoneZ;
+        this.instance = instance;
+        this.stamp = stamp;
     }
 
     public virtual void Attack(Vector3 target) { }

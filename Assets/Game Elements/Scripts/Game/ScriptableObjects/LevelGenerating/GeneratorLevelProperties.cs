@@ -26,6 +26,8 @@ public class GeneratorLevelProperties
     private List<EnemyInfo> temp_e;
     private List<TrapInfo> temp_t;
     private List<BonusInfo> temp_b;
+    private List<Stamp> stamps = new List<Stamp>();
+    public List<Stamp> Stamps => stamps;
 
     private GameSet gameSet;
     private float chanceGameSet;
@@ -35,6 +37,8 @@ public class GeneratorLevelProperties
     private bool isReadySet = false;
     private int num_set = -1;
     private string setName = "";
+
+    
 
     public GeneratorLevelProperties(LevelPropertiesDatabase database, out string setName, out List<float>[] chances)
     {
@@ -61,6 +65,8 @@ public class GeneratorLevelProperties
             enemy_properties = new List<EnemyInfo>(gameSet.enemies);
             traps_properties = new List<TrapInfo>(gameSet.traps);
             bonuses_properties = new List<BonusInfo>(gameSet.bonuses);
+
+            stamps = getStamps(enemy_properties.Count);
 
             temp_e = new List<EnemyInfo>(database.Enemy_properties);
             temp_t = new List<TrapInfo>(database.Traps_properties);
@@ -112,6 +118,7 @@ public class GeneratorLevelProperties
                 roadParts_properties = database.RoadParts_properties;
             }
             else { Debug.Log("Wrong amount of enemy, traps or bonuses"); }
+            stamps = getStamps(enemy_properties.Count);
         }
         return "";
     }
@@ -129,9 +136,41 @@ public class GeneratorLevelProperties
     //    }
     //}
 
+    public List<Stamp> getStamps(int amountEnemy)
+    {
+        int max_n = database.MaxNumStamps;
+        float chanceStamp = database.ChanceAppearanceStamp;
+        int n = max_n > amountEnemy ? amountEnemy : max_n;
+        bool resultRandom;
+        List<StampInfo> allStamps = database.StampInfos;
+        List<Stamp> stamps = new List<Stamp>();
+
+        for(int i = 0; i < n; i++)
+        {
+            resultRandom = probabilityFunc(chanceStamp);
+            if (resultRandom)
+                stamps.Add(Stamp.createStampFromInfo(getRandomElement(allStamps)));
+        }
+
+        return stamps;
+    }
+
+    private bool probabilityFunc(float chance) //return true if event happened, else - false
+    {
+        if (UnityEngine.Random.value <= chance) return true;
+        else return false;
+    }
+
     public void addRandomItemsFromTo<T>(List<T> fromList, int amount, out List<T> toList) where T : SpawnElementInfo
     {
         toList = getElementsWithChance(fromList, amount);
+    }
+
+    private T getRandomElement<T>(List<T> listItems) where T : Object
+    {
+        int n = listItems.Count;
+        int k = Random.Range(0, n);
+        return listItems[k];
     }
 
     private List<T> getElementsWithChance<T>(List<T> listItems, int amount) where T : SpawnElementInfo

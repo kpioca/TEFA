@@ -652,6 +652,7 @@ GameObject:
   - component: {fileID: 7637205437082138109}
   - component: {fileID: 1160698943111005425}
   - component: {fileID: 3967744512689728316}
+  - component: {fileID: 5908753816760054026}
   m_Layer: 0
   m_Name: ginger_legend
   m_TagString: Player
@@ -740,9 +741,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c83721e33d6132448a17a133a6e826c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathImmortalEffect: {fileID: 0}
   gameManager: {fileID: 0}
+  effect_Timer: {fileID: 0}
   health: 1
+  armor: 0
+  effectTimer: 0
   isImmortal: 0
+--- !u!95 &5908753816760054026
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6183224260882999122}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a1c3e88c27e59a747a0ac0497f9c413a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8635189142058536432
 GameObject:
   m_ObjectHideFlags: 0

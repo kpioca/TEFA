@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class PathCounter : MonoBehaviour
 {
@@ -13,9 +14,8 @@ public class PathCounter : MonoBehaviour
     [SerializeField] private TMP_Text pathCounterText;
     [SerializeField] private int pathScore;
 
-    private int activDist1;
-    private int activDist2;
-    private int activDist3;
+    private int n_stages = 0;
+    private List<int> activationDistances = new List<int>() { -1 };
     public int PathScore => pathScore;
 
     public Coroutine PathCounterCoroutine;
@@ -24,8 +24,10 @@ public class PathCounter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        activDist2 = database.ActivationDistance_stage2;
-        activDist3 = database.ActivationDistance_stage3;
+        n_stages = database.stageParameters.Count;
+        for(int i = 1; i < n_stages; i++)
+            activationDistances.Add(database.stageParameters[i].ActivationDistance_stage);
+
         speedCount = gameManager.SpeedCount;
 
         GlobalEventManager.OnGameOver += GameOver;
@@ -56,12 +58,18 @@ public class PathCounter : MonoBehaviour
     {
         while (true)
         {
-            if (pathScore == activDist2)
-                GlobalEventManager.ChangeStageGame(2);
-            else if (pathScore == activDist3)
-                GlobalEventManager.ChangeStageGame(3);
+            int n_stage = activationDistances.FindIndex(delegate (int activDist)
+            {
+                return activDist == pathScore;
+            }
+            );
 
-            pathScore ++;
+            if (n_stage != -1)
+            {
+                GlobalEventManager.ChangeStageGame(n_stage);
+            }
+
+            pathScore++;
             pathCounterText.text = pathScore.ToString();
             yield return new WaitForSeconds(1 / speedCount);
         }

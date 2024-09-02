@@ -14,9 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameModificator: How many things
   levelOfCoolness: 2
-  increaseMinValueStage1: 1
-  increaseMaxValueStage1: 1
-  increaseMinValueStage2: 1
-  increaseMaxValueStage2: 1
-  increaseMinValueStage3: 0
-  increaseMaxValueStage3: 2
+  increaseMinValueStages: 00000000010000000100000001000000
+  increaseMaxValueStages: 01000000010000000100000001000000

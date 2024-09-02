@@ -6,7 +6,7 @@ public class AttackZone : MonoBehaviour
 {
     [SerializeField] private ContentEnemy contentEnemy;
     private Cannon cannon;
-    [SerializeField] private GameObject markGun;
+    [SerializeField] private GameObject[] marksGun;
 
     [Header("Animation")]
     [SerializeField] private Animator animator;
@@ -51,7 +51,7 @@ public class AttackZone : MonoBehaviour
             animator.enabled = true;
             animator.Play(animationAttackName);
         }
-        cannon.Attack(markGun, game_Manager.SpeedRouteMovement, player.transform.position, game_Manager);
+        cannon.Attack(marksGun, game_Manager.SpeedRouteMovement, player.transform.position, game_Manager);
         if (animator != null && amount_AttackAnimations > 1)
         {
             if (amount_AttackAnimations > 1)

@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7de6df702013f7d499bdc7c2f428f0c8, type: 3}
+  m_Name: DamageStampInfo
+  m_EditorClassIdentifier: 
+  enemy_Material: {fileID: 2100000, guid: 01b349da6e565f74e9063d1429a69ae0, type: 2}
+  bullet_Material: {fileID: 2100000, guid: 9da2a83532b294740b1a321cfc74ffc1, type: 2}
+  damage_Increase: 1

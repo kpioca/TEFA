@@ -648,7 +648,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   contentEnemy: {fileID: 5762219073032737072}
-  markGun: {fileID: 5319428386673187993}
+  marksGun:
+  - {fileID: 5319428386673187993}
   animator: {fileID: 7790510720054835537}
   attackAnimationClip: {fileID: 7400000, guid: dbc57af4893043f4886c1fbec2730476, type: 2}
 --- !u!1 &6407178882521305152
@@ -964,11 +965,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  type: 0
   visionZoneObj: {fileID: 7014907401703835115}
   visionZone: {fileID: 321132289282744178}
   attackZoneObj: {fileID: 6135534716763092826}
   attackZone: {fileID: 8353375544265406939}
+  attackMageZone: {fileID: 0}
   visionZoneX: -1
   visionZoneY: -1
   visionZoneZ: -1
@@ -977,6 +978,14 @@ MonoBehaviour:
   attackZoneZ: -1
   element1: {fileID: 0}
   element2: {fileID: 0}
+  enemy_Parts:
+  - {fileID: 1347067690420787512}
+  - {fileID: 416232474101243720}
+  - {fileID: 187292201759750629}
+  - {fileID: 5101614113441472581}
+  - {fileID: 6819669603391116051}
+  - {fileID: 6407178882521305152}
+  - {fileID: 1100212771424188161}
 --- !u!95 &7790510720054835537
 Animator:
   serializedVersion: 5

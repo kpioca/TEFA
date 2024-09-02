@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10f22c3875f221c4789c0f1f233bb4eb, type: 3}
+  m_Name: RainbowStampInfo
+  m_EditorClassIdentifier: 
+  enemy_Material: {fileID: 2100000, guid: cd54f2e7a4ffbd84798763487c4633d1, type: 2}
+  bullet_Material: {fileID: 2100000, guid: 5bd4c3c7a63432e41b4dcc136103cf32, type: 2}
+  damage_Increase: 1
+  speed_Multiplier: 1.5
+  size_Multiplier: 1.5

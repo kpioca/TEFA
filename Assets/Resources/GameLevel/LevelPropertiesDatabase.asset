@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemy_properties:
   - {fileID: 11400000, guid: 75bb605aa4137a0468c7ea79c1c97dea, type: 2}
+  - {fileID: 11400000, guid: 3c9f7b981a23d7c45be9745d5d58b933, type: 2}
   - {fileID: 11400000, guid: 58057b5392eb88848bbd54a412abe464, type: 2}
   - {fileID: 11400000, guid: 84b0cff53645bc54f9ebba9331fb1f78, type: 2}
   - {fileID: 11400000, guid: db443f2f8c809ce429abbe87a3b46a32, type: 2}
+  - {fileID: 11400000, guid: 603773d8a45802c41891ad74719c0e06, type: 2}
   - {fileID: 11400000, guid: bc424cc45aabc1f43b0fe561b8c685a7, type: 2}
   - {fileID: 11400000, guid: 288796754b2c4f0478b46a9c8181b470, type: 2}
   - {fileID: 11400000, guid: 40197d76e2a7d894c97da71616c5f31d, type: 2}
@@ -25,9 +27,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 26f5b364b30946f4e90b4ef23754cc8a, type: 2}
   - {fileID: 11400000, guid: ccd159625dc283243a97813c83e9e120, type: 2}
   traps_properties:
-  - {fileID: 11400000, guid: 66da89282f45194459007d4de6cd5387, type: 2}
   - {fileID: 11400000, guid: 30c3cab9c175b8e4da2b8371edeca811, type: 2}
   - {fileID: 11400000, guid: d1df209f3e5482c4db5149ceeb071dc4, type: 2}
+  - {fileID: 11400000, guid: 66da89282f45194459007d4de6cd5387, type: 2}
   bonuses_properties:
   - {fileID: 11400000, guid: 6830d3dbf12f6824889a0385a9d2a423, type: 2}
   - {fileID: 11400000, guid: d9b28af2ef38d014f8180d5f76f4cc00, type: 2}
@@ -82,56 +84,66 @@ MonoBehaviour:
   - {fileID: 11400000, guid: da614105cbbf57e44bae61e948c334de, type: 2}
   chanceModificator: 0.15
   gameSets:
-  - {fileID: 11400000, guid: 2fec9b1228e9c024b9c2c02821b6d273, type: 2}
-  - {fileID: 11400000, guid: 805656c328380e34f97dd14a943f661f, type: 2}
-  - {fileID: 11400000, guid: 38c3f3ab4b6123245ba7a1e5a9f102e1, type: 2}
   - {fileID: 11400000, guid: afa5fd6e675b0554a872702624d530fa, type: 2}
-  - {fileID: 11400000, guid: 4a02a9406afd1db4ea1803b86bbc0d07, type: 2}
-  - {fileID: 11400000, guid: 66c5ff97355ea2243a988a3f977633e0, type: 2}
-  - {fileID: 11400000, guid: 3d99e36a564eeb443a18b07a1f656a3e, type: 2}
-  - {fileID: 11400000, guid: 2f3925cf60bf42649b7f0776a887cfc3, type: 2}
   chanceSpawnGameSet: 0.2
+  stampInfos:
+  - {fileID: 11400000, guid: fdfea0dd648d58a44a9c788411bb3c49, type: 2}
+  - {fileID: 11400000, guid: c7e7b02128d33944b8e4a3b801d695ca, type: 2}
+  maxNumStamps: 6
+  chanceAppearanceStamp: 1
   distanceZ_between_roads: 15.95
   min_extraIslands: 1
   max_extraIslands: 5
   num_securePlatformsAtBegin: 2
   num_allSpawnedPlatforms: 4
-  min_typeEnemy: 3
+  min_typeEnemy: 6
   max_typeEnemy: 6
   min_typeTraps: 1
-  max_typeTraps: 1
+  max_typeTraps: 3
   min_typeBonuses: 1
   max_typeBonuses: 2
-  min_Enemy_stage1: 0
-  max_Enemy_stage1: 0
-  min_Traps_stage1: 0
-  max_Traps_stage1: 0
-  min_Bonuses_stage1: 0
-  max_Bonuses_stage1: 1
-  chance_Bonuses_stage1: 0.05
-  min_fishMoney_stage1: 0
-  max_fishMoney_stage1: 3
-  part_openItems_stage1: 0.25
-  activationDistance_stage1: 0
-  min_Enemy_stage2: 0
-  max_Enemy_stage2: 2
-  min_Traps_stage2: 2
-  max_Traps_stage2: 4
-  min_Bonuses_stage2: 0
-  max_Bonuses_stage2: 1
-  chance_Bonuses_stage2: 0.15
-  min_fishMoney_stage2: 1
-  max_fishMoney_stage2: 5
-  part_openItems_stage2: 0.5
-  activationDistance_stage2: 25
-  min_Enemy_stage3: 2
-  max_Enemy_stage3: 4
-  min_Traps_stage3: 3
-  max_Traps_stage3: 5
-  min_Bonuses_stage3: 0
-  max_Bonuses_stage3: 2
-  chance_Bonuses_stage3: 0.15
-  min_fishMoney_stage3: 2
-  max_fishMoney_stage3: 6
-  part_openItems_stage3: 1
-  activationDistance_stage3: 80
+  _stageParameters:
+  - min_Enemy_stage: 0
+    max_Enemy_stage: 1
+    min_Traps_stage: 0
+    max_Traps_stage: 3
+    min_Bonuses_stage: 0
+    max_Bonuses_stage: 1
+    chance_Bonuses_stage: 0.05
+    min_fishMoney_stage: 0
+    max_fishMoney_stage: 3
+    part_openItems_stage: 0.25
+    activationDistance_stage: 0
+  - min_Enemy_stage: 0
+    max_Enemy_stage: 2
+    min_Traps_stage: 2
+    max_Traps_stage: 4
+    min_Bonuses_stage: 0
+    max_Bonuses_stage: 1
+    chance_Bonuses_stage: 0.15
+    min_fishMoney_stage: 1
+    max_fishMoney_stage: 5
+    part_openItems_stage: 0.5
+    activationDistance_stage: 25
+  - min_Enemy_stage: 1
+    max_Enemy_stage: 4
+    min_Traps_stage: 2
+    max_Traps_stage: 5
+    min_Bonuses_stage: 0
+    max_Bonuses_stage: 2
+    chance_Bonuses_stage: 0.15
+    min_fishMoney_stage: 2
+    max_fishMoney_stage: 6
+    part_openItems_stage: 1
+    activationDistance_stage: 75
+  - min_Enemy_stage: 2
+    max_Enemy_stage: 5
+    min_Traps_stage: 3
+    max_Traps_stage: 6
+    min_Bonuses_stage: 0
+    max_Bonuses_stage: 2
+    chance_Bonuses_stage: 0.25
+    min_fishMoney_stage: 3
+    max_fishMoney_stage: 8
+    part_openItems_stage: 1
+    activationDistance_stage: 135

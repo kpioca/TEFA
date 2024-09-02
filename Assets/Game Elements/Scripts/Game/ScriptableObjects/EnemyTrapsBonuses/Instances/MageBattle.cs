@@ -12,7 +12,7 @@ public class MageBattle : Mage
     [SerializeField] private protected int sizeOfProjectilePool = 8;
     public int SizeOfProjectilePool => sizeOfProjectilePool;
 
-    public MageBattle(MageBattleInfo info) : base(info)
+    public MageBattle(MageBattleInfo info, GameObject instance) : base(info, instance)
     {
         bullet_Info = info.bulletInfo;
         sizeOfObjectPool = info.SizeOfProjectilePool;
@@ -46,7 +46,7 @@ public class MageBattle : Mage
     public virtual void shoot(GameObject markGun, float platformsSpeed, Vector3 target, MonoBehaviour toUseCoroutines = null)
     {
         GameObject bullet;
-        bullet = spawnBullet(bulletInfo.Prefab, markGun, null);
+        bullet = bulletInfo.spawnBullet(bulletInfo.Prefab, markGun, null, stamp);
 
         MoveToPos(toUseCoroutines, bullet, target + bullet.transform.forward * 2, bulletInfo, platformsSpeed);
     }
@@ -72,16 +72,6 @@ public class MageBattle : Mage
             obj.transform.position = Vector3.Lerp(start_pos, target, runningTime / totalRunningTime);
             yield return 1;
         }
-    }
-
-    private protected GameObject spawnBullet(GameObject prefab, GameObject markGun, Transform parent)
-    {
-        GameObject temp = KhtPool.GetObject(prefab);
-        temp.transform.position = markGun.transform.position;
-        temp.transform.rotation = markGun.transform.rotation;
-        temp.transform.SetParent(parent);
-        temp.SetActive(true);
-        return temp;
     }
 
 

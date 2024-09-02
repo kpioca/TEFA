@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FrostyCannon : Cannon
 {
-    public FrostyCannon(FrostyCannonInfo info) : base(info)
+    public FrostyCannon(FrostyCannonInfo info, GameObject instance, Stamp stamp = null) : base(info, instance, stamp)
     {
     }
 }

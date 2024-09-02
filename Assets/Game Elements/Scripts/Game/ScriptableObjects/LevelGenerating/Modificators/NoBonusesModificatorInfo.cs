@@ -8,13 +8,14 @@ public class NoBonusesModificatorInfo : ModificatorInfo
     public override StagesSpawnParameters Action(StagesSpawnParameters spawnParameters)
     {
         base.Action(spawnParameters);
-        spawnParameters.min_bonuses1 = 0;
-        spawnParameters.min_bonuses2 = 0;
-        spawnParameters.min_bonuses3 = 0;
 
-        spawnParameters.max_bonuses1 = 0;
-        spawnParameters.max_bonuses2 = 0;
-        spawnParameters.max_bonuses3 = 0;
+        int n = spawnParameters.min_bonuses.Length;
+
+        for (int i = 0; i < n; i++)
+        {
+            spawnParameters.min_bonuses[i] = 0;
+            spawnParameters.max_bonuses[i] = 0;
+        }
 
         return spawnParameters;
     }

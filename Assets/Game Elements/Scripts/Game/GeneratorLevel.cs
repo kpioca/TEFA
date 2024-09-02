@@ -9,66 +9,39 @@ using TMPro;
 
 public struct StagesSpawnParameters
 {
-    public int min_enemies1;
-    public int max_enemies1;
+    public int[] min_enemies;
+    public int[] max_enemies;
 
-    public int min_enemies2;
-    public int max_enemies2;
+    public int[] min_traps;
+    public int[] max_traps;
 
-    public int min_enemies3;
-    public int max_enemies3;
+    public int[] min_bonuses;
+    public int[] max_bonuses;
 
-    public int min_traps1;
-    public int max_traps1;
-
-    public int min_traps2;
-    public int max_traps2;
-
-    public int min_traps3;
-    public int max_traps3;
-
-    public int min_bonuses1;
-    public int max_bonuses1;
-
-    public int min_bonuses2;
-    public int max_bonuses2;
-
-    public int min_bonuses3;
-    public int max_bonuses3;
-
-    public float chance_Bonuses1;
-    public float chance_Bonuses2;
-    public float chance_Bonuses3;
+    public float[] chance_Bonuses;
 
     public StagesSpawnParameters(LevelPropertiesDatabase database)
     {
-        min_enemies1 = database.Min_Enemy_stage1;
-        min_enemies2 = database.Min_Enemy_stage2;
-        min_enemies3 = database.Min_Enemy_stage3;
+        int n = database.stageParameters.Count;
+        min_enemies = new int[n];
+        max_enemies = new int[n];
+        min_traps = new int[n];
+        max_traps = new int[n];
+        min_bonuses = new int[n];
+        max_bonuses = new int[n];
+        chance_Bonuses = new float[n];
 
-        max_enemies1 = database.Max_Enemy_stage1;
-        max_enemies2 = database.Max_Enemy_stage2;
-        max_enemies3 = database.Max_Enemy_stage3;
+        for (int i = 0; i < n; i++)
+        {
+            min_enemies[i] = database.stageParameters[i].Min_Enemy_stage;
+            max_enemies[i] = database.stageParameters[i].Max_Enemy_stage;
+            min_traps[i] = database.stageParameters[i].Min_Traps_stage;
+            max_traps[i] = database.stageParameters[i].Max_Traps_stage;
+            min_bonuses[i] = database.stageParameters[i].Min_Bonuses_stage;
+            max_bonuses[i] = database.stageParameters[i].Max_Bonuses_stage;
+            chance_Bonuses[i] = database.stageParameters[i].Chance_Bonuses_stage;
+        }
 
-        min_traps1 = database.Min_Traps_stage1;
-        min_traps2 = database.Min_Traps_stage2;
-        min_traps3 = database.Min_Traps_stage3;
-
-        max_traps1 = database.Max_Traps_stage1;
-        max_traps2 = database.Max_Traps_stage2;
-        max_traps3 = database.Max_Traps_stage3;
-
-        min_bonuses1 = database.Min_Bonuses_stage1;
-        min_bonuses2 = database.Min_Bonuses_stage2;
-        min_bonuses3 = database.Min_Bonuses_stage3;
-
-        max_bonuses1 = database.Max_Bonuses_stage1;
-        max_bonuses2 = database.Max_Bonuses_stage2;
-        max_bonuses3 = database.Max_Bonuses_stage3;
-
-        chance_Bonuses1 = database.Chance_Bonuses_stage1;
-        chance_Bonuses2 = database.Chance_Bonuses_stage2;
-        chance_Bonuses3 = database.Chance_Bonuses_stage3;
     }
 }
 
@@ -114,9 +87,8 @@ public class GeneratorLevel : MonoBehaviour
     [SerializeField] private Dictionary<string, ObjectProperties> misc_propertiesDict;
     //
 
-    float openedPartItemsStage1;
-    float openedPartItemsStage2;
-    float openedPartItemsStage3;
+    List<StageParameters> stageParameters;
+    float[] openedPartItemsStages;
 
     GameObject fishMoney_prefab;
 
@@ -135,7 +107,7 @@ public class GeneratorLevel : MonoBehaviour
     public List<GameObject> ready_partsOfPath = new List<GameObject>(4); //roads
     public List<float>[] chancesForRoulette;
 
-
+    List<Stamp> stamps;
 
     void Start()
     {
@@ -170,7 +142,7 @@ public class GeneratorLevel : MonoBehaviour
 
         spawnParameters = new StagesSpawnParameters(database);
 
-
+        stageParameters = database.stageParameters;
 
         enemy_properties = generator.Enemy_properties;
         traps_properties = generator.Traps_properties;
@@ -178,6 +150,9 @@ public class GeneratorLevel : MonoBehaviour
         islands_properties = generator.Islands_properties;
         roadParts_properties = generator.RoadParts_properties;
         misc_properties = database.Misc_properties;
+
+        stamps = generator.Stamps;
+        setEnemyForStamps(stamps, enemy_properties);
 
         rouletteSpawnElements.startRoulette(chancesForRoulette, enemy_properties, traps_properties, bonuses_properties, database.Enemy_properties, database.Traps_properties, database.Bonuses_properties);
 
@@ -189,10 +164,6 @@ public class GeneratorLevel : MonoBehaviour
         misc_propertiesDict = database.Misc_propertiesDict;
 
         fishMoney_prefab = misc_propertiesDict["money_fish"].Prefab;
-
-        openedPartItemsStage1 = database.Part_openItems_stage1;
-        openedPartItemsStage2 = database.Part_openItems_stage2;
-        openedPartItemsStage3 = database.Part_openItems_stage3;
 
         n_AllSpawnedPlatforms = database.Num_allSpawnedPlatforms;
         n_securePlatforms = database.Num_securePlatformsAtBegin;
@@ -226,13 +197,36 @@ public class GeneratorLevel : MonoBehaviour
         Debug.Log("-Bonuses-");
         for (int i = 0; i < bonuses_properties.Count; i++)
             Debug.Log($"Id : {bonuses_properties[i].Id}");
+        Debug.Log("-Stamps-");
+        for (int i = 0; i < stamps.Count; i++)
+            Debug.Log($"Cannon : {stamps[i].cannonInfo}");
         //
 
-        n_stage = changeStageGame(1, out openedEnemy, out openedTraps, out openedBonuses, openedPartItemsStage1, enemy_properties, traps_properties, bonuses_properties);
+        n_stage = changeStageGame(0, out openedEnemy, out openedTraps, out openedBonuses, stageParameters[0].Part_openItems_stage, enemy_properties, traps_properties, bonuses_properties);
 
         initSpawnPartPath(ready_partsOfPath, n_AllSpawnedPlatforms, new Vector3(0, 0, 0), distZbetweenPlatforms, roadParts_properties, openedEnemy, openedTraps, openedBonuses, fishMoney_prefab, n_securePlatforms);
         gameManager.roads = ready_partsOfPath;
         gameManager.allDisable();
+    }
+
+    private void setEnemyForStamps(List<Stamp> stamps, List<EnemyInfo> listEnemyInfo)
+    {
+        int n = stamps.Count;
+        List<EnemyInfo> enemiesForStamps = getSeveralRandomCannonFromList(listEnemyInfo, n);
+        int n2 = enemiesForStamps.Count;
+        if(n2 < n)
+        {
+            int diff = n - n2;
+            for(int i = 0; i < diff; i++)
+                stamps.RemoveAt(stamps.Count-1);
+        }
+        for(int i = 0; i < n2; i++)
+        {
+            if (enemiesForStamps[i] is CannonInfo cannonInfo)
+                stamps[i].cannonInfo = cannonInfo;
+        }
+        
+
     }
     private void initSpawnPartPath(List<GameObject> partsOfPath, int n_parts, Vector3 startPos, float DistanceZ_between_roads, List<ObjectProperties> roadParts_properties, List<EnemyInfo> openedEnemy, List<TrapInfo> openedTraps, List<BonusInfo> openedBonuses, GameObject fishMoney_prefab, int n_securePlatforms, int n_stage = 1)
     {
@@ -286,19 +280,7 @@ public class GeneratorLevel : MonoBehaviour
 
     private void newStageGame(int new_stage)
     {
-        float openedPartItems = 0;
-        switch (new_stage)
-        {
-            case 1:
-                openedPartItems = openedPartItemsStage1;
-                break;
-            case 2:
-                openedPartItems = openedPartItemsStage2;
-                break;
-            case 3:
-                openedPartItems = openedPartItemsStage3;
-                break;
-        }
+        float openedPartItems = stageParameters[new_stage].Part_openItems_stage;
         n_stage = changeStageGame(new_stage, out openedEnemy, out openedTraps, out openedBonuses, openedPartItems, enemy_properties, traps_properties, bonuses_properties);
     }
     private void spawnNewPathWay()
@@ -482,6 +464,37 @@ public class GeneratorLevel : MonoBehaviour
         return list[numInList];
     }
 
+    private List<T> getSeveralRandomCannonFromList<T>(List<T> list, int n) where T : EnemyInfo
+    {
+        List<T> temp_cannon_list = new List<T>(list);
+        List<T> output_list = new List<T>();
+        int m = 0;
+        int k = 0;
+        int p = temp_cannon_list.Count;
+        for(int i = 0; i < p; i++)
+        {
+            if (temp_cannon_list[i] is not CannonInfo)
+            {
+                temp_cannon_list.RemoveAt(i);
+                i--;
+                p--;
+            }
+        }
+
+        p = temp_cannon_list.Count;
+
+        n = p < n ? p : n;
+
+        for(int i = 0; i < n; i++)
+        {
+            m = temp_cannon_list.Count;
+            k = UnityEngine.Random.Range(0, m);
+            output_list.Add(temp_cannon_list[k]);
+            temp_cannon_list.RemoveAt(k);
+        }
+        return output_list;
+    }
+
     private GameObject assemblingReadyPieceOfPath(GameObject road_prefab, List<EnemyInfo> openedEnemy, List<TrapInfo> openedTraps, List<BonusInfo> openedBonuses, GameObject fishMoney_prefab, int n_stage, bool secureMode = false)
     {
         GameObject raw_road = spawnObject(road_prefab, null);
@@ -515,54 +528,11 @@ public class GeneratorLevel : MonoBehaviour
 
         n_extraIsl = UnityEngine.Random.Range(database.Min_extraIslands, database.Max_extraIslands + 1);
 
-        switch (n_stage)
-        {
-            /*
-            case 1:
-                n_e = UnityEngine.Random.Range(database.Min_Enemy_stage1, database.Max_Enemy_stage1 + 1);
-                n_t = UnityEngine.Random.Range(database.Min_Traps_stage1, database.Max_Traps_stage1 + 1);
-                n_b = UnityEngine.Random.Range(database.Min_Bonuses_stage1, database.Max_Bonuses_stage1 + 1);
-                n_fish = UnityEngine.Random.Range(database.Min_fishMoney_stage1, database.Max_fishMoney_stage1 + 1);
-                chanceSpawnBonus = database.Chance_Bonuses_stage1;
-                break;
-            case 2:
-                n_e = UnityEngine.Random.Range(database.Min_Enemy_stage2, database.Max_Enemy_stage2 + 1);
-                n_t = UnityEngine.Random.Range(database.Min_Traps_stage2, database.Max_Traps_stage2 + 1);
-                n_b = UnityEngine.Random.Range(database.Min_Bonuses_stage2, database.Max_Bonuses_stage2 + 1);
-                n_fish = UnityEngine.Random.Range(database.Min_fishMoney_stage2, database.Max_fishMoney_stage2 + 1);
-                chanceSpawnBonus = database.Chance_Bonuses_stage2;
-                break;
-            case 3:
-                n_e = UnityEngine.Random.Range(database.Min_Enemy_stage3, database.Max_Enemy_stage3 + 1);
-                n_t = UnityEngine.Random.Range(database.Min_Traps_stage3, database.Max_Traps_stage3 + 1);
-                n_b = UnityEngine.Random.Range(database.Min_Bonuses_stage3, database.Max_Bonuses_stage3 + 1);
-                n_fish = UnityEngine.Random.Range(database.Min_fishMoney_stage3, database.Max_fishMoney_stage3 + 1);
-                chanceSpawnBonus = database.Chance_Bonuses_stage3;
-                break;
-            */
-
-            case 1:
-                n_e = UnityEngine.Random.Range(spawnParameters.min_enemies1, spawnParameters.max_enemies1 + 1);
-                n_t = UnityEngine.Random.Range(spawnParameters.min_traps1, spawnParameters.max_traps1 + 1);
-                n_b = UnityEngine.Random.Range(spawnParameters.min_bonuses1, spawnParameters.max_bonuses1 + 1);
-                n_fish = UnityEngine.Random.Range(database.Min_fishMoney_stage1, database.Max_fishMoney_stage1 + 1);
-                chanceSpawnBonus = spawnParameters.chance_Bonuses1;
-                break;
-            case 2:
-                n_e = UnityEngine.Random.Range(spawnParameters.min_enemies2, spawnParameters.max_enemies2 + 1);
-                n_t = UnityEngine.Random.Range(spawnParameters.min_traps2, spawnParameters.max_traps2 + 1);
-                n_b = UnityEngine.Random.Range(spawnParameters.min_bonuses2, spawnParameters.max_bonuses2 + 1);
-                n_fish = UnityEngine.Random.Range(database.Min_fishMoney_stage2, database.Max_fishMoney_stage2 + 1);
-                chanceSpawnBonus = spawnParameters.chance_Bonuses2;
-                break;
-            case 3:
-                n_e = UnityEngine.Random.Range(spawnParameters.min_enemies3, spawnParameters.max_enemies3 + 1);
-                n_t = UnityEngine.Random.Range(spawnParameters.min_traps3, spawnParameters.max_traps3 + 1);
-                n_b = UnityEngine.Random.Range(spawnParameters.min_bonuses3, spawnParameters.max_bonuses3 + 1);
-                n_fish = UnityEngine.Random.Range(database.Min_fishMoney_stage3, database.Max_fishMoney_stage3 + 1);
-                chanceSpawnBonus = spawnParameters.chance_Bonuses3;
-                break;
-        }
+        n_e = UnityEngine.Random.Range(spawnParameters.min_enemies[n_stage], spawnParameters.max_enemies[n_stage] + 1);
+        n_t = UnityEngine.Random.Range(spawnParameters.min_traps[n_stage], spawnParameters.max_traps[n_stage] + 1);
+        n_b = UnityEngine.Random.Range(spawnParameters.min_bonuses[n_stage], spawnParameters.max_bonuses[n_stage] + 1);
+        n_fish = UnityEngine.Random.Range(stageParameters[n_stage].Min_fishMoney_stage, stageParameters[n_stage].Max_fishMoney_stage + 1);
+        chanceSpawnBonus = spawnParameters.chance_Bonuses[n_stage];
 
         if (secureMode == true)
         {
@@ -637,6 +607,7 @@ public class GeneratorLevel : MonoBehaviour
         return raw_road;
     }
 
+    
 
     private void spawnIsland(GameObject raw_road, string id_island, List<Mark> islandsMarks, List<Mark> enemyOnIslMarks, List<Mark> spawnedIslandsMarks, Dictionary<string, ObjectProperties> islands_propertiesDict, InfoPieceOfPath info)
     {
@@ -724,11 +695,30 @@ public class GeneratorLevel : MonoBehaviour
         info.Enemies.Add(spawnPlace);
         spawnElementMarks[k].isTaken = true;
         spawnElementMarks[k].spawnPlace = spawnPlace;
-        infoElement.setInfoSpawnElement(element, info);
+        infoElement.setInfoSpawnElement(element, info, getStampForEnemy(element, stamps));
 
         spawnElementMarks.RemoveAt(k);
     }
 
+    private Stamp getStampForEnemy(EnemyInfo enemyInfo, List<Stamp> stamps)
+    {
+        int n = stamps.Count;
+        if (enemyInfo is CannonInfo cannonInfo)
+        {
+            for (int i = 0; i < n; i++)
+            {
+                if (stamps[i].cannonInfo != null)
+                {
+                    if (stamps[i].cannonInfo.GetType() == cannonInfo.GetType())
+                        return stamps[i];
+                }
+
+            }
+            return null;
+        }
+        else return null;
+
+    }
     private void createTrap(GameObject raw_road, List<TrapInfo> openedSpawnElements, List<Mark> spawnElementMarks, List<Mark> holesInstances, InfoPieceOfPath info)
     {
         GameObject temp;
@@ -964,13 +954,18 @@ public class GeneratorLevel : MonoBehaviour
     {
         int n = listObjects.Count;
         int m = 0;
+        int l = 0;
         List<GameObject> tempList = new List<GameObject>();
 
         for (int i = 0; i < n; i++)
         {
-            m = listObjects[i].SizeOfProjectilePool;
-            for (int j = 0; j < m; j++)
-                tempList.Add(KhtPool.GetObject(listObjects[i].bulletInfo.Prefab));
+            l = listObjects[i].bulletsInfo.Length;
+            for (int j = 0; j < l; j++)
+            {
+                m = listObjects[i].SizeOfProjectilePool;
+                for (int k = 0; k < m; k++)
+                    tempList.Add(KhtPool.GetObject(listObjects[i].bulletsInfo[j].Prefab));
+            }
         }
         for (int i = 0; i < tempList.Count; i++) KhtPool.ReturnObject(tempList[i]);
     }

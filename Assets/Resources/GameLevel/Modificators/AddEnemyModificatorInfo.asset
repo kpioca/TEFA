@@ -14,9 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameModificator: Lots of friends
   levelOfCoolness: 3
-  increaseMinValueStage1: 1
-  increaseMaxValueStage1: 1
-  increaseMinValueStage2: 0
-  increaseMaxValueStage2: 1
-  increaseMinValueStage3: 1
-  increaseMaxValueStage3: 1
+  increaseMinValueStages: 00000000000000000100000001000000
+  increaseMaxValueStages: 01000000010000000100000001000000

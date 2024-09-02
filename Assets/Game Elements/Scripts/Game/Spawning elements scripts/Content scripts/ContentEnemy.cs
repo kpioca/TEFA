@@ -40,6 +40,10 @@ public class ContentEnemy : MonoBehaviour
     [SerializeField]  private GameObject element1;
     [SerializeField]  private GameObject element2;
 
+    [Header("Parts of enemy")]
+    [SerializeField] private GameObject[] enemy_Parts;
+    public GameObject[] enemyParts => enemy_Parts;
+
     private float intervalBetweenShots = 0;
     public float IntervalBetweenShots => intervalBetweenShots;
 
@@ -90,7 +94,7 @@ public class ContentEnemy : MonoBehaviour
         attackMageZone.game_Manager = game_Manager;
     }
 
-    public void setInfoSpawnElement(EnemyInfo element, InfoPieceOfPath infoPieceOfPath)
+    public void setInfoSpawnElement(EnemyInfo element, InfoPieceOfPath infoPieceOfPath, Stamp stamp = null)
     {
         info_PieceOfPath = infoPieceOfPath;
 
@@ -101,32 +105,38 @@ public class ContentEnemy : MonoBehaviour
             {
                 case RainbowCannonInfo:
                     element2.SetActive(false);
-                    cannon = new RainbowCannon((RainbowCannonInfo)c, element2, out intervalBetweenShots, out n_shots);
+                    cannon = new RainbowCannon((RainbowCannonInfo)c, element2, out intervalBetweenShots, out n_shots, gameObject, stamp);
                     break;
                 case StandartDoubleCannonInfo:
-                    cannon = new StandartDoubleCannon((StandartDoubleCannonInfo)c, out intervalBetweenShots);
+                    cannon = new StandartDoubleCannon((StandartDoubleCannonInfo)c, out intervalBetweenShots, gameObject, stamp);
                     n_shots = 2;
                     break;
                 case StandartCannonInfo:
-                    cannon = new StandartCannon((StandartCannonInfo)c);
+                    cannon = new StandartCannon((StandartCannonInfo)c, gameObject, stamp);
                     break;
                 case FrostyCannonInfo:
-                    cannon = new FrostyCannon((FrostyCannonInfo)c);
+                    cannon = new FrostyCannon((FrostyCannonInfo)c, gameObject, stamp);
                     break;
                 case SniperCannonInfo:
-                    cannon = new SniperCannon((SniperCannonInfo)c);
+                    cannon = new SniperCannon((SniperCannonInfo)c, gameObject, stamp);
                     break;
                 case BigCannonInfo:
-                    cannon = new BigCannon((BigCannonInfo)c);
+                    cannon = new BigCannon((BigCannonInfo)c, gameObject, stamp);
                     break;
                 case CorAngelCannonInfo:
-                    cannon = new CorAngelCannon((CorAngelCannonInfo)c);
+                    cannon = new CorAngelCannon((CorAngelCannonInfo)c, gameObject, stamp);
                     break;
                 case StunAngelCannonInfo:
-                    cannon = new StunAngelCannon((StunAngelCannonInfo)c);
+                    cannon = new StunAngelCannon((StunAngelCannonInfo)c, gameObject, stamp);
                     break;
                 case ChthAngelCanInfo:
-                    cannon = new ChthAngelCan((ChthAngelCanInfo)c);
+                    cannon = new ChthAngelCan((ChthAngelCanInfo)c, gameObject, stamp);
+                    break;
+                case CarrotCanInfo:
+                    cannon = new CarrotCan((CarrotCanInfo)c, gameObject, stamp);
+                    break;
+                case LoveCanInfo:
+                    cannon = new LoveCan((LoveCanInfo)c, gameObject, stamp);
                     break;
             }
 
@@ -146,10 +156,10 @@ public class ContentEnemy : MonoBehaviour
             switch (element)
             {
                 case MageTransformAngelInfo:
-                    mage = new MageTransformAngel((MageTransformAngelInfo)M);
+                    mage = new MageTransformAngel((MageTransformAngelInfo)M, gameObject);
                     break;
                 case MageBattleAngelInfo:
-                    mage = new MageBattleAngel((MageBattleAngelInfo)M);
+                    mage = new MageBattleAngel((MageBattleAngelInfo)M, gameObject);
                     break;
             }
 

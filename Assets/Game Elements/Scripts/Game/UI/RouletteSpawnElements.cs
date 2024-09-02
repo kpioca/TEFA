@@ -4,21 +4,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[Serializable]
-struct rouletteElement
-{
-    public GameObject[] elements;
-}
+
 public class RouletteSpawnElements : MonoBehaviour
 {
     [SerializeField] private DissolvingStartWindow dissolvingStartWindow;
 
-    [SerializeField] private rouletteElement[] containers;
-    [SerializeField] private rouletteElement[] roulettePlaces;
+    [SerializeField] private GameObject[] containers;
+    [SerializeField] private GameObject[] roulettePlaces;
 
-    [SerializeField] private rouletteElement[] enemyElements;
-    [SerializeField] private rouletteElement[] trapsElements;
-    [SerializeField] private rouletteElement[] bonusesElements;
+    [SerializeField] private GameObject[] enemyElements;
+    [SerializeField] private GameObject[] trapsElements;
+    [SerializeField] private GameObject[] bonusesElements;
+
+    [SerializeField] private GameObject[] stampsElements;
+    [SerializeField] private Material stampMaterial;
 
 
     private List<float>[] chancesForRoulette;
@@ -31,13 +30,9 @@ public class RouletteSpawnElements : MonoBehaviour
     private List<TrapInfo> currentTraps;
     private List<BonusInfo> currentBonuses;
 
-    private float startContainerRectPosY;
-    private float endContainerRectPosY = 593;
-
     public void Start()
     {
-        startContainerRectPosY = containers[0].elements[0].GetComponent<RectTransform>().anchoredPosition.y;
-        Debug.Log(startContainerRectPosY);
+
     }
     public void startRoulette(List<float>[] chancesForRoulette, List<EnemyInfo> currentEnemy, List<TrapInfo> currentTraps, List<BonusInfo> currentBonuses, List<EnemyInfo> allEnemy, List<TrapInfo> allTraps, List<BonusInfo> allBonuses)
     {
@@ -55,24 +50,14 @@ public class RouletteSpawnElements : MonoBehaviour
             initialize();
             StartCoroutine(rouletteProcess());
         }
+        else
+        {
+            dissolvingStartWindow.dissolveAnimation();
+        }
     }
 
     public IEnumerator rouletteProcess()
     {
-        int n = currentEnemy.Count;
-
-        for(int i = 0; i < n; i++)
-            StartCoroutine(MovementCoroutine(containers[0].elements[i], startContainerRectPosY, endContainerRectPosY, 2f));
-
-        n = currentTraps.Count;
-        yield return new WaitForSeconds(0.5f);
-        for (int i = 0; i < n; i++)
-            StartCoroutine(MovementCoroutine(containers[1].elements[i], startContainerRectPosY, endContainerRectPosY, 2f));
-
-        n = currentBonuses.Count;
-        yield return new WaitForSeconds(0.5f);
-        for (int i = 0; i < n; i++)
-            StartCoroutine(MovementCoroutine(containers[2].elements[i], startContainerRectPosY, endContainerRectPosY, 2f));
 
         yield return new WaitForSeconds(2f);
         dissolvingStartWindow.dissolveAnimation();
@@ -100,46 +85,27 @@ public class RouletteSpawnElements : MonoBehaviour
     public void initialize()
     {
         int n1 = currentEnemy.Count;
-        int n2 = enemyElements[0].elements.Length;
-        int num = 0;
 
-        for(int i = 0; i < n1; i++)
+        for (int i = 0; i < n1; i++)
         {
-            roulettePlaces[0].elements[i].SetActive(true);
-            for(int j = 0; j < n2-1; j++)
-            {
-                getRandomElementFromList(allEnemy, chancesForRoulette[0], out num);
-                enemyElements[i].elements[j].GetComponent<Image>().sprite = allEnemy[num].Icon;
-            }
-            enemyElements[i].elements[n2-1].GetComponent<Image>().sprite = currentEnemy[i].Icon;
+            enemyElements[i].GetComponent<Image>().sprite = currentEnemy[i].Icon;
+            enemyElements[i].SetActive(true);
         }
 
         n1 = currentTraps.Count;
-        n2 = trapsElements[0].elements.Length;
 
         for (int i = 0; i < n1; i++)
         {
-            roulettePlaces[1].elements[i].SetActive(true);
-            for (int j = 0; j < n2 - 1; j++)
-            {
-                getRandomElementFromList(allTraps, chancesForRoulette[1], out num);
-                trapsElements[i].elements[j].GetComponent<Image>().sprite = allTraps[num].Icon;
-            }
-            trapsElements[i].elements[n2 - 1].GetComponent<Image>().sprite = currentTraps[i].Icon;
+            trapsElements[i].GetComponent<Image>().sprite = currentTraps[i].Icon;
+            trapsElements[i].SetActive(true);
         }
 
         n1 = currentBonuses.Count;
-        n2 = bonusesElements[0].elements.Length;
 
         for (int i = 0; i < n1; i++)
         {
-            roulettePlaces[2].elements[i].SetActive(true);
-            for (int j = 0; j < n2 - 1; j++)
-            {
-                getRandomElementFromList(allBonuses, chancesForRoulette[2], out num);
-                bonusesElements[i].elements[j].GetComponent<Image>().sprite = allBonuses[num].Icon;
-            }
-            bonusesElements[i].elements[n2 - 1].GetComponent<Image>().sprite = currentBonuses[i].Icon;
+            bonusesElements[i].GetComponent<Image>().sprite = currentBonuses[i].Icon;
+            bonusesElements[i].SetActive(true);
         }
     }
 

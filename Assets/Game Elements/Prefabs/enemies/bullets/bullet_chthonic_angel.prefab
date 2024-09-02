@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet_Info: {fileID: 11400000, guid: cb3f072dd9e9ff94385d756cb97ab58b, type: 2}
+  bulletMainObject: {fileID: 6554903191836228436}
 --- !u!65 &5328518738856033530
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -167,6 +168,12 @@ PrefabInstance:
 --- !u!4 &5889689158280585710 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3047910d386ad4c43ab003e8f9adfed7,
+    type: 3}
+  m_PrefabInstance: {fileID: 6212390680857527813}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6554903191836228436 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 3047910d386ad4c43ab003e8f9adfed7,
     type: 3}
   m_PrefabInstance: {fileID: 6212390680857527813}
   m_PrefabAsset: {fileID: 0}

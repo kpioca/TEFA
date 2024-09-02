@@ -96,7 +96,7 @@ Material:
     - _GlossyReflections: 0
     - _Metallic: 0
     - _OcclusionStrength: 1
-    - _OutlineThickness: 0.0066
+    - _OutlineThickness: 0.00025
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
@@ -109,7 +109,7 @@ Material:
     - _ZWrite: 1
     - _is_show_outline: 1
     m_Colors:
-    - Color_92A843C1: {r: 2, g: 2, b: 2, a: 0}
+    - Color_92A843C1: {r: 1.6608896, g: 2.670157, b: 0.44082773, a: 0}
     - Color_a66912f99832489d8c96e79fae56eb62: {r: 1, g: 0.9810172, b: 0, a: 0}
     - Color_ace1f2a98186408d86d3bb854491db08: {r: 1, g: 0.73051435, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}

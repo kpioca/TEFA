@@ -96,6 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet_Info: {fileID: 11400000, guid: 160f174385a773447bdd9427eafc698f, type: 2}
+  bulletMainObject: {fileID: 7856200577307682412}
 --- !u!1001 &7045808074072365885
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -172,6 +173,12 @@ PrefabInstance:
 --- !u!4 &7371552982083894486 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b874b46163adad84aaa123afccdd40b1,
+    type: 3}
+  m_PrefabInstance: {fileID: 7045808074072365885}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7856200577307682412 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b874b46163adad84aaa123afccdd40b1,
     type: 3}
   m_PrefabInstance: {fileID: 7045808074072365885}
   m_PrefabAsset: {fileID: 0}

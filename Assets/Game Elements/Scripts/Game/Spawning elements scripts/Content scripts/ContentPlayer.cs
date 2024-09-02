@@ -68,7 +68,7 @@ public class ContentPlayer : MonoBehaviour
                 if (destr.DestroyInPlayerCollision)
                 {
                     Debug.Log("huy");
-                    StartCoroutine(destr.destruction(destr.destructionParticles, other.gameObject.transform.position));
+                    //StartCoroutine(destr.destruction(destr.destructionParticles, other.gameObject.transform.position));
                     deleteTrap(other.gameObject, destr);
                 }
             }
@@ -77,9 +77,9 @@ public class ContentPlayer : MonoBehaviour
         {
             if (other.tag == "Bullet")
             {
-                BulletInfo bulletInfo = other.GetComponent<ContentBullet>().bulletInfo;
+                Bullet bullet = other.GetComponent<ContentBullet>().bulletInstance;
 
-                attackBullet(bulletInfo, other.gameObject);
+                attackBullet(bullet, other.gameObject);
               
             }
             else if (other.tag == "Trap")
@@ -194,7 +194,7 @@ public class ContentPlayer : MonoBehaviour
     {
         gameManager.changeArmor(armor);
     }
-    private void attackBullet(BulletInfo bullet, GameObject bulletObj)
+    private void attackBullet(Bullet bullet, GameObject bulletObj)
     {
         int damage = bullet.Damage;
 

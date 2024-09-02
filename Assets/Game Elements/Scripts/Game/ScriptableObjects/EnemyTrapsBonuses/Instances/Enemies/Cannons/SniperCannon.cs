@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SniperCannon : Cannon
 {
-    public SniperCannon(SniperCannonInfo info) : base(info)
+    public SniperCannon(SniperCannonInfo info, GameObject instance, Stamp stamp = null) : base(info, instance, stamp)
     {
 
     }

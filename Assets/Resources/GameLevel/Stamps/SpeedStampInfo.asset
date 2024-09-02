@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 658cfa6dfe39c594b9671aaf2627c862, type: 3}
+  m_Name: SpeedStampInfo
+  m_EditorClassIdentifier: 
+  enemy_Material: {fileID: 2100000, guid: 9e03d821ffc742f449b73a1861d14b5b, type: 2}
+  bullet_Material: {fileID: 2100000, guid: d8d797d5c7b896f4491a5f266f1d53db, type: 2}
+  speed_Multiplier: 2

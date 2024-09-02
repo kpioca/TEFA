@@ -8,13 +8,14 @@ public class NoTrapsModificatorInfo : ModificatorInfo
     public override StagesSpawnParameters Action(StagesSpawnParameters spawnParameters)
     {
         base.Action(spawnParameters);
-        spawnParameters.min_traps1 = 0;
-        spawnParameters.min_traps2 = 0;
-        spawnParameters.min_traps3 = 0;
 
-        spawnParameters.max_traps1 = 0;
-        spawnParameters.max_traps2 = 0;
-        spawnParameters.max_traps3 = 0;
+        int n = spawnParameters.min_traps.Length;
+
+        for(int i = 0; i < n; i++)
+        {
+            spawnParameters.min_traps[i] = 0;
+            spawnParameters.max_traps[i] = 0;
+        }
 
         return spawnParameters;
     }

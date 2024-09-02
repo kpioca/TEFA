@@ -9,8 +9,8 @@ public class Cannon : Enemy
 {
 
     [Header("Projectile Reference")]
-    [SerializeField] private BulletInfo bullet_Info;
-    public BulletInfo bulletInfo => bullet_Info;
+    [SerializeField] private BulletInfo[] bullets_Info;
+    public BulletInfo[] bulletsInfo => bullets_Info;
 
     [Header("Projectile Pooling")]
     [SerializeField] private protected int sizeOfProjectilePool = 12;
@@ -19,24 +19,28 @@ public class Cannon : Enemy
 
     private protected Rigidbody projectile_rb;
 
-    public Cannon(CannonInfo info) : base(info)
+    public Cannon(CannonInfo info, GameObject instance, Stamp stamp = null) : base(info, instance, stamp)
     {
-        this.bullet_Info = info.bulletInfo;
+        this.bullets_Info = info.bulletsInfo;
         this.sizeOfProjectilePool = info.SizeOfProjectilePool;
+        if (stamp != null)
+            stamp.applyStampEffectOnCannon(this);
 
     }
 
-    public virtual void Attack(GameObject markGun, float platformsSpeed, Vector3 target, MonoBehaviour toUseCoroutines = null)
+    public virtual void Attack(GameObject[] markGun, float platformsSpeed, Vector3 target, MonoBehaviour toUseCoroutines = null)
     {
         GameObject bullet;
-        bullet = spawnBullet(bulletInfo.Prefab, markGun, null);
+        bullet = bulletsInfo[0].spawnBullet(bulletsInfo[0].Prefab, markGun[0], null, stamp);
 
-        MoveToPos(toUseCoroutines, bullet, target + bullet.transform.forward * 2, bulletInfo, platformsSpeed);
+        MoveToPos(toUseCoroutines, bullet, target + bullet.transform.forward * 2, bulletsInfo[0], platformsSpeed);
     }
 
     public virtual void MoveToPos(MonoBehaviour toUseCoroutines, GameObject obj, Vector3 target, BulletInfo bulletInfo, float platformsSpeed)
     {
-        toUseCoroutines.StartCoroutine(MovementCoroutine(obj, target, bulletInfo.Speed + platformsSpeed));
+        float speedMultiplier = stamp == null ? 1 : stamp.getStampValue();
+        Debug.Log(speedMultiplier);
+        toUseCoroutines.StartCoroutine(MovementCoroutine(obj, target, bulletInfo.Speed * speedMultiplier + platformsSpeed));
 
         //projectile_rb = obj.GetComponent<Rigidbody>();
         //projectile_rb.velocity = obj.transform.forward * (bulletInfo.Speed + platformsSpeed);
@@ -57,14 +61,4 @@ public class Cannon : Enemy
         }
     }
 
-
-    private protected GameObject spawnBullet(GameObject prefab, GameObject markGun, Transform parent)
-    {
-        GameObject temp = KhtPool.GetObject(prefab);
-        temp.transform.position = markGun.transform.position;
-        temp.transform.rotation = markGun.transform.rotation;
-        temp.transform.SetParent(parent);
-        temp.SetActive(true);
-        return temp;
-    }
 }

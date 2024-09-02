@@ -6,24 +6,25 @@ using static UnityEngine.Rendering.DebugUI;
 
 public class StunAngelCannon : Cannon
 {
-    public StunAngelCannon(StunAngelCannonInfo info) : base(info)
+    public StunAngelCannon(StunAngelCannonInfo info, GameObject instance, Stamp stamp = null) : base(info, instance, stamp)
     {
 
     }
 
     float t;
 
-    public override void Attack(GameObject markGun, float platformsSpeed, Vector3 target, MonoBehaviour toUseCoroutines)
+    public override void Attack(GameObject[] markGun, float platformsSpeed, Vector3 target, MonoBehaviour toUseCoroutines)
     {
         GameObject bullet;
-        bullet = spawnBullet(bulletInfo.Prefab, markGun, null);
+        bullet = bulletsInfo[0].spawnBullet(bulletsInfo[0].Prefab, markGun[0], null, stamp);
 
-        MoveToPos(toUseCoroutines, bullet, target, bulletInfo, platformsSpeed);
+        MoveToPos(toUseCoroutines, bullet, target, bulletsInfo[0], platformsSpeed);
     }
 
     public override void MoveToPos(MonoBehaviour toUseCoroutines, GameObject obj, Vector3 target, BulletInfo bulletInfo, float platformsSpeed)
     {
-        toUseCoroutines.StartCoroutine(MovementCoroutine(obj, target, bulletInfo.Speed + platformsSpeed, 10));
+        float speedMultiplier = stamp == null ? 1 : stamp.getStampValue();
+        toUseCoroutines.StartCoroutine(MovementCoroutine(obj, target, bulletInfo.Speed * speedMultiplier + platformsSpeed, 10));
 
         //projectile_rb = obj.GetComponent<Rigidbody>();
         //projectile_rb.velocity = obj.transform.forward * (bulletInfo.Speed + platformsSpeed);
