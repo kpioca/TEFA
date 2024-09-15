@@ -2,12 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
-using static LevelSkinSetDatabase;
 
 public class GameDataManager : MonoBehaviour
 {
     [SerializeField] string mainOfSavePath;
-    [SerializeField] LevelSkinSetDatabase levelSkinSetDatabase;
 
     void Awake()
     {
@@ -19,7 +17,7 @@ public class GameDataManager : MonoBehaviour
         //levelSkinSetDatabase.startInitAllSkinSets();
         //Save("/levelSkinSetDatabase.json", levelSkinSetDatabase._skinSetData);
     }
-    public void Save(string path, SkinSetData obj)
+    public void Save(string path, Object obj)
     {
         path = mainOfSavePath + path;
         var json = JsonUtility.ToJson(obj);

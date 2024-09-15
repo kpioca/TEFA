@@ -31,4 +31,19 @@ public class EnemyInfo : SpawnElementInfo
     [SerializeField] private protected float attackZoneZ = 24f;
     public float AttackZoneZ => attackZoneZ;
 
+    public virtual Enemy createEnemy(GameObject enemyObject, Stamp stamp, GameObject[] objParameters, out Dictionary<string, float> numParameters)
+    {
+        numParameters = null;
+        return null;
+    }
+
+    public virtual void setEnemyInContent(GameObject cannonObject, Stamp stamp, ContentEnemy contentEnemy)
+    {
+    }
+    public virtual void setAttackEnemyZone(Enemy enemy, BoxCollider attackBox, GameObject attackZoneObj, ContentEnemy contentEnemy)
+    {
+        
+    }
+
+
 }

@@ -7,6 +7,30 @@ using UnityEngine;
 using System;
 using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using Unity.Collections;
+using System.Linq;
+
+[Serializable]
+public class ElementWithCheckbox<T>
+{
+    public T element;
+    public bool checkbox = true;
+
+    public ElementWithCheckbox(T element, bool checkbox=true)
+    {
+        this.element = element;
+        this.checkbox = checkbox;
+    }
+
+    public static List<T> GetListTrueElementsFromList(List<ElementWithCheckbox<T>> ListWithCheckbox)
+    {
+        List<T> list = new List<T>();
+        int n = ListWithCheckbox.Count;
+        for (int i = 0; i < n; i++)
+            if (ListWithCheckbox[i].checkbox == true)
+                list.Add(ListWithCheckbox[i].element);
+        return list;
+    }
+}
 
 [Serializable]
 public class StageParameters
@@ -107,10 +131,17 @@ public class StageParameters
 public class LevelPropertiesDatabase : ScriptableObject
 {
     [Header("Enemy Properties")]
-    [SerializeField] private List<EnemyInfo> enemy_properties;
-    public List<EnemyInfo> Enemy_properties => enemy_properties;
+    [SerializeField] private List<ElementWithCheckbox<EnemyInfo>> enemy_properties;
+    public List<EnemyInfo> Enemy_properties
+    {
+        get
+        {
+            return ElementWithCheckbox<EnemyInfo>.GetListTrueElementsFromList(enemy_properties);
+        }
+    }
 
     private Dictionary<string, EnemyInfo> enemy_propertiesDict;
+    
     public Dictionary<string, EnemyInfo> Enemy_propertiesDict
     {
         get
@@ -118,14 +149,22 @@ public class LevelPropertiesDatabase : ScriptableObject
             enemy_propertiesDict = new Dictionary<string, EnemyInfo>();
             int n = enemy_properties.Count;
             for(int i = 0; i < n; i++)
-                enemy_propertiesDict.Add(enemy_properties[i].Id, enemy_properties[i]);
+                enemy_propertiesDict.Add(enemy_properties[i].element.Id, enemy_properties[i].element);
             return enemy_propertiesDict;
         }
     }
+    
 
     [Header("Traps Properties")]
-    [SerializeField] private List<TrapInfo> traps_properties;
-    public List<TrapInfo> Traps_properties => traps_properties;
+    [SerializeField] private List<ElementWithCheckbox<TrapInfo>> traps_properties;
+    public List<TrapInfo> Traps_properties
+    {
+        get
+        {
+            return ElementWithCheckbox<TrapInfo>.GetListTrueElementsFromList(traps_properties);
+        }
+    }
+
 
     private Dictionary<string, TrapInfo> traps_propertiesDict;
     public Dictionary<string, TrapInfo> Traps_propertiesDict
@@ -135,14 +174,20 @@ public class LevelPropertiesDatabase : ScriptableObject
             traps_propertiesDict = new Dictionary<string, TrapInfo>();
             int n = traps_properties.Count;
             for (int i = 0; i < n; i++)
-                traps_propertiesDict.Add(traps_properties[i].Id, traps_properties[i]);
+                traps_propertiesDict.Add(traps_properties[i].element.Id, traps_properties[i].element);
             return traps_propertiesDict;
         }
     }
 
     [Header("Bonuses Properties")]
-    [SerializeField] private List<BonusInfo> bonuses_properties;
-    public List<BonusInfo> Bonuses_properties => bonuses_properties;
+    [SerializeField] private List<ElementWithCheckbox<BonusInfo>> bonuses_properties;
+    public List<BonusInfo> Bonuses_properties
+    {
+        get
+        {
+            return ElementWithCheckbox<BonusInfo>.GetListTrueElementsFromList(bonuses_properties);
+        }
+    }
 
     private Dictionary<string, BonusInfo> bonuses_propertiesDict;
     public Dictionary<string, BonusInfo> Bonuses_propertiesDict
@@ -152,7 +197,7 @@ public class LevelPropertiesDatabase : ScriptableObject
             bonuses_propertiesDict = new Dictionary<string, BonusInfo>();
             int n = bonuses_properties.Count;
             for (int i = 0; i < n; i++)
-                bonuses_propertiesDict.Add(bonuses_properties[i].Id, bonuses_properties[i]);
+                bonuses_propertiesDict.Add(bonuses_properties[i].element.Id, bonuses_properties[i].element);
             return bonuses_propertiesDict;
         }
     }
@@ -210,8 +255,14 @@ public class LevelPropertiesDatabase : ScriptableObject
 
     [Header("Modificators")]
 
-    [SerializeField] private List<ModificatorInfo> modificators = new List<ModificatorInfo>();
-    public List<ModificatorInfo> Modificators => modificators;
+    [SerializeField] private List<ElementWithCheckbox<ModificatorInfo>> modificators;
+    public List<ModificatorInfo> Modificators
+    {
+        get
+        {
+            return ElementWithCheckbox<ModificatorInfo>.GetListTrueElementsFromList(modificators);
+        }
+    }
 
     [Range(0, 1)]
     [SerializeField] private float chanceModificator = 0.05f;
@@ -219,16 +270,28 @@ public class LevelPropertiesDatabase : ScriptableObject
 
     [Header("Game sets")]
 
-    [SerializeField] private List<GameSet> gameSets = new List<GameSet>();
-    public List<GameSet> GameSets => gameSets;
+    [SerializeField] private List<ElementWithCheckbox<GameSet>> gameSets;
+    public List<GameSet> GameSets
+    {
+        get
+        {
+            return ElementWithCheckbox<GameSet>.GetListTrueElementsFromList(gameSets);
+        }
+    }
 
     [Range(0, 1)]
     [SerializeField] private float chanceSpawnGameSet = 0.1f;
     public float ChanceSpawnGameSet => chanceSpawnGameSet;
 
     [Header("Stamps")]
-    [SerializeField] private List<StampInfo> stampInfos = new List<StampInfo>();
-    public List<StampInfo> StampInfos => stampInfos;
+    [SerializeField] private List<ElementWithCheckbox<StampInfo>> stampInfos;
+    public List<StampInfo> StampInfos
+    {
+        get
+        {
+            return ElementWithCheckbox<StampInfo>.GetListTrueElementsFromList(stampInfos);
+        }
+    }
 
     [Range(0, 6)]
     [SerializeField] private int maxNumStamps = 1;

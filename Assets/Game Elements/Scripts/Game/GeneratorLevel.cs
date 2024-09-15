@@ -92,8 +92,6 @@ public class GeneratorLevel : MonoBehaviour
 
     GameObject fishMoney_prefab;
 
-    LevelSkinSetDatabase skinSet;
-
     List<EnemyInfo> openedEnemy;
     List<TrapInfo> openedTraps;
     List<BonusInfo> openedBonuses;
@@ -538,6 +536,8 @@ public class GeneratorLevel : MonoBehaviour
         {
             n_e = 0;
             n_t = 0;
+            n_b = 0;
+            n_fish = 0;
         }
 
 

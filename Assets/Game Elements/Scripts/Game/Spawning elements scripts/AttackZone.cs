@@ -43,8 +43,16 @@ public class AttackZone : MonoBehaviour
         if (cannon == null)
         {
             cannon = contentEnemy.getCannon();
-            amount_AttackAnimations = contentEnemy.N_shots;
-            intervalBetweenShots = contentEnemy.IntervalBetweenShots;
+            float value;
+
+            if (contentEnemy.NumParameters != null)
+            {
+                if (contentEnemy.NumParameters.TryGetValue("n_shots", out value))
+                    amount_AttackAnimations = (int)value;
+
+                if (contentEnemy.NumParameters.TryGetValue("intervalBetweenShots", out value))
+                    intervalBetweenShots = value;
+            }
         }
         if (animator != null)
         {

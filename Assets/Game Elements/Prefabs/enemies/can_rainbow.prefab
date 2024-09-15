@@ -810,8 +810,8 @@ MonoBehaviour:
   attackZoneX: -1
   attackZoneY: -1
   attackZoneZ: -1
-  element1: {fileID: 7243380440975407625}
-  element2: {fileID: 5403146853876481947}
+  objParameters:
+  - {fileID: 5403146853876481947}
   enemy_Parts:
   - {fileID: 6111408665249509649}
   - {fileID: 3585401988914617662}

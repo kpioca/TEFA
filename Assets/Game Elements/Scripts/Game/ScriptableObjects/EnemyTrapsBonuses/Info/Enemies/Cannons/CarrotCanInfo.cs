@@ -9,4 +9,11 @@ public class CarrotCanInfo : CannonInfo
     [Range(0f, 1f)]
     [SerializeField] private protected float chance_bulletCollapse;
     public float chance_bullet_Collapse => chance_bulletCollapse;
+
+    public override Enemy createEnemy(GameObject cannonObject, Stamp stamp, GameObject[] objParameters, out Dictionary<string, float> numParameters)
+    {
+        numParameters = null;
+        CarrotCan cannon = new CarrotCan(this, cannonObject, stamp);
+        return cannon;
+    }
 }

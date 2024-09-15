@@ -6,8 +6,10 @@ using UnityEngine.UI;
 [CreateAssetMenu(fileName = "StandartCannon_Properties", menuName = "LevelProperties/Enemy/New StandartCannon_Properties")]
 public class StandartCannonInfo : CannonInfo
 {
-    public void xuy()
+    public override Enemy createEnemy(GameObject cannonObject, Stamp stamp, GameObject[] objParameters, out Dictionary<string, float> numParameters)
     {
-
+        numParameters = null;
+        StandartCannon cannon = new StandartCannon(this, cannonObject, stamp);
+        return cannon;
     }
 }

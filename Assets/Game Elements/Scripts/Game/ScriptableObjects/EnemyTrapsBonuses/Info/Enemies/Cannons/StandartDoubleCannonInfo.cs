@@ -9,4 +9,12 @@ public class StandartDoubleCannonInfo : CannonInfo
     [SerializeField] float intervalBetweenShots = 1f;
     public float IntervalBetweenShots => intervalBetweenShots;
 
+    public override Enemy createEnemy(GameObject cannonObject, Stamp stamp, GameObject[] objParameters, out Dictionary<string, float> numParameters)
+    {
+        numParameters = new Dictionary<string, float>();
+        float intervalBetweenShots = 0;
+        StandartDoubleCannon cannon = new StandartDoubleCannon(this, out intervalBetweenShots, cannonObject, stamp);
+        numParameters["intervalBetweenShots"] = intervalBetweenShots;
+        return cannon;
+    }
 }

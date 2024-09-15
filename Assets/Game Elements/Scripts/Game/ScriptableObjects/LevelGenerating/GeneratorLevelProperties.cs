@@ -51,12 +51,19 @@ public class GeneratorLevelProperties
         chanceGameSet = database.ChanceSpawnGameSet;
         chances = new List<float>[3];
 
-        rand_num = Random.Range(0, 1f);
-        if (rand_num <= chanceGameSet)
-        {
-            num_set = Random.Range(0, database.GameSets.Count);
+        List<GameSet> databaseGameSets = database.GameSets;
+        List<EnemyInfo> databaseEnemy = database.Enemy_properties;
+        List<TrapInfo> databaseTraps = database.Traps_properties;
+        List<BonusInfo> databaseBonuses = database.Bonuses_properties;
+        List<ObjectProperties> databaseIslands = database.Islands_properties;
+        List<ObjectProperties> databaseRoadParts = database.RoadParts_properties;
 
-            gameSet = database.GameSets[num_set];
+        rand_num = Random.Range(0, 1f);
+        if (rand_num <= chanceGameSet && databaseGameSets.Count > 0)
+        {
+            num_set = Random.Range(0, databaseGameSets.Count);
+
+            gameSet = databaseGameSets[num_set];
 
             amount_typeEnemy = gameSet.enemies.Count;
             amount_typeTraps = gameSet.traps.Count;
@@ -68,44 +75,48 @@ public class GeneratorLevelProperties
 
             stamps = getStamps(enemy_properties.Count);
 
-            temp_e = new List<EnemyInfo>(database.Enemy_properties);
-            temp_t = new List<TrapInfo>(database.Traps_properties);
-            temp_b = new List<BonusInfo>(database.Bonuses_properties);
+            temp_e = new List<EnemyInfo>(databaseEnemy);
+            temp_t = new List<TrapInfo>(databaseTraps);
+            temp_b = new List<BonusInfo>(databaseBonuses);
 
             chances[0] = getChances(temp_e);
             chances[1] = getChances(temp_t);
             chances[2] = getChances(temp_b);
 
-            islands_properties = database.Islands_properties;
-            roadParts_properties = database.RoadParts_properties;
+            islands_properties = databaseIslands;
+            roadParts_properties = databaseRoadParts;
 
             Debug.Log($"GAMESET - {gameSet.nameSet}");
             return $"\n\nGameset:\n{gameSet.nameSet}";
         }
         else
         {
-            amount_typeEnemy = Random.Range(database.Min_typeEnemy, database.Max_typeEnemy + 1);
-            amount_typeTraps = Random.Range(database.Min_typeTraps, database.Max_typeTraps + 1);
-            amount_typeBonuses = Random.Range(database.Min_typeBonuses, database.Max_typeBonuses + 1);
+            temp_e = new List<EnemyInfo>(databaseEnemy);
+            temp_t = new List<TrapInfo>(databaseTraps);
+            temp_b = new List<BonusInfo>(databaseBonuses);
+
+            int r1 = Random.Range(database.Min_typeEnemy, database.Max_typeEnemy + 1);
+            int r2 = Random.Range(database.Min_typeTraps, database.Max_typeTraps + 1);
+            int r3 = Random.Range(database.Min_typeBonuses, database.Max_typeBonuses + 1);
+
+            amount_typeEnemy = r1 > temp_e.Count ? temp_e.Count : r1;
+            amount_typeTraps = r2 > temp_t.Count ? temp_t.Count : r2;
+            amount_typeBonuses = r3 > temp_b.Count ? temp_b.Count : r3;
 
             enemy_properties = new List<EnemyInfo>();
             traps_properties = new List<TrapInfo>();
             bonuses_properties = new List<BonusInfo>();
-
-            temp_e = new List<EnemyInfo>(database.Enemy_properties);
-            temp_t = new List<TrapInfo>(database.Traps_properties);
-            temp_b = new List<BonusInfo>(database.Bonuses_properties);
 
             chances[0] = getChances(temp_e);
             chances[1] = getChances(temp_t);
             chances[2] = getChances(temp_b);
 
             //check amount of items
-            if (amount_typeEnemy <= database.Enemy_properties.Count &&
-               amount_typeTraps <= database.Traps_properties.Count &&
-               amount_typeBonuses <= database.Bonuses_properties.Count)
+            if (amount_typeEnemy <= databaseEnemy.Count &&
+               amount_typeTraps <= databaseTraps.Count &&
+               amount_typeBonuses <= databaseBonuses.Count)
             {
-                n = database.Enemy_properties.Count;
+                n = databaseEnemy.Count;
                 addRandomItemsFromTo<EnemyInfo>(temp_e, amount_typeEnemy, out enemy_properties);
 
                 n = database.Traps_properties.Count;
@@ -114,8 +125,8 @@ public class GeneratorLevelProperties
                 n = database.Bonuses_properties.Count;
                 addRandomItemsFromTo<BonusInfo>(temp_b, amount_typeBonuses, out bonuses_properties);
 
-                islands_properties = database.Islands_properties;
-                roadParts_properties = database.RoadParts_properties;
+                islands_properties = databaseIslands;
+                roadParts_properties = databaseRoadParts;
             }
             else { Debug.Log("Wrong amount of enemy, traps or bonuses"); }
             stamps = getStamps(enemy_properties.Count);
@@ -144,6 +155,7 @@ public class GeneratorLevelProperties
         bool resultRandom;
         List<StampInfo> allStamps = database.StampInfos;
         List<Stamp> stamps = new List<Stamp>();
+        n = allStamps.Count > 0 ? n : 0;
 
         for(int i = 0; i < n; i++)
         {
