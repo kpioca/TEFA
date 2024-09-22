@@ -15,6 +15,8 @@ MonoBehaviour:
   spellName: Create Enemy
   spellId: cr_enemy
   levelOfCoolness: 3
+  particles: {fileID: 586265465599792263, guid: 593230a79cf662241af7fd4c98fb1bcd,
+    type: 3}
   enemyPull:
   - {fileID: 11400000, guid: 75bb605aa4137a0468c7ea79c1c97dea, type: 2}
   - {fileID: 11400000, guid: 58057b5392eb88848bbd54a412abe464, type: 2}

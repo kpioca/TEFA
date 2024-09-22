@@ -7,7 +7,6 @@ public class Mage : Enemy
     [Header("Spell Pull")]
     [SerializeField] MageSpellInfo[] spellPull;
     public MageSpellInfo[] SpellPull => spellPull;
-
     public Mage(MageInfo info, GameObject instance) : base(info, instance)
     {
         spellPull = info.SpellPull;

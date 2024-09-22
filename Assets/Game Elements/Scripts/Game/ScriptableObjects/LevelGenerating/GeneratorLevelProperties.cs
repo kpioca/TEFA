@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class GeneratorLevelProperties
 {
@@ -203,13 +204,15 @@ public class GeneratorLevelProperties
                 int sum = 0;
                 float medium;
                 float chance = 0;
+                int value = 0;
                 List<float> chances = new List<float>();
 
                 List<int> levelOfCoolnessItems = new List<int>();
                 for (i = 0; i < n; i++)
                 {
-                    levelOfCoolnessItems.Add(listItems[i].LevelOfCoolness);
-                    sum += listItems[i].LevelOfCoolness;
+                    value = 2 * listItems[i].LevelOfCoolness;
+                    levelOfCoolnessItems.Add(value);
+                    sum += value;
                 }
 
                 List<int> rateItems = new List<int>(levelOfCoolnessItems);
@@ -245,12 +248,14 @@ public class GeneratorLevelProperties
         {
             int sum = 0;
             float chance = 0;
+            int value = 0;
 
             List<int> levelOfCoolnessItems = new List<int>();
             for (i = 0; i < n; i++)
             {
-                levelOfCoolnessItems.Add(listItems[i].LevelOfCoolness);
-                sum += listItems[i].LevelOfCoolness;
+                value = 2 * listItems[i].LevelOfCoolness;
+                levelOfCoolnessItems.Add(value);
+                sum += value;
             }
 
             List<int> rateItems = new List<int>(levelOfCoolnessItems);

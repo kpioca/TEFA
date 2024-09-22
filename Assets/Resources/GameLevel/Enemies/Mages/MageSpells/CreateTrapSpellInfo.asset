@@ -15,6 +15,8 @@ MonoBehaviour:
   spellName: Create Trap
   spellId: cr_trap
   levelOfCoolness: 2
+  particles: {fileID: 586265465599792263, guid: 593230a79cf662241af7fd4c98fb1bcd,
+    type: 3}
   trapPull:
   - {fileID: 11400000, guid: 30c3cab9c175b8e4da2b8371edeca811, type: 2}
   - {fileID: 11400000, guid: d1df209f3e5482c4db5149ceeb071dc4, type: 2}

@@ -49,6 +49,7 @@ public class CreateEnemySpellInfo : MageSpellInfo
 
 
         enemyObj = spawnEnemy(player, infoPieceOfPath, road, enemyPull[k2], enemyMark, gameManager);
+        SpawnParticles(enemyObj.transform, gameManager);
 
 
         //if (contentEnemy.attackZone != null)

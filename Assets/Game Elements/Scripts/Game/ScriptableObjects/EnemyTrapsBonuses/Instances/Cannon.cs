@@ -39,7 +39,6 @@ public class Cannon : Enemy
     public virtual void MoveToPos(MonoBehaviour toUseCoroutines, GameObject obj, Vector3 target, BulletInfo bulletInfo, float platformsSpeed)
     {
         float speedMultiplier = stamp == null ? 1 : stamp.getStampValue();
-        Debug.Log(speedMultiplier);
         toUseCoroutines.StartCoroutine(MovementCoroutine(obj, target, bulletInfo.Speed * speedMultiplier + platformsSpeed));
 
         //projectile_rb = obj.GetComponent<Rigidbody>();

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemy_properties:
   - element: {fileID: 11400000, guid: 75bb605aa4137a0468c7ea79c1c97dea, type: 2}
-    checkbox: 1
+    checkbox: 0
   - element: {fileID: 11400000, guid: 3c9f7b981a23d7c45be9745d5d58b933, type: 2}
     checkbox: 0
   - element: {fileID: 11400000, guid: 58057b5392eb88848bbd54a412abe464, type: 2}
@@ -41,13 +41,13 @@ MonoBehaviour:
     checkbox: 0
   traps_properties:
   - element: {fileID: 11400000, guid: 30c3cab9c175b8e4da2b8371edeca811, type: 2}
-    checkbox: 1
+    checkbox: 0
   - element: {fileID: 11400000, guid: d1df209f3e5482c4db5149ceeb071dc4, type: 2}
-    checkbox: 1
+    checkbox: 0
   - element: {fileID: 11400000, guid: 66da89282f45194459007d4de6cd5387, type: 2}
     checkbox: 1
   - element: {fileID: 11400000, guid: f2ff9362949a1b44aa96b14f2701e588, type: 2}
-    checkbox: 1
+    checkbox: 0
   bonuses_properties:
   - element: {fileID: 11400000, guid: 6830d3dbf12f6824889a0385a9d2a423, type: 2}
     checkbox: 1
@@ -106,36 +106,36 @@ MonoBehaviour:
     checkbox: 0
   - element: {fileID: 11400000, guid: da614105cbbf57e44bae61e948c334de, type: 2}
     checkbox: 0
-  chanceModificator: 1
+  chanceModificator: 0
   gameSets:
   - element: {fileID: 11400000, guid: 2fec9b1228e9c024b9c2c02821b6d273, type: 2}
-    checkbox: 1
+    checkbox: 0
   - element: {fileID: 11400000, guid: 805656c328380e34f97dd14a943f661f, type: 2}
-    checkbox: 1
+    checkbox: 0
   - element: {fileID: 11400000, guid: 38c3f3ab4b6123245ba7a1e5a9f102e1, type: 2}
-    checkbox: 1
+    checkbox: 0
   - element: {fileID: 11400000, guid: afa5fd6e675b0554a872702624d530fa, type: 2}
     checkbox: 1
   - element: {fileID: 11400000, guid: 4a02a9406afd1db4ea1803b86bbc0d07, type: 2}
-    checkbox: 1
+    checkbox: 0
   - element: {fileID: 11400000, guid: 66c5ff97355ea2243a988a3f977633e0, type: 2}
-    checkbox: 1
+    checkbox: 0
   - element: {fileID: 11400000, guid: 3d99e36a564eeb443a18b07a1f656a3e, type: 2}
-    checkbox: 1
+    checkbox: 0
   - element: {fileID: 11400000, guid: 2f3925cf60bf42649b7f0776a887cfc3, type: 2}
-    checkbox: 1
-  chanceSpawnGameSet: 0.2
+    checkbox: 0
+  chanceSpawnGameSet: 0
   stampInfos:
   - element: {fileID: 11400000, guid: d94d307df0f356843a6e01aeba4039f1, type: 2}
     checkbox: 1
   - element: {fileID: 11400000, guid: fdfea0dd648d58a44a9c788411bb3c49, type: 2}
-    checkbox: 0
+    checkbox: 1
   - element: {fileID: 11400000, guid: 948046ffdf93fe4419cfb3bffd6fdf60, type: 2}
-    checkbox: 0
+    checkbox: 1
   - element: {fileID: 11400000, guid: c7e7b02128d33944b8e4a3b801d695ca, type: 2}
-    checkbox: 0
+    checkbox: 1
   maxNumStamps: 6
-  chanceAppearanceStamp: 1
+  chanceAppearanceStamp: 0
   distanceZ_between_roads: 15.95
   min_extraIslands: 1
   max_extraIslands: 5

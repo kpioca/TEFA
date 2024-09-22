@@ -12,12 +12,13 @@ public class CreateTrapSpellInfo : MageSpellInfo
 
     public override void ActivateSpell(GameManager gameManager, GameObject player, InfoPieceOfPath infoPieceOfPath)
     {
-        createTrap(infoPieceOfPath);
+        createTrap(infoPieceOfPath, gameManager);
     }
 
-    private void createTrap(InfoPieceOfPath infoPieceOfPath)
+    private void createTrap(InfoPieceOfPath infoPieceOfPath, GameManager gameManager)
     {
         GameObject road = infoPieceOfPath.gameObject;
+        GameObject trap;
         Mark[] trap_marks = infoPieceOfPath.Marks_traps;
         Mark[] holesInstances = infoPieceOfPath.HolesInstances;
 
@@ -39,12 +40,13 @@ public class CreateTrapSpellInfo : MageSpellInfo
                 holesInstances[k1].spawnPlace.obj.SetActive(true);
                 holesInstances[k1].spawnPlace = null;
             }
-            spawnTrap(infoPieceOfPath, road, trapPull[k2], trap_marks, holesInstances, k1);
+            trap = spawnTrap(infoPieceOfPath, road, trapPull[k2], trap_marks, holesInstances, k1);
         }
         else
         {
-            spawnTrap(infoPieceOfPath, road, trapPull[k2], trap_marks, holesInstances, k1);
+            trap = spawnTrap(infoPieceOfPath, road, trapPull[k2], trap_marks, holesInstances, k1);
         }
+        SpawnParticles(trap_marks[k1].obj.transform, gameManager);
 
     }
 

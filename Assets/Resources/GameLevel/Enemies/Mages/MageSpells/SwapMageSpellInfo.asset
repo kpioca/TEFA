@@ -15,3 +15,5 @@ MonoBehaviour:
   spellName: Enemy Swap
   spellId: swap
   levelOfCoolness: 1
+  particles: {fileID: 586265465599792263, guid: 593230a79cf662241af7fd4c98fb1bcd,
+    type: 3}

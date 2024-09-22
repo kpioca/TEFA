@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 [CreateAssetMenu(fileName = "SwapMageSpellInfo", menuName = "LevelProperties/Enemy/Mage Spells/New SwapMageSpellInfo")]
 public class SwapMageSpellInfo : MageSpellInfo
@@ -16,8 +17,11 @@ public class SwapMageSpellInfo : MageSpellInfo
         GameObject movable1 = enemies[k1].obj.GetComponent<ContentEnemy>().visionZone.MovablePart;
         GameObject movable2 = enemies[k2].obj.GetComponent<ContentEnemy>().visionZone.MovablePart;
 
-        Vector3 position1 = enemies[k1].obj.transform.position;
-        Vector3 position2 = enemies[k2].obj.transform.position;
+        Transform transform1 = enemies[k1].obj.transform;
+        Transform transform2 = enemies[k2].obj.transform;
+
+        Vector3 position1 = transform1.position;
+        Vector3 position2 = transform2.position;
 
         if (position1 != position2)
         {
@@ -37,6 +41,9 @@ public class SwapMageSpellInfo : MageSpellInfo
 
             movable1.transform.rotation = rotation1;
             movable2.transform.rotation = rotation2;
+
+            SpawnParticles(transform2, gameManager);
         }
+        SpawnParticles(transform1, gameManager);
     }
 }

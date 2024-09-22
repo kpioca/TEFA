@@ -320,12 +320,14 @@ public class GeneratorLevel : MonoBehaviour
             int sum = 0;
             float medium;
             float chance = 0;
+            int value = 0;
 
             List<int> levelOfCoolnessItems = new List<int>();
             for (int i = 0; i < n; i++)
             {
-                levelOfCoolnessItems.Add(listOpenedItems[i].LevelOfCoolness);
-                sum += listOpenedItems[i].LevelOfCoolness;
+                value = 2 * listOpenedItems[i].LevelOfCoolness;
+                levelOfCoolnessItems.Add(value);
+                sum += value;
             }
 
             List<int> rateItems = new List<int>(levelOfCoolnessItems);
@@ -333,41 +335,20 @@ public class GeneratorLevel : MonoBehaviour
 
             medium = (float)sum / n;
 
-            //change chances for states 2 and 3
+            //change chances for other states
             if (num_state != 1)
             {
                 for (int i = 0; i < n; i++)
                 {
-                    if (num_state == 2)
+                    if (rateItems[i] <= medium)
                     {
-                        if (rateItems[i] <= medium)
-                        {
-                            rateItems[i]++;
-                            sum++;
-                        }
-                        else if (rateItems[i] != 1)
-                        {
-                            rateItems[i]--;
-                            sum--;
-                        }
+                        rateItems[i] += num_state-1;
+                        sum += num_state - 1;
                     }
-                    else if (num_state == 3)
+                    else if (rateItems[i] >= num_state)
                     {
-                        if (rateItems[i] <= medium)
-                        {
-                            rateItems[i] += 2;
-                            sum += 2;
-                        }
-                        else if (rateItems[i] == 2)
-                        {
-                            rateItems[i]--;
-                            sum--;
-                        }
-                        else if (rateItems[i] == 3)
-                        {
-                            rateItems[i] -= 2;
-                            sum -= 2;
-                        }
+                        rateItems[i] -= (num_state - 1);
+                        sum -= (num_state - 1);
                     }
                 }
             }
