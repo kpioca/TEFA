@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4af0e2d1d2e095745b4809d91e47d756, type: 3}
+  m_Name: WallStun_Properties
+  m_EditorClassIdentifier: 
+  id: wall_st
+  levelOfCoolness: 4
+  prefab: {fileID: 1673087170260595250, guid: 998445f9fa913574cb2e77e4dcbf88bc, type: 3}
+  sizeOfObjectPool: 16
+  icon: {fileID: 21300000, guid: 7961e8bed890c6944b6edcacdcefd83e, type: 3}
+  haveAttackDamage: 0
+  attackDamage: 0
+  hasEffect: 1
+  ignoreArmor: 0
+  effectInfo: {fileID: 11400000, guid: 6f45d97657215904f9c80cfb4aeb080c, type: 2}
+  doHoleInRoad: 0
