@@ -62,16 +62,7 @@ public class ContentPlayer : MonoBehaviour
 
         else if (isImmortal && other.tag == "Trap")
         {
-            DestroyableAndCollectable destr = other.gameObject.GetComponent<DestroyableAndCollectable>();
-            if (destr != null)
-            {
-                if (destr.DestroyInPlayerCollision)
-                {
-                    Debug.Log("huy");
-                    //StartCoroutine(destr.destruction(destr.destructionParticles, other.gameObject.transform.position));
-                    deleteTrap(other.gameObject, destr);
-                }
-            }
+            DestroyTrap(other.gameObject);
         }
         else if (!isImmortal)
         {
@@ -100,12 +91,12 @@ public class ContentPlayer : MonoBehaviour
     void collectMoney(GameObject obj)
     {
         gameManager.AddMoney();
-        deleteMisc(obj);
+        DestroyMisc(obj);
     }
 
     void collectBonus(GameObject obj)
     {
-        deleteBonus(obj);
+        DestroyBonus(obj);
     }
 
     void deleteTrap(GameObject obj, DestroyableAndCollectable destr)
@@ -115,6 +106,24 @@ public class ContentPlayer : MonoBehaviour
 
         KhtPool.ReturnObject(obj);
         info.deleteTrapElement(num);
+    }
+
+    void deleteMisc(GameObject obj, DestroyableAndCollectable destr)
+    {
+        InfoPieceOfPath info = destr.info;
+        int num = destr.num;
+
+        KhtPool.ReturnObject(obj);
+        info.deleteMiscElement(num);
+    }
+
+    void deleteBonus(GameObject obj, DestroyableAndCollectable destr)
+    {
+        InfoPieceOfPath info = destr.info;
+        int num = destr.num;
+
+        KhtPool.ReturnObject(obj);
+        info.deleteBonusElement(num);
     }
 
     void deleteMisc(GameObject obj)
@@ -259,12 +268,7 @@ public class ContentPlayer : MonoBehaviour
 
         }
 
-        DestroyableAndCollectable destr = trapObj.GetComponent<DestroyableAndCollectable>();
-        if (destr != null)
-        {
-            if (destr.DestroyInPlayerCollision)
-                deleteTrap(trapObj, destr);
-        }
+        DestroyTrap(trapObj);
 
         if (health <= 0)
         {
@@ -274,5 +278,43 @@ public class ContentPlayer : MonoBehaviour
         }
         else if (trap.HasEffect)
             effectActivate(trap.EffectInfo);
+    }
+
+    private void DestroyTrap(GameObject gameObject)
+    {
+        DestroyableAndCollectable destr = gameObject.GetComponent<DestroyableAndCollectable>();
+        if (destr != null)
+        {
+            if (destr.DestroyInPlayerCollision)
+            {
+                if (destr.SpawnParticles(gameObject.transform.position, this))
+                    deleteTrap(gameObject, destr);
+            }
+        }
+    }
+
+    private void DestroyBonus(GameObject gameObject)
+    {
+        DestroyableAndCollectable destr = gameObject.GetComponent<DestroyableAndCollectable>();
+        if (destr != null)
+        {
+            if (destr.DestroyInPlayerCollision)
+            {
+                if (destr.SpawnParticles(gameObject.transform.position, this))
+                    deleteBonus(gameObject, destr);
+            }
+        }
+    }
+    private void DestroyMisc(GameObject gameObject)
+    {
+        DestroyableAndCollectable destr = gameObject.GetComponent<DestroyableAndCollectable>();
+        if (destr != null)
+        {
+            if (destr.DestroyInPlayerCollision)
+            {
+                if (destr.SpawnParticles(gameObject.transform.position, this))
+                    deleteMisc(gameObject, destr);
+            }
+        }
     }
 }

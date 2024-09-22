@@ -665,6 +665,7 @@ public class GeneratorLevel : MonoBehaviour
             destr.num = info.Misc.Count;
             destr.info = info;
             destr.type = "misc";
+            destr.gameManager = gameManager;
         }
 
         int num = info.Misc.Count;
@@ -672,6 +673,8 @@ public class GeneratorLevel : MonoBehaviour
         info.Misc.Add(spawnPlace);
         miscMarks[k].isTaken = true;
         miscMarks[k].spawnPlace = spawnPlace;
+
+
         miscMarks.RemoveAt(k);
     }
 
@@ -744,6 +747,7 @@ public class GeneratorLevel : MonoBehaviour
             destr.num = info.Traps.Count;
             destr.info = info;
             destr.type = "trap";
+            destr.gameManager = gameManager;
         }
 
         int num2 = info.Traps.Count;
@@ -790,6 +794,7 @@ public class GeneratorLevel : MonoBehaviour
             destr.num = info.Bonuses.Count;
             destr.info = info;
             destr.type = "bonus";
+            destr.gameManager = gameManager;
         }
         int num2 = info.Bonuses.Count;
         SpawnPlace spawnPlace = new SpawnPlace(temp, spawnElementMarks[k], num2);

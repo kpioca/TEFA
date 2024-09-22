@@ -60,11 +60,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 464ef8327c4e3e843afbfe43f6a589a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
   info: {fileID: 0}
   num: 0
   type: bonus
   destroyInEnemyAttackCollision: 1
   destroyInPlayerCollision: 1
+  destructionParticles: {fileID: 586265465599792263, guid: 239fffb7e98845b448661301eb4eaadf,
+    type: 3}
 --- !u!65 &504427323438124172
 BoxCollider:
   m_ObjectHideFlags: 0

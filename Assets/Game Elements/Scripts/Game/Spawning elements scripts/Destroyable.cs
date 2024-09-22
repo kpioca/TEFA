@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class DestroyableAndCollectable : MonoBehaviour
 {
+    [HideInInspector] public GameManager gameManager;
     [HideInInspector] public InfoPieceOfPath info;
     private BulletInfo bulletInfo;
+
 
     [HideInInspector] public int num = 0;
     [HideInInspector] public string type = "";
@@ -14,6 +16,8 @@ public class DestroyableAndCollectable : MonoBehaviour
     [SerializeField] bool destroyInPlayerCollision = true;
 
     [SerializeField] public GameObject destructionParticles;
+
+    private GameObject destructionParticlesInstance;
     public bool DestroyInPlayerCollision => destroyInPlayerCollision;
 
     private void OnTriggerEnter(Collider other)
@@ -22,14 +26,13 @@ public class DestroyableAndCollectable : MonoBehaviour
         {
             if (gameObject.activeInHierarchy == true)
             {
-                if (other.tag == "Bullet")
+                if (other.gameObject.TryGetComponent(out ContentBullet contentBullet))
                 {
-                    bulletInfo = other.gameObject.GetComponent<ContentBullet>().bulletInfo;
+                    bulletInfo = contentBullet.bulletInfo;
                     switch (type)
                     {
                         case "trap":
                             info.deleteTrapElement(num);
-                            //StartCoroutine(destruction(destructionParticles, gameObject.transform.position));
                             break;
                         case "misc":
                             info.deleteMiscElement(num);
@@ -38,22 +41,41 @@ public class DestroyableAndCollectable : MonoBehaviour
                             info.deleteBonusElement(num);
                             break;
                     }
-                    KhtPool.ReturnObject(gameObject);
 
                     if (bulletInfo.IsBreakInCollision)
-                        KhtPool.ReturnObject(other.gameObject);
+                        contentBullet.Remove();
+                    SpawnParticles(gameObject.transform.position, gameManager);
+                    KhtPool.ReturnObject(gameObject);
                 }
             }
         }
     }
 
-    public IEnumerator destruction(GameObject destructionParticlesPrefab, Vector3 position)
+    public bool SpawnParticles(Vector3 position, MonoBehaviour forCoroutine)
     {
-        GameObject destructionParticlesObj;
-        destructionParticlesObj = KhtPool.GetObject(destructionParticlesPrefab);
-        destructionParticlesObj.transform.position = new Vector3(position.x, position.y + 0.7f, position.z);
-        Debug.Log(destructionParticlesObj.transform.position);
-        yield return new WaitForSeconds(1f);
-        KhtPool.ReturnObject(destructionParticlesObj);
+        if (destructionParticlesInstance != null)
+        {
+            if (destructionParticlesInstance.activeInHierarchy != true)
+            {
+                forCoroutine.StartCoroutine(particlesCoroutine(destructionParticles, position));
+                return true;
+            }
+            else return false;
+        }
+        else
+        {
+            forCoroutine.StartCoroutine(particlesCoroutine(destructionParticles, position));
+            return true;
+        }
+    }
+    public IEnumerator particlesCoroutine(GameObject destructionParticlesPrefab, Vector3 position)
+    {
+        destructionParticlesInstance = KhtPool.GetObject(destructionParticlesPrefab);
+        destructionParticlesInstance.SetActive(true);
+        destructionParticlesInstance.transform.SetParent(null);
+        destructionParticlesInstance.transform.position = new Vector3(position.x, position.y + 0.7f, position.z);
+        yield return new WaitForSeconds(0.5f);
+        KhtPool.ReturnObject(destructionParticlesInstance);
+        destructionParticlesInstance = null;
     }
 }
