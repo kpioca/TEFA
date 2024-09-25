@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1a87634a9ed7304e8196afd789a07c8, type: 3}
+  m_Name: RSetHole_4
+  m_EditorClassIdentifier: 
+  id: r_set_4
+  trapTypes:
+  - {fileID: 11400000, guid: 30c3cab9c175b8e4da2b8371edeca811, type: 2}
+  trapElements:
+  - numSpawnPlace: 0
+    spawnElement: {fileID: 11400000, guid: 30c3cab9c175b8e4da2b8371edeca811, type: 2}
+  - numSpawnPlace: 3
+    spawnElement: {fileID: 11400000, guid: 30c3cab9c175b8e4da2b8371edeca811, type: 2}
+  - numSpawnPlace: 4
+    spawnElement: {fileID: 11400000, guid: 30c3cab9c175b8e4da2b8371edeca811, type: 2}
+  - numSpawnPlace: 5
+    spawnElement: {fileID: 11400000, guid: 30c3cab9c175b8e4da2b8371edeca811, type: 2}
+  - numSpawnPlace: 6
+    spawnElement: {fileID: 11400000, guid: 30c3cab9c175b8e4da2b8371edeca811, type: 2}
+  - numSpawnPlace: 7
+    spawnElement: {fileID: 11400000, guid: 30c3cab9c175b8e4da2b8371edeca811, type: 2}
+  - numSpawnPlace: 8
+    spawnElement: {fileID: 11400000, guid: 30c3cab9c175b8e4da2b8371edeca811, type: 2}
+  - numSpawnPlace: 9
+    spawnElement: {fileID: 11400000, guid: 30c3cab9c175b8e4da2b8371edeca811, type: 2}
+  - numSpawnPlace: 10
+    spawnElement: {fileID: 11400000, guid: 30c3cab9c175b8e4da2b8371edeca811, type: 2}
+  - numSpawnPlace: 12
+    spawnElement: {fileID: 11400000, guid: 30c3cab9c175b8e4da2b8371edeca811, type: 2}
+  bonusNumSpawnPlaces: 020000000b000000

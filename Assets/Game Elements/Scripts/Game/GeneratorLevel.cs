@@ -87,6 +87,7 @@ public class GeneratorLevel : MonoBehaviour
     [SerializeField] private Dictionary<string, ObjectProperties> misc_propertiesDict;
     //
 
+    private RoadGenerationPattern[] rPatterns;
     List<StageParameters> stageParameters;
     float[] openedPartItemsStages;
 
@@ -166,6 +167,8 @@ public class GeneratorLevel : MonoBehaviour
         n_AllSpawnedPlatforms = database.Num_allSpawnedPlatforms;
         n_securePlatforms = database.Num_securePlatformsAtBegin;
         distZbetweenPlatforms = database.DistanceZ_between_roads;
+
+        rPatterns = database.RPatterns.ToArray();
 
         initObjectPools(enemy_properties, traps_properties, bonuses_properties, islands_properties, roadParts_properties, misc_properties);
 
@@ -477,12 +480,14 @@ public class GeneratorLevel : MonoBehaviour
     private GameObject assemblingReadyPieceOfPath(GameObject road_prefab, List<EnemyInfo> openedEnemy, List<TrapInfo> openedTraps, List<BonusInfo> openedBonuses, GameObject fishMoney_prefab, int n_stage, bool secureMode = false)
     {
         GameObject raw_road = spawnObject(road_prefab, null);
-
+        RoadGenerationPattern rPattern;
         GameObject temp;
         int n_e = 0, n_t = 0, n_b = 0, n_fish = 0, n_extraIsl = 0;
         int k, t, p;
 
+
         InfoPieceOfPath info = raw_road.GetComponent<InfoPieceOfPath>();
+        rPattern = setRoadGenerationPattern(rPatterns, info);
 
         List<Mark> islandsSmallMarks = new List<Mark>(getInfoIslandsSmallMarks(info));
         List<Mark> islandsBigMarks = new List<Mark>(getInfoIslandsBigMarks(info));
@@ -490,14 +495,17 @@ public class GeneratorLevel : MonoBehaviour
         List<Mark> enemyIslSmMarks = new List<Mark>(getInfoEnemyIslSmallMarks(info));
         List<Mark> enemyIslBgMarks = new List<Mark>(getInfoEnemyIslBigMarks(info));
         List<Mark> enemyIslTlMarks = new List<Mark>(getInfoEnemyIslTallMarks(info));
+
         List<Mark> trapsMarks = new List<Mark>(getInfoTrapsMarks(info));
         List<Mark> bonusesMarks = new List<Mark>(getInfoBonusesMarks(info));
-        List<Mark> miscMarks = new List<Mark>(getInfoMiscMarks(info));
         List<Mark> holesInstances = new List<Mark>(getInfoHoleInstances(info));
+
+        List<Mark> miscMarks = new List<Mark>(getInfoMiscMarks(info));
 
         List<Mark> islExtraSmallMarks = new List<Mark>(getInfoExtraIslSmallMarks(info));
         List<Mark> islExtraBigMarks = new List<Mark>(getInfoExtraIslBigMarks(info));
         List<Mark> islExtraTallMarks = new List<Mark>(getInfoExtraIslTallMarks(info));
+
 
         float chanceSpawnBonus = 0;
 
@@ -512,6 +520,9 @@ public class GeneratorLevel : MonoBehaviour
         n_b = UnityEngine.Random.Range(spawnParameters.min_bonuses[n_stage], spawnParameters.max_bonuses[n_stage] + 1);
         n_fish = UnityEngine.Random.Range(stageParameters[n_stage].Min_fishMoney_stage, stageParameters[n_stage].Max_fishMoney_stage + 1);
         chanceSpawnBonus = spawnParameters.chance_Bonuses[n_stage];
+
+        n_t = rPattern.TrapNumSpawnPlaces.Length < n_t ? rPattern.TrapNumSpawnPlaces.Length : n_t;
+        n_b = rPattern.BonusNumSpawnPlaces.Length < n_b ? rPattern.BonusNumSpawnPlaces.Length : n_b;
 
         if (secureMode == true)
         {
@@ -979,6 +990,13 @@ public class GeneratorLevel : MonoBehaviour
         for (int i = 0; i < n; i++) KhtPool.ReturnObject(_object);
     }
 
+    private RoadGenerationPattern setRoadGenerationPattern(RoadGenerationPattern[] RPatterns, InfoPieceOfPath info)
+    {
+        int n = RPatterns.Length;
+        int num = UnityEngine.Random.Range(0, n);
+        info.setRoadGenerationPattern(RPatterns[num]);
+        return RPatterns[num];
+    }
     private Mark[] getInfoIslandsSmallMarks(InfoPieceOfPath info)
     {
         return info.Marks_islandsSmall;

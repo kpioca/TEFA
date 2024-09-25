@@ -20,6 +20,7 @@ public class Mark
     }
 }
 
+
 public class SpawnPlace
 {
     public GameObject obj;
@@ -39,6 +40,9 @@ public class InfoPieceOfPath : MonoBehaviour
 {
     
     public GameObject road_obj;
+
+    public RoadGenerationPattern RPattern { get; private set; }
+    
 
     [Header("Marks islands")]
     [SerializeField] Mark[] marks_islandsSmall = new Mark[2];
@@ -63,19 +67,28 @@ public class InfoPieceOfPath : MonoBehaviour
 
     [Header("Marks traps")]
 
-    [SerializeField] Mark[] marks_traps = new Mark[8];
+    Mark[] marks_traps;
     public Mark[] Marks_traps => marks_traps;
+
+    [SerializeField] Mark[] all_marks_traps;
+    public Mark[] All_marks_traps => all_marks_traps;
 
 
     [Header("Holes instances")]
-    [SerializeField] Mark[] holesInstances = new Mark[8];
+    Mark[] holesInstances;
     public Mark[] HolesInstances => holesInstances;
+
+    [SerializeField] Mark[] all_holesInstances;
+    public Mark[] All_holesInstances => all_holesInstances;
 
 
     [Header("Marks bonuses")]
 
-    [SerializeField] Mark[] marks_bonuses = new Mark[3];
+    Mark[] marks_bonuses;
     public Mark[] Marks_bonuses => marks_bonuses;
+
+    [SerializeField] Mark[] all_marks_bonuses;
+    public Mark[] All_marks_bonuses => all_marks_bonuses;
 
     [Header("Marks misc")]
 
@@ -116,6 +129,25 @@ public class InfoPieceOfPath : MonoBehaviour
     [SerializeField] List<SpawnPlace> misc = new List<SpawnPlace>();
     public List<SpawnPlace> Misc => misc;
 
+
+    public void setRoadGenerationPattern(RoadGenerationPattern pattern)
+    {
+        RPattern = pattern;
+        Debug.Log(pattern.Id);
+        int n1 = pattern.TrapNumSpawnPlaces.Length;
+        int n2 = pattern.BonusNumSpawnPlaces.Length;
+
+        marks_traps = new Mark[n1];
+        holesInstances = new Mark[n1];
+        marks_bonuses = new Mark[n2];
+        for(int i = 0; i < n1; i++)
+            marks_traps[i] = new Mark(all_marks_traps[pattern.TrapNumSpawnPlaces[i] - 1].obj, i, null);
+        for (int i = 0; i < n1; i++)
+            holesInstances[i] = new Mark(all_holesInstances[pattern.TrapNumSpawnPlaces[i] - 1].obj, i, null);
+        for (int i = 0; i < n2; i++)
+            marks_bonuses[i] = new Mark(all_marks_bonuses[pattern.BonusNumSpawnPlaces[i] - 1].obj, i, null);
+
+    }
     public void deleteTrapElement(int num)
     {
         Traps[num].mark.isTaken = false;
@@ -147,6 +179,7 @@ public class InfoPieceOfPath : MonoBehaviour
         Enemies.RemoveAt(num);
         recalculateNumbers(Enemies);
     }
+
     public void recalculateNumbers(List<SpawnPlace> list)
     {
         int n = list.Count;

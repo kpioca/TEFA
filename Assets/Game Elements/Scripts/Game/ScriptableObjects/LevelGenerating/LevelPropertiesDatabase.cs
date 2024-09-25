@@ -253,6 +253,16 @@ public class LevelPropertiesDatabase : ScriptableObject
         }
     }
 
+    [Header("Road Generation Patterns")]
+    [SerializeField] private List<ElementWithCheckbox<RoadGenerationPattern>> rPatterns;
+    public List<RoadGenerationPattern> RPatterns
+    {
+        get
+        {
+            return ElementWithCheckbox<RoadGenerationPattern>.GetListTrueElementsFromList(rPatterns);
+        }
+    }
+
     [Header("Modificators")]
 
     [SerializeField] private List<ElementWithCheckbox<ModificatorInfo>> modificators;

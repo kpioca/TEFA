@@ -41,13 +41,13 @@ MonoBehaviour:
     checkbox: 0
   traps_properties:
   - element: {fileID: 11400000, guid: 30c3cab9c175b8e4da2b8371edeca811, type: 2}
-    checkbox: 0
+    checkbox: 1
   - element: {fileID: 11400000, guid: d1df209f3e5482c4db5149ceeb071dc4, type: 2}
-    checkbox: 0
+    checkbox: 1
   - element: {fileID: 11400000, guid: 66da89282f45194459007d4de6cd5387, type: 2}
     checkbox: 1
   - element: {fileID: 11400000, guid: f2ff9362949a1b44aa96b14f2701e588, type: 2}
-    checkbox: 0
+    checkbox: 1
   bonuses_properties:
   - element: {fileID: 11400000, guid: 6830d3dbf12f6824889a0385a9d2a423, type: 2}
     checkbox: 1
@@ -91,22 +91,40 @@ MonoBehaviour:
   roadParts_properties:
   - id: road
     sizeOfObjectPool: 4
-    prefab: {fileID: 585886282769591320, guid: e5102c9fd01497c40ad01465435199f8, type: 3}
+    prefab: {fileID: 4856883820555747928, guid: 3341279a12fd42e4c9bc1848d202d69e,
+      type: 3}
   misc_properties:
   - id: money_fish
     sizeOfObjectPool: 20
     prefab: {fileID: 7732691636725382871, guid: 12a06a2fd4171274ebbb2a0e6fce130b,
       type: 3}
+  rPatterns:
+  - element: {fileID: 11400000, guid: ae76717ece468a24c9571855c63777cc, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: 8a842316f00ed2b4384c26eaf0af24ae, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: 4bbae1df1320f614a9eb174746f06a64, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: 0603b8c4c29ea934597895f1bc08ab5d, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: 3fddacac4fe20ad4d95cc03460885369, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: d152b37b0a528f84fad77525baa5e78e, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: 31c3ad4d19572fc40894d9816a56250b, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: 147a54266e36cab458ae2ef70ab3cc0a, type: 2}
+    checkbox: 1
   modificators:
   - element: {fileID: 11400000, guid: dfd9abb7f1fb98c4a9645807f8982fac, type: 2}
     checkbox: 0
-  - element: {fileID: 11400000, guid: 3cadc1611b30d8642869e8ddfebfa6bb, type: 2}
+  - element: {fileID: 11400000, guid: 09243a08c7b58d245a4c6a70cf9da3f7, type: 2}
     checkbox: 1
   - element: {fileID: 11400000, guid: b03471e4cc4f31246bf6a4464d323d68, type: 2}
     checkbox: 0
   - element: {fileID: 11400000, guid: da614105cbbf57e44bae61e948c334de, type: 2}
     checkbox: 0
-  chanceModificator: 0
+  chanceModificator: 1
   gameSets:
   - element: {fileID: 11400000, guid: 2fec9b1228e9c024b9c2c02821b6d273, type: 2}
     checkbox: 0
