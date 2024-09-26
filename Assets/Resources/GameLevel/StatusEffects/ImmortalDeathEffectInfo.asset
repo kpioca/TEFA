@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: ImmortalDeathEffectInfo
   m_EditorClassIdentifier: 
   effectName: Immortal Effect
-  effectId: eff_im
+  effectId: eff_im_d
+  effectMaterial: {fileID: 2100000, guid: 8628d39fd647d71489b771b3fe42fac8, type: 2}
   durationSec: 2
   haveTimer: 0

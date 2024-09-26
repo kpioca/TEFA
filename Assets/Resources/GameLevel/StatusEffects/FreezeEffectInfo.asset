@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effectName: Freeze Effect
   effectId: eff_fr
+  effectMaterial: {fileID: 2100000, guid: 905d87ff9ff545f459744dfd9181475e, type: 2}
   durationSec: 6
   haveTimer: 0
   percentSlowdown: 0.25

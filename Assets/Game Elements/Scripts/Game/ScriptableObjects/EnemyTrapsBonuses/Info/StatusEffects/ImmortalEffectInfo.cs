@@ -13,11 +13,11 @@ public class ImmortalEffectInfo : StatusEffectInfo
         if (effectCoroutine != null)
         {
             gameManager.StopCoroutine(effectCoroutine);
-
             contentPlayer.changeImmortalState(false);
-            contentPlayer.removeEffect(this);
+            //contentPlayer.removeEffect(this);
         }
         effectCoroutine = gameManager.StartCoroutine(EffectCoroutine(gameManager, contentPlayer, duration));
+        contentPlayer.applyEffect(this);
     }
 
     public override IEnumerator EffectCoroutine(GameManager gameManager, ContentPlayer contentPlayer, int duration)

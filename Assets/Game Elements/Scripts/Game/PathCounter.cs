@@ -82,7 +82,6 @@ public class PathCounter : MonoBehaviour
 
     public void changeSpeedCount(float speedCount)
     {
-        this.speedCount = speedCount;
 
         if (speedCount == 0)
         {
@@ -90,7 +89,9 @@ public class PathCounter : MonoBehaviour
         }
         else if (this.speedCount == 0)
         {
+            this.speedCount = speedCount;
             PathCounterCoroutine = StartCoroutine(pathCounterCoroutine());
         }
+        this.speedCount = speedCount;
     }
 }

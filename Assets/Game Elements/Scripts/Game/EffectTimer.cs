@@ -9,12 +9,15 @@ public class EffectTimer : MonoBehaviour
     [SerializeField] ContentPlayer contentPlayer;
 
     [SerializeField] private TMP_Text effectTimerText;
-    [SerializeField] private int effectTimerValue = 1;
+    private int effectTimerValue = 1;
+
+    [SerializeField] private GameObject panel;
 
     public Coroutine effectTimerCoroutine;
     public IEnumerator EffectTimerCoroutine()
     {
         effectTimerValue = 1;
+        panel.SetActive(true);
         while (effectTimerValue > 0)
         {
             effectTimerValue = contentPlayer.EffectTimer;
@@ -24,6 +27,7 @@ public class EffectTimer : MonoBehaviour
 
             yield return new WaitForSeconds(1f);
         }
+        panel.SetActive(false);
         effectTimerText.text = "";
     }
 }

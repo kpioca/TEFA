@@ -10,6 +10,10 @@ public class StatusEffectInfo : ScriptableObject
     [SerializeField] private protected string effectId = "";
     public string EffectId => effectId;
 
+    [Header("Shader")]
+    [SerializeField] private protected Material effectMaterial;
+    public Material EffectMaterial => effectMaterial;
+
     [Header("Characteristics")]
     [SerializeField] private protected int durationSec = 10;
 

@@ -24,9 +24,10 @@ public class StunEffectInfo : StatusEffectInfo
 
             gameManager.changePlayerMoveParameters(startSpeedMove, startHeightMove, startSpeedJump, startHeightJump);
             gameManager.changeRouteSpeedMovement(gameManager.SpeedRouteMovement);
-            contentPlayer.removeEffect(this);
+            //contentPlayer.removeEffect(this);
         }
         effectCoroutine = gameManager.StartCoroutine(EffectCoroutine(gameManager, contentPlayer, duration));
+        contentPlayer.applyEffect(this);
     }
 
     public override IEnumerator EffectCoroutine(GameManager gameManager, ContentPlayer contentPlayer, int duration)

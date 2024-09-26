@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using static CannonInfo;
 
@@ -31,8 +32,12 @@ public class ContentPlayer : MonoBehaviour
 
     [SerializeField] private bool isImmortal = false;
 
-    private Dictionary<string, StatusEffectInfo> appliedEffects = new Dictionary<string, StatusEffectInfo>();
+    public Dictionary<string, StatusEffectInfo> appliedEffects = new Dictionary<string, StatusEffectInfo>();
+    public List<StatusEffectInfo> effectsWithAppliedShaders;
+    Material[] baseMaterials;
 
+    [Header("For shaders")]
+    [SerializeField] private GameObject[] objectParts;
 
     private void Start()
     {
@@ -69,7 +74,8 @@ public class ContentPlayer : MonoBehaviour
             if (other.tag == "Bullet")
             {
                 Bullet bullet = other.GetComponent<ContentBullet>().bulletInstance;
-
+                
+                if(bullet != null)
                 attackBullet(bullet, other.gameObject);
               
             }
@@ -77,6 +83,7 @@ public class ContentPlayer : MonoBehaviour
             {
                 TrapInfo trapInfo = other.GetComponent<ContentTrap>().trapInfo;
                 
+                if(trapInfo != null)
                 attackTrap(trapInfo, other.gameObject);
 
             }
@@ -149,18 +156,60 @@ public class ContentPlayer : MonoBehaviour
     public void applyEffect(StatusEffectInfo effect)
     {
         if (!appliedEffects.ContainsKey(effect.EffectId))
+        {
+            Material[] tempBaseMaterials;
+            if (!effectsWithAppliedShaders.Any(eff => eff.EffectId == effect.EffectId))
+            {
+                if (applyShader(effect, out tempBaseMaterials))
+                    effectsWithAppliedShaders.Add(effect);
+                if (tempBaseMaterials != null && baseMaterials == null)
+                    baseMaterials = tempBaseMaterials;
+            }
             appliedEffects[effect.EffectId] = effect;
+        }
     }
 
-    public void reapplyEffect(StatusEffectInfo effect)
+    private bool applyShader(StatusEffectInfo effect, out Material[] baseMaterials)
     {
-        if (appliedEffects.ContainsKey(effect.EffectId))
-            effectActivate(effect);
+        int n = objectParts.Length;
+        Material shaderMaterial = effect.EffectMaterial;
+        baseMaterials = null;
+        if (shaderMaterial != null)
+        {
+            baseMaterials = new Material[n];
+            for (int i = 0; i < n; i++)
+            {
+                Material[] materials = objectParts[i].GetComponent<MeshRenderer>().materials;
+                baseMaterials[i] = materials[0];
+                List<Material> materialsList = new List<Material>(materials) { shaderMaterial };
+                objectParts[i].GetComponent<MeshRenderer>().SetMaterials(materialsList);
+            }
+            return true;
+        }
+        else return false;
     }
 
+    private void applyBaseMaterialss(Material[] baseMaterials)
+    {
+        int n = objectParts.Length;
+        for (int i = 0; i < n; i++)
+            objectParts[i].GetComponent<MeshRenderer>().SetMaterials(new List<Material> { baseMaterials[i] });
+    }
+
+    private void deleteMaterial(int numMaterial)
+    {
+        numMaterial++;
+        int n = objectParts.Length;
+        for (int i = 0; i < n; i++) {
+            List<Material> materials = new List<Material>(objectParts[i].GetComponent<MeshRenderer>().materials);
+            materials.RemoveAt(numMaterial);
+            objectParts[i].GetComponent<MeshRenderer>().SetMaterials(materials);
+        }
+               
+    }
     public void effectActivate(StatusEffectInfo effect)
     {
-        if (!hasThisEffect(effect))
+        //if (!hasThisEffect(effect))
         {
             int duration = 0;
             effect.ApplyEffect(gameManager, this, out duration);
@@ -173,20 +222,20 @@ public class ContentPlayer : MonoBehaviour
                 effect_Timer.effectTimerCoroutine = StartCoroutine(effect_Timer.EffectTimerCoroutine());
             }
         }
-        else reapplyEffect(effect);
     }
 
     public void removeEffect(StatusEffectInfo effect)
     {
         if (appliedEffects.ContainsKey(effect.EffectId))
+        {
+            int num = effectsWithAppliedShaders.FindIndex(eff => eff.EffectId == effect.EffectId);
+            if (num != -1)
+            {
+                effectsWithAppliedShaders.RemoveAt(num);
+                deleteMaterial(num);
+            }
             appliedEffects.Remove(effect.EffectId);
-    }
-
-    public bool hasThisEffect(StatusEffectInfo effect)
-    {
-        if (appliedEffects.ContainsKey(effect.EffectId))
-            return true;
-        else return false;
+        }
     }
 
     public void changeImmortalState(bool state)

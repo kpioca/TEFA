@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effectName: Stun Effect
   effectId: eff_stu
+  effectMaterial: {fileID: 2100000, guid: 4ffe535d543afd441a24a96479d65078, type: 2}
   durationSec: 3
   haveTimer: 0
   percentSlowdown: 0.8
