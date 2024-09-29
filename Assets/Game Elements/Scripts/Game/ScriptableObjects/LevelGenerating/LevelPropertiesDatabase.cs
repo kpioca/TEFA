@@ -237,15 +237,15 @@ public class LevelPropertiesDatabase : ScriptableObject
     }
 
     [Header("Misc Properties")]
-    [SerializeField] private List<ObjectProperties> misc_properties;
-    public List<ObjectProperties> Misc_properties => misc_properties;
+    [SerializeField] private List<MiscInfo> misc_properties;
+    public List<MiscInfo> Misc_properties => misc_properties;
 
-    private Dictionary<string, ObjectProperties> misc_propertiesDict;
-    public Dictionary<string, ObjectProperties> Misc_propertiesDict
+    private Dictionary<string, MiscInfo> misc_propertiesDict;
+    public Dictionary<string, MiscInfo> Misc_propertiesDict
     {
         get
         {
-            misc_propertiesDict = new Dictionary<string, ObjectProperties>();
+            misc_propertiesDict = new Dictionary<string, MiscInfo>();
             int n = misc_properties.Count;
             for (int i = 0; i < n; i++)
                 misc_propertiesDict.Add(misc_properties[i].Id, misc_properties[i]);

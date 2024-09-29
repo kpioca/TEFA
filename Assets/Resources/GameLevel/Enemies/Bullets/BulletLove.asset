@@ -18,5 +18,5 @@ MonoBehaviour:
   damage: 1
   hasEffect: 0
   isBreakInCollision: 0
-  ignoreArmor: 0
+  ignoreArmor: 1
   effectInfo: {fileID: 0}

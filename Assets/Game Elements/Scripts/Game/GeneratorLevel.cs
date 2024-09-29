@@ -73,8 +73,8 @@ public class GeneratorLevel : MonoBehaviour
     [SerializeField] private List<ObjectProperties> roadParts_properties;
     public List<ObjectProperties> RoadParts_properties => roadParts_properties;
 
-    [SerializeField] private List<ObjectProperties> misc_properties;
-    public List<ObjectProperties> Misc_properties => misc_properties;
+    [SerializeField] private List<MiscInfo> misc_properties;
+    public List<MiscInfo> Misc_properties => misc_properties;
     //
 
     //
@@ -84,14 +84,12 @@ public class GeneratorLevel : MonoBehaviour
     [SerializeField] private Dictionary<string, BonusInfo> bonuses_propertiesDict;
     [SerializeField] private Dictionary<string, ObjectProperties> islands_propertiesDict;
     [SerializeField] private Dictionary<string, ObjectProperties> roadParts_propertiesDict;
-    [SerializeField] private Dictionary<string, ObjectProperties> misc_propertiesDict;
+    [SerializeField] private Dictionary<string, MiscInfo> misc_propertiesDict;
     //
 
     private RoadGenerationPattern[] rPatterns;
     List<StageParameters> stageParameters;
     float[] openedPartItemsStages;
-
-    GameObject fishMoney_prefab;
 
     List<EnemyInfo> openedEnemy;
     List<TrapInfo> openedTraps;
@@ -162,8 +160,6 @@ public class GeneratorLevel : MonoBehaviour
         roadParts_propertiesDict = database.RoadParts_propertiesDict;
         misc_propertiesDict = database.Misc_propertiesDict;
 
-        fishMoney_prefab = misc_propertiesDict["money_fish"].Prefab;
-
         n_AllSpawnedPlatforms = database.Num_allSpawnedPlatforms;
         n_securePlatforms = database.Num_securePlatformsAtBegin;
         distZbetweenPlatforms = database.DistanceZ_between_roads;
@@ -205,7 +201,7 @@ public class GeneratorLevel : MonoBehaviour
 
         n_stage = changeStageGame(0, out openedEnemy, out openedTraps, out openedBonuses, stageParameters[0].Part_openItems_stage, enemy_properties, traps_properties, bonuses_properties);
 
-        initSpawnPartPath(ready_partsOfPath, n_AllSpawnedPlatforms, new Vector3(0, 0, 0), distZbetweenPlatforms, roadParts_properties, openedEnemy, openedTraps, openedBonuses, fishMoney_prefab, n_securePlatforms);
+        initSpawnPartPath(ready_partsOfPath, n_AllSpawnedPlatforms, new Vector3(0, 0, 0), distZbetweenPlatforms, roadParts_properties, openedEnemy, openedTraps, openedBonuses, misc_properties, n_securePlatforms);
         gameManager.roads = ready_partsOfPath;
         gameManager.allDisable();
     }
@@ -229,7 +225,7 @@ public class GeneratorLevel : MonoBehaviour
         
 
     }
-    private void initSpawnPartPath(List<GameObject> partsOfPath, int n_parts, Vector3 startPos, float DistanceZ_between_roads, List<ObjectProperties> roadParts_properties, List<EnemyInfo> openedEnemy, List<TrapInfo> openedTraps, List<BonusInfo> openedBonuses, GameObject fishMoney_prefab, int n_securePlatforms, int n_stage = 1)
+    private void initSpawnPartPath(List<GameObject> partsOfPath, int n_parts, Vector3 startPos, float DistanceZ_between_roads, List<ObjectProperties> roadParts_properties, List<EnemyInfo> openedEnemy, List<TrapInfo> openedTraps, List<BonusInfo> openedBonuses, List<MiscInfo> misc, int n_securePlatforms, int n_stage = 1)
     {
         GameObject temp_obj;
         int i;
@@ -239,7 +235,7 @@ public class GeneratorLevel : MonoBehaviour
 
         for (i = 0; i < n_securePlatforms; i++)
         {
-            temp_obj = assemblingReadyPieceOfPath(roadParts_properties[0].Prefab, openedEnemy, openedTraps, openedBonuses, fishMoney_prefab, n_stage, true);
+            temp_obj = assemblingReadyPieceOfPath(roadParts_properties[0].Prefab, openedEnemy, openedTraps, openedBonuses, misc, n_stage, true);
             placeObjectToPos(temp_obj, startPos + DistanceZ_between_roads * Vector3.forward * i, Quaternion.identity, null);
             temp_obj.GetComponent<BoxCollider>().enabled = false;
             partsOfPath.Add(temp_obj);
@@ -247,7 +243,7 @@ public class GeneratorLevel : MonoBehaviour
 
         for (; i < n_parts; i++)
         {
-            temp_obj = assemblingReadyPieceOfPath(roadParts_properties[0].Prefab, openedEnemy, openedTraps, openedBonuses, fishMoney_prefab, n_stage);
+            temp_obj = assemblingReadyPieceOfPath(roadParts_properties[0].Prefab, openedEnemy, openedTraps, openedBonuses, misc, n_stage);
             placeObjectToPos(temp_obj, startPos + DistanceZ_between_roads * Vector3.forward * i, Quaternion.identity, null);
             partsOfPath.Add(temp_obj);
         }
@@ -293,7 +289,7 @@ public class GeneratorLevel : MonoBehaviour
         ready_partsOfPath.RemoveAt(0);
         int n = ready_partsOfPath.Count;
 
-        temp_obj = assemblingReadyPieceOfPath(roadParts_properties[0].Prefab, openedEnemy, openedTraps, openedBonuses, fishMoney_prefab, n_stage);
+        temp_obj = assemblingReadyPieceOfPath(roadParts_properties[0].Prefab, openedEnemy, openedTraps, openedBonuses, misc_properties, n_stage);
         placeObjectToPos(temp_obj, ready_partsOfPath[n-1].transform.position + distZbetweenPlatforms * Vector3.forward, Quaternion.identity, null);;
         ready_partsOfPath.Add(temp_obj);
     }
@@ -394,6 +390,39 @@ public class GeneratorLevel : MonoBehaviour
         else return false;
     }
 
+    private MiscInfo getRandomElementFromList(List<MiscInfo> list)
+    {
+        float total_probability = 0;
+        List<float> chances = new List<float>();
+
+        foreach (MiscInfo elem in list)
+        {
+            total_probability += elem.Chance;
+            chances.Add(elem.Chance);
+        }
+
+        int n = chances.Count;
+        for(int i = 0; i < n; i++)
+            chances[i] = chances[i] / total_probability;
+        total_probability = 1;
+
+
+        float randomPoint = UnityEngine.Random.value * total_probability;
+
+        for (int i = 0; i < list.Count; i++)
+        {
+            if (randomPoint < chances[i])
+            {
+                return list[i];
+            }
+            else
+            {
+                randomPoint -= chances[i];
+            }
+        }
+        return list[list.Count - 1];
+    }
+
     private T getRandomElementFromList<T>(List<T> list) where T : SpawnElementInfo
     {
         float total_probability= 0;
@@ -477,12 +506,12 @@ public class GeneratorLevel : MonoBehaviour
         return output_list;
     }
 
-    private GameObject assemblingReadyPieceOfPath(GameObject road_prefab, List<EnemyInfo> openedEnemy, List<TrapInfo> openedTraps, List<BonusInfo> openedBonuses, GameObject fishMoney_prefab, int n_stage, bool secureMode = false)
+    private GameObject assemblingReadyPieceOfPath(GameObject road_prefab, List<EnemyInfo> openedEnemy, List<TrapInfo> openedTraps, List<BonusInfo> openedBonuses, List<MiscInfo> misc, int n_stage, bool secureMode = false)
     {
         GameObject raw_road = spawnObject(road_prefab, null);
         RoadGenerationPattern rPattern;
         GameObject temp;
-        int n_e = 0, n_t = 0, n_b = 0, n_fish = 0, n_extraIsl = 0;
+        int n_e = 0, n_t = 0, n_b = 0, n_m = 0, n_extraIsl = 0;
         int k, t, p;
 
 
@@ -518,7 +547,7 @@ public class GeneratorLevel : MonoBehaviour
         n_e = UnityEngine.Random.Range(spawnParameters.min_enemies[n_stage], spawnParameters.max_enemies[n_stage] + 1);
         n_t = UnityEngine.Random.Range(spawnParameters.min_traps[n_stage], spawnParameters.max_traps[n_stage] + 1);
         n_b = UnityEngine.Random.Range(spawnParameters.min_bonuses[n_stage], spawnParameters.max_bonuses[n_stage] + 1);
-        n_fish = UnityEngine.Random.Range(stageParameters[n_stage].Min_fishMoney_stage, stageParameters[n_stage].Max_fishMoney_stage + 1);
+        n_m = UnityEngine.Random.Range(stageParameters[n_stage].Min_fishMoney_stage, stageParameters[n_stage].Max_fishMoney_stage + 1);
         chanceSpawnBonus = spawnParameters.chance_Bonuses[n_stage];
 
         n_t = rPattern.TrapNumSpawnPlaces.Length < n_t ? rPattern.TrapNumSpawnPlaces.Length : n_t;
@@ -529,7 +558,7 @@ public class GeneratorLevel : MonoBehaviour
             n_e = 0;
             n_t = 0;
             n_b = 0;
-            n_fish = 0;
+            n_m = 0;
         }
 
 
@@ -592,9 +621,9 @@ public class GeneratorLevel : MonoBehaviour
                 if (bonusesMarks.Count != 0)
                     createBonus(raw_road, openedBonuses, bonusesMarks, info);
 
-        for (int i = 0; i < n_fish; i++)
+        for (int i = 0; i < n_m; i++)
             if (miscMarks.Count != 0)
-                spawnMisc(raw_road, fishMoney_prefab, miscMarks, info);
+                spawnMisc(raw_road, misc, miscMarks, info);
 
         return raw_road;
     }
@@ -641,13 +670,14 @@ public class GeneratorLevel : MonoBehaviour
         islandsMarks.RemoveAt(t);
     }
 
-    private void spawnMisc(GameObject raw_road, GameObject prefab, List<Mark> miscMarks, InfoPieceOfPath info)
+    private void spawnMisc(GameObject raw_road, List<MiscInfo> misc, List<Mark> miscMarks, InfoPieceOfPath info)
     {
         GameObject temp;
         int k;
 
+
         k = UnityEngine.Random.Range(0, miscMarks.Count);
-        temp = spawnObject(prefab, miscMarks[k].obj.transform.position, miscMarks[k].obj.transform.rotation, raw_road.transform);
+        temp = spawnObject(getRandomElementFromList(misc).Prefab, miscMarks[k].obj.transform.position, miscMarks[k].obj.transform.rotation, raw_road.transform);
 
         DestroyableAndCollectable destr;
 
@@ -890,7 +920,7 @@ public class GeneratorLevel : MonoBehaviour
         despawnObject(piecePath);
     }
 
-    private void initObjectPools(List<EnemyInfo> enemies, List<TrapInfo> traps, List<BonusInfo> bonuses, List<ObjectProperties> islands, List<ObjectProperties> roadParts, List<ObjectProperties> misc)
+    private void initObjectPools(List<EnemyInfo> enemies, List<TrapInfo> traps, List<BonusInfo> bonuses, List<ObjectProperties> islands, List<ObjectProperties> roadParts, List<MiscInfo> misc)
     {
         int n_e = enemies.Count;
         int n_t = traps.Count;
@@ -927,6 +957,21 @@ public class GeneratorLevel : MonoBehaviour
         {
             m = listObjects[i].SizeOfObjectPool;
             for(int j = 0; j < m; j++)
+                tempList.Add(KhtPool.GetObject(listObjects[i].Prefab));
+        }
+        for (int i = 0; i < tempList.Count; i++) KhtPool.ReturnObject(tempList[i]);
+    }
+
+    private void initObjectPool(List<MiscInfo> listObjects)
+    {
+        int n = listObjects.Count;
+        int m = 0;
+        List<GameObject> tempList = new List<GameObject>();
+
+        for (int i = 0; i < n; i++)
+        {
+            m = listObjects[i].SizeOfObjectPool;
+            for (int j = 0; j < m; j++)
                 tempList.Add(KhtPool.GetObject(listObjects[i].Prefab));
         }
         for (int i = 0; i < tempList.Count; i++) KhtPool.ReturnObject(tempList[i]);

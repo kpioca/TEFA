@@ -133,7 +133,6 @@ public class InfoPieceOfPath : MonoBehaviour
     public void setRoadGenerationPattern(RoadGenerationPattern pattern)
     {
         RPattern = pattern;
-        Debug.Log(pattern.Id);
         int n1 = pattern.TrapNumSpawnPlaces.Length;
         int n2 = pattern.BonusNumSpawnPlaces.Length;
 

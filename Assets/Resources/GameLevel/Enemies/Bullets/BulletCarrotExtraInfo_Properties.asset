@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: b_car_e
   prefab: {fileID: 6509721960610013796, guid: 1312caf7dd18ec94ea3e365871966002, type: 3}
-  speed: 10
+  speed: 12
   damage: 1
   hasEffect: 0
   isBreakInCollision: 0

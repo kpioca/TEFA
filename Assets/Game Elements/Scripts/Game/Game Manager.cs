@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private TMP_Text moneyCounterText;
+    [SerializeField] private TMP_Text foodCounterText;
     [SerializeField] private TMP_Text healthCounterText;
     [SerializeField] private TMP_Text armorCounterText;
 
@@ -56,6 +57,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Collectables")]
     [SerializeField] private int fishMoney = 0;
+    [SerializeField] private int food = 0;
     //public bool IsGameOver
     //{
     //    get { return isGameOver; }
@@ -127,6 +129,12 @@ public class GameManager : MonoBehaviour
     {
         fishMoney += amount;
         moneyCounterText.text = fishMoney.ToString();
+    }
+
+    public void AddFood(int amount = 1)
+    {
+        food += amount;
+        foodCounterText.text = food.ToString();
     }
 
     public void changeHealth(int value)

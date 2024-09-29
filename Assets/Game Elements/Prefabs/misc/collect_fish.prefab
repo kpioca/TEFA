@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 440466275743050352}
   - component: {fileID: 1503267651848219936}
   - component: {fileID: 8993334466622920934}
+  - component: {fileID: 2170049202105353749}
   m_Layer: 0
   m_Name: collect_fish
   m_TagString: FishMoney
@@ -27,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 7732691636725382871}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 200, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -75,6 +76,19 @@ MonoBehaviour:
   destroyInPlayerCollision: 1
   destructionParticles: {fileID: 586265465599792263, guid: ebc3a8ce9efac8d4f83c2e0408051e7d,
     type: 3}
+--- !u!114 &2170049202105353749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7732691636725382871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d53e0c786de6a14ab0a9d408d47d304, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  misc_Info: {fileID: 11400000, guid: 9019efc09c2fa054aa25e19370a70534, type: 2}
 --- !u!1001 &8512903687623030756
 PrefabInstance:
   m_ObjectHideFlags: 0

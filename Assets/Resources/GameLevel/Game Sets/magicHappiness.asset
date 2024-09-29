@@ -20,4 +20,4 @@ MonoBehaviour:
   traps:
   - {fileID: 11400000, guid: 66da89282f45194459007d4de6cd5387, type: 2}
   bonuses:
-  - {fileID: 11400000, guid: 6830d3dbf12f6824889a0385a9d2a423, type: 2}
+  - {fileID: 11400000, guid: e3bf9e0600e306a4ba3bcf91b01be704, type: 2}

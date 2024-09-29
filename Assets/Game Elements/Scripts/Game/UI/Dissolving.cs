@@ -12,8 +12,6 @@ public class DissolvingStartWindow : MonoBehaviour
     Material material;
     [SerializeField] float duration;
     [SerializeField] float smoothness = 0.01f;
-
-    [SerializeField] GameObject[] UIobjectsToDisable;
     void Start()
     {
         material = GetComponent<RawImage>().material;
@@ -51,7 +49,7 @@ public class DissolvingStartWindow : MonoBehaviour
         material.SetFloat("_alphaClip", 0);
         gameManager.allEnable();
         gameObject.SetActive(false);
-        changeStateObjects(UIobjectsToDisable, true);
+        //changeStateObjects(UIobjectsToDisable, true);
 
     }
 

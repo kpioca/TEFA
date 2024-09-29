@@ -8,11 +8,17 @@ public class ContentPlayer : MonoBehaviour
 {
     [SerializeField] private StatusEffectInfo deathImmortalEffect;
     [SerializeField] private GameManager gameManager;
+
+    public GameManager game_Manager => gameManager;
     [SerializeField] private EffectTimer effect_Timer;
 
     [SerializeField] private int health = 1;
 
-    public int Health => health;
+    public int Health
+    {
+        get { return health; }
+        set { health = value; }
+    }
 
     [SerializeField] private int armor = 0;
     public int Armor
@@ -52,9 +58,9 @@ public class ContentPlayer : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "FishMoney")
+        if (other.gameObject.TryGetComponent<ContentMisc>(out ContentMisc contentMisc))
         {
-            collectMoney(other.gameObject);
+             collectMisc(contentMisc, other.gameObject);
         }
 
         else if(other.tag == "Bonus")
@@ -95,9 +101,19 @@ public class ContentPlayer : MonoBehaviour
         this.enabled = false;
     }
     
-    void collectMoney(GameObject obj)
+    void collectMisc(ContentMisc content, GameObject obj)
     {
-        gameManager.AddMoney();
+        switch (content.Misc_Info.Id)
+        {
+            case "money_fish":
+                gameManager.AddMoney();
+                break;
+            case "food":
+                gameManager.AddFood();
+                break;
+            default:
+                break;
+        }
         DestroyMisc(obj);
     }
 

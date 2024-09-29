@@ -23,11 +23,11 @@ public class PlayerControl : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     [SerializeField] private Camera mainCamera;
 
-    [SerializeField] private Vector3[] camera_positions = new Vector3[3]
+    private Vector3[] camera_positions = new Vector3[3]
     {
-        new Vector3(-2,4.38f,-7.64f),
-        new Vector3(0,4.38f,-7.64f),
-        new Vector3(2,4.38f,-7.64f)
+        new Vector3(-2,5.08f,-7.7f),
+        new Vector3(0,5.08f,-7.7f),
+        new Vector3(2,5.08f,-7.7f)
     };
 
     private List<float> camera_positions_x = new List<float> { -2, 0, 2 };
@@ -65,24 +65,55 @@ public class PlayerControl : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
                 if (eventData.delta.x > 0 && isPossibleToTakeNext(curr_camPos_num, 1, camera_positions))
                 {
                     if (!isJumping)
-                        movementCoroutine = StartCoroutine(moveToNextPos_Coroutine(curr_camPos_num, 1, camera_positions, speed_move, height_move, mainCamera.gameObject));
-                    else if(!isFalling)
+                    {
+                        curr_camPos_num++;
+                        target = camera_positions[curr_camPos_num];
+                        movementCoroutine = StartCoroutine(moveToNextPos_Coroutine(mainCamera.gameObject));
+                    }
+                    else if (!isFalling)
                     {
                         //isMoving = true;
-                        target = new Vector3(camera_positions[curr_camPos_num + 1].x, target.y, camera_positions[curr_camPos_num + 1].z);
                         curr_camPos_num++;
+                        target = new Vector3(camera_positions[curr_camPos_num].x, target.y, camera_positions[curr_camPos_num].z);
                         isTargetChanged = true;
                     }
                 }
                 else if (eventData.delta.x < 0 && isPossibleToTakeNext(curr_camPos_num, -1, camera_positions))
                 {
                     if (!isJumping)
-                        movementCoroutine = StartCoroutine(moveToNextPos_Coroutine(curr_camPos_num, -1, camera_positions, speed_move, height_move, mainCamera.gameObject));
-                    else if(!isFalling)
+                    {
+                        curr_camPos_num--;
+                        target = camera_positions[curr_camPos_num];
+                        movementCoroutine = StartCoroutine(moveToNextPos_Coroutine(mainCamera.gameObject));
+                    }
+                    else if (!isFalling)
                     {
                         //isMoving = true;
-                        target = new Vector3(camera_positions[curr_camPos_num - 1].x, target.y, camera_positions[curr_camPos_num - 1].z);
                         curr_camPos_num--;
+                        target = new Vector3(camera_positions[curr_camPos_num].x, target.y, camera_positions[curr_camPos_num].z);
+                        isTargetChanged = true;
+                    }
+                }
+            }
+            else if (isMoving)
+            {
+                if (eventData.delta.x > 0 && isPossibleToTakeNext(curr_camPos_num, 1, camera_positions))
+                {
+                    if (!isFalling)
+                    {
+                        //isMoving = true;
+                        curr_camPos_num++;
+                        target = camera_positions[curr_camPos_num];
+                        isTargetChanged = true;
+                    }
+                }
+                else if (eventData.delta.x < 0 && isPossibleToTakeNext(curr_camPos_num, -1, camera_positions))
+                {
+                    if (!isFalling)
+                    {
+                        //isMoving = true;
+                        curr_camPos_num--;
+                        target = camera_positions[curr_camPos_num];
                         isTargetChanged = true;
                     }
                 }
@@ -107,7 +138,7 @@ public class PlayerControl : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         }
     }
 
-    private IEnumerator moveToNextPos_Coroutine(int curr_num, int increment, Vector3[] positions, float speed_move, float height_move, GameObject obj)
+    private IEnumerator moveToNextPos_Coroutine2(int curr_num, int increment, Vector3[] positions, float speed_move, float height_move, GameObject obj)
     {
         Vector3 start_pos = obj.transform.position;
         Vector3 final_pos;
@@ -155,6 +186,46 @@ public class PlayerControl : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
         isMoving = false;
         curr_camPos_num = curr_num + increment;
+    }
+
+    private IEnumerator moveToNextPos_Coroutine(GameObject obj)
+    {
+        Vector3 start_pos = obj.transform.position;
+        Vector3 targetPos = target;
+
+        double runningTime;
+        double totalRunningTime;
+
+        isMoving = true;
+
+        Vector3 pos = start_pos;
+        runningTime = 0;
+        totalRunningTime = Vector3.Distance(start_pos, targetPos) / speed_move;
+
+        while (runningTime < totalRunningTime)
+        {
+            runningTime += Time.deltaTime;
+            obj.transform.position = Vector3.Lerp(start_pos, targetPos, (float)(runningTime / totalRunningTime));
+            pos = obj.transform.position;
+            if (isTargetChanged)
+            {
+                isTargetChanged = false;
+                movementCoroutine = StartCoroutine(moveToNextPos_Coroutine(obj));
+                yield break;
+            }
+            yield return 0;
+        }
+
+        if (isTargetChanged)
+        {
+            isTargetChanged = false;
+            movementCoroutine = StartCoroutine(moveToNextPos_Coroutine(obj));
+            yield break;
+        }
+
+        obj.transform.position = targetPos;
+
+        isMoving = false;
     }
 
     private IEnumerator fall_Coroutine(float speed_fall, GameObject obj)

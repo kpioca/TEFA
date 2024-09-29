@@ -74,7 +74,7 @@ public class DestroyableAndCollectable : MonoBehaviour
         destructionParticlesInstance.SetActive(true);
         destructionParticlesInstance.transform.SetParent(null);
         destructionParticlesInstance.transform.position = new Vector3(position.x, position.y + 0.7f, position.z);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         KhtPool.ReturnObject(destructionParticlesInstance);
         destructionParticlesInstance = null;
     }
