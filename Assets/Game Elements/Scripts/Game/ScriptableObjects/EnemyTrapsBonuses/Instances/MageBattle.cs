@@ -12,6 +12,7 @@ public class MageBattle : Mage
     [SerializeField] private protected int sizeOfProjectilePool = 8;
     public int SizeOfProjectilePool => sizeOfProjectilePool;
 
+    private protected ContentBullet contentBullet;
     public MageBattle(MageBattleInfo info, GameObject instance) : base(info, instance)
     {
         bullet_Info = info.bulletInfo;
@@ -37,7 +38,7 @@ public class MageBattle : Mage
 
         SpellPull[0].ActivateSpell(gameManager, player, infoPieceOfPath);
         yield return new WaitForSeconds((float)attackAnimationClip.length * 1 / 5);
-        shoot(markGun, gameManager.SpeedRouteMovement, player.transform.position, gameManager);
+        shoot(markGun, gameManager.getPlatformSpeedForBullets(), player.transform.position, gameManager);
 
         yield return new WaitForSeconds((float)attackAnimationClip.length * 2/5);
         animator.enabled = false;
@@ -46,20 +47,20 @@ public class MageBattle : Mage
     public virtual void shoot(GameObject markGun, float platformsSpeed, Vector3 target, MonoBehaviour toUseCoroutines = null)
     {
         GameObject bullet;
-        bullet = bulletInfo.spawnBullet(bulletInfo.Prefab, markGun, null, stamp);
+        bullet = bulletInfo.spawnBullet(bulletInfo.Prefab, markGun, null, stamp, out contentBullet);
 
-        MoveToPos(toUseCoroutines, bullet, target + bullet.transform.forward * 2, bulletInfo, platformsSpeed);
+        MoveToPos(toUseCoroutines, bullet, target + bullet.transform.forward * 2, bulletInfo, platformsSpeed, contentBullet);
     }
 
-    public virtual void MoveToPos(MonoBehaviour toUseCoroutines, GameObject obj, Vector3 target, BulletInfo bulletInfo, float platformsSpeed)
+    public virtual void MoveToPos(MonoBehaviour toUseCoroutines, GameObject obj, Vector3 target, BulletInfo bulletInfo, float platformsSpeed, ContentBullet contentBullet)
     {
-        toUseCoroutines.StartCoroutine(MovementCoroutine(obj, target, bulletInfo.Speed + platformsSpeed));
+        toUseCoroutines.StartCoroutine(MovementCoroutine(obj, target, bulletInfo.Speed + platformsSpeed, contentBullet));
 
         //projectile_rb = obj.GetComponent<Rigidbody>();
         //projectile_rb.velocity = obj.transform.forward * (bulletInfo.Speed + platformsSpeed);
     }
 
-    private protected virtual IEnumerator MovementCoroutine(GameObject obj, Vector3 target, float speed)
+    private protected virtual IEnumerator MovementCoroutine(GameObject obj, Vector3 target, float speed, ContentBullet contentBullet)
     {
         Vector3 start_pos = obj.transform.position;
 
@@ -72,6 +73,8 @@ public class MageBattle : Mage
             obj.transform.position = Vector3.Lerp(start_pos, target, runningTime / totalRunningTime);
             yield return 1;
         }
+        if (contentBullet.gameObject.activeInHierarchy)
+            contentBullet.Remove();
     }
 
 

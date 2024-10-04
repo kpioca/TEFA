@@ -15,20 +15,25 @@ public class PathCounter : MonoBehaviour
     [SerializeField] private int pathScore;
 
     private int n_stages = 0;
-    private List<int> activationDistances = new List<int>() { -1 };
+    private LinkedList<int[]> activationDistances = new LinkedList<int[]>(new[] { new int[2] { -1, -1 } });
     public int PathScore => pathScore;
 
     public Coroutine PathCounterCoroutine;
 
+
+    LinkedListNode<int[]> currentStageDistance;
     [SerializeField] private float speedCount;
     // Start is called before the first frame update
     void Start()
     {
         n_stages = database.stageParameters.Count;
-        for(int i = 1; i < n_stages; i++)
-            activationDistances.Add(database.stageParameters[i].ActivationDistance_stage);
+        for (int i = 1; i < n_stages; i++)
+        {
+            activationDistances.AddLast(new int[2] { database.stageParameters[i].ActivationDistance_stage, i });
+        }
 
         speedCount = gameManager.SpeedCount;
+        currentStageDistance = activationDistances.First;
 
         GlobalEventManager.OnGameOver += GameOver;
         GlobalEventManager.OnUnSubscribe += unSubscribe;
@@ -54,17 +59,24 @@ public class PathCounter : MonoBehaviour
         PathCounterCoroutine = StartCoroutine(pathCounterCoroutine());
     }
 
+    
     IEnumerator pathCounterCoroutine()
     {
+        int n_stage = 0;
+        
         while (true)
         {
-            int n_stage = activationDistances.FindIndex(delegate (int activDist)
+            if (currentStageDistance.Next != null)
             {
-                return activDist == pathScore;
+                if (currentStageDistance.Next.Value[0] == pathScore)
+                {
+                    n_stage = currentStageDistance.Next.Value[1];
+                    currentStageDistance = currentStageDistance.Next;
+                }
             }
-            );
+            else n_stage = -1;
 
-            if (n_stage != -1)
+            if (n_stage != -1 && n_stage != 0)
             {
                 GlobalEventManager.ChangeStageGame(n_stage);
             }

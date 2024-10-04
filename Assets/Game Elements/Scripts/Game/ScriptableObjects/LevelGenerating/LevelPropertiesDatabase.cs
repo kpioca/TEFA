@@ -54,14 +54,14 @@ public class StageParameters
     }
 
     [Header("Traps parameters")]
-    [Range(0, 8)]
+    [Range(0, 12)]
     [SerializeField] private int min_Traps_stage = 0;
     public int Min_Traps_stage
     {
         get { return min_Traps_stage; }
         set { min_Traps_stage = value;}
     }
-    [Range(0, 8)]
+    [Range(0, 12)]
     [SerializeField] private int max_Traps_stage = 4;
     public int Max_Traps_stage
     {
@@ -116,7 +116,7 @@ public class StageParameters
         get { return part_openItems_stage; }
         set { part_openItems_stage = value; }
     }
-    [Range(0, 300)]
+    [Range(0, 500)]
     [SerializeField] private int activationDistance_stage = 0;
     public int ActivationDistance_stage
     {

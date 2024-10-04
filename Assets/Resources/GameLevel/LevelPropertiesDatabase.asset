@@ -16,29 +16,29 @@ MonoBehaviour:
   - element: {fileID: 11400000, guid: 75bb605aa4137a0468c7ea79c1c97dea, type: 2}
     checkbox: 1
   - element: {fileID: 11400000, guid: 3c9f7b981a23d7c45be9745d5d58b933, type: 2}
-    checkbox: 0
+    checkbox: 1
   - element: {fileID: 11400000, guid: 58057b5392eb88848bbd54a412abe464, type: 2}
-    checkbox: 0
+    checkbox: 1
   - element: {fileID: 11400000, guid: 84b0cff53645bc54f9ebba9331fb1f78, type: 2}
-    checkbox: 0
+    checkbox: 1
   - element: {fileID: 11400000, guid: db443f2f8c809ce429abbe87a3b46a32, type: 2}
-    checkbox: 0
+    checkbox: 1
   - element: {fileID: 11400000, guid: 603773d8a45802c41891ad74719c0e06, type: 2}
-    checkbox: 0
+    checkbox: 1
   - element: {fileID: 11400000, guid: bc424cc45aabc1f43b0fe561b8c685a7, type: 2}
-    checkbox: 0
+    checkbox: 1
   - element: {fileID: 11400000, guid: 288796754b2c4f0478b46a9c8181b470, type: 2}
-    checkbox: 0
+    checkbox: 1
   - element: {fileID: 11400000, guid: 40197d76e2a7d894c97da71616c5f31d, type: 2}
-    checkbox: 0
+    checkbox: 1
   - element: {fileID: 11400000, guid: 5f3b645db4b40984396af142e59d1060, type: 2}
-    checkbox: 0
+    checkbox: 1
   - element: {fileID: 11400000, guid: 6c498809195d54f43a93112fc1050a88, type: 2}
-    checkbox: 0
+    checkbox: 1
   - element: {fileID: 11400000, guid: 26f5b364b30946f4e90b4ef23754cc8a, type: 2}
-    checkbox: 0
+    checkbox: 1
   - element: {fileID: 11400000, guid: ccd159625dc283243a97813c83e9e120, type: 2}
-    checkbox: 0
+    checkbox: 1
   traps_properties:
   - element: {fileID: 11400000, guid: 30c3cab9c175b8e4da2b8371edeca811, type: 2}
     checkbox: 1
@@ -48,11 +48,13 @@ MonoBehaviour:
     checkbox: 1
   - element: {fileID: 11400000, guid: f2ff9362949a1b44aa96b14f2701e588, type: 2}
     checkbox: 1
+  - element: {fileID: 11400000, guid: 66297a52645238b4590dff6f13c48a98, type: 2}
+    checkbox: 1
   bonuses_properties:
   - element: {fileID: 11400000, guid: 6830d3dbf12f6824889a0385a9d2a423, type: 2}
-    checkbox: 0
+    checkbox: 1
   - element: {fileID: 11400000, guid: d9b28af2ef38d014f8180d5f76f4cc00, type: 2}
-    checkbox: 0
+    checkbox: 1
   - element: {fileID: 11400000, guid: e3bf9e0600e306a4ba3bcf91b01be704, type: 2}
     checkbox: 1
   islands_properties:
@@ -115,6 +117,14 @@ MonoBehaviour:
     checkbox: 1
   - element: {fileID: 11400000, guid: 147a54266e36cab458ae2ef70ab3cc0a, type: 2}
     checkbox: 1
+  - element: {fileID: 11400000, guid: 071319470d406004198763ed02830032, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: 9b1af833073540849bf5eb0c336e39cd, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: 17d2502582386da4ebd1f6aa98e4f779, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: dc41d6944b122674988be19420e2c495, type: 2}
+    checkbox: 1
   modificators:
   - element: {fileID: 11400000, guid: dfd9abb7f1fb98c4a9645807f8982fac, type: 2}
     checkbox: 1
@@ -124,7 +134,7 @@ MonoBehaviour:
     checkbox: 1
   - element: {fileID: 11400000, guid: da614105cbbf57e44bae61e948c334de, type: 2}
     checkbox: 1
-  chanceModificator: 0.15
+  chanceModificator: 0.2
   gameSets:
   - element: {fileID: 11400000, guid: 2fec9b1228e9c024b9c2c02821b6d273, type: 2}
     checkbox: 1
@@ -145,6 +155,10 @@ MonoBehaviour:
   - element: {fileID: 11400000, guid: 4783084253dd354449a3c3c0b9260d4b, type: 2}
     checkbox: 1
   - element: {fileID: 11400000, guid: 8fbffd27ca4fc0f4cab64206eba48390, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: f54724bf353acfd47ae38655978ac751, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: 2a7621e0b1dc91748a714d75a3641613, type: 2}
     checkbox: 1
   chanceSpawnGameSet: 0.2
   stampInfos:
@@ -167,8 +181,8 @@ MonoBehaviour:
   num_allSpawnedPlatforms: 4
   min_typeEnemy: 3
   max_typeEnemy: 6
-  min_typeTraps: 1
-  max_typeTraps: 4
+  min_typeTraps: 2
+  max_typeTraps: 5
   min_typeBonuses: 1
   max_typeBonuses: 3
   _stageParameters:
@@ -193,9 +207,9 @@ MonoBehaviour:
     min_fishMoney_stage: 1
     max_fishMoney_stage: 5
     part_openItems_stage: 0.5
-    activationDistance_stage: 25
+    activationDistance_stage: 30
   - min_Enemy_stage: 1
-    max_Enemy_stage: 4
+    max_Enemy_stage: 3
     min_Traps_stage: 2
     max_Traps_stage: 5
     min_Bonuses_stage: 0
@@ -204,9 +218,9 @@ MonoBehaviour:
     min_fishMoney_stage: 2
     max_fishMoney_stage: 6
     part_openItems_stage: 1
-    activationDistance_stage: 75
+    activationDistance_stage: 90
   - min_Enemy_stage: 2
-    max_Enemy_stage: 5
+    max_Enemy_stage: 4
     min_Traps_stage: 3
     max_Traps_stage: 6
     min_Bonuses_stage: 0
@@ -215,4 +229,37 @@ MonoBehaviour:
     min_fishMoney_stage: 3
     max_fishMoney_stage: 8
     part_openItems_stage: 1
-    activationDistance_stage: 135
+    activationDistance_stage: 175
+  - min_Enemy_stage: 3
+    max_Enemy_stage: 5
+    min_Traps_stage: 4
+    max_Traps_stage: 7
+    min_Bonuses_stage: 0
+    max_Bonuses_stage: 2
+    chance_Bonuses_stage: 0.05
+    min_fishMoney_stage: 5
+    max_fishMoney_stage: 10
+    part_openItems_stage: 1
+    activationDistance_stage: 260
+  - min_Enemy_stage: 4
+    max_Enemy_stage: 6
+    min_Traps_stage: 6
+    max_Traps_stage: 8
+    min_Bonuses_stage: 0
+    max_Bonuses_stage: 2
+    chance_Bonuses_stage: 0.02
+    min_fishMoney_stage: 7
+    max_fishMoney_stage: 12
+    part_openItems_stage: 1
+    activationDistance_stage: 340
+  - min_Enemy_stage: 6
+    max_Enemy_stage: 6
+    min_Traps_stage: 8
+    max_Traps_stage: 10
+    min_Bonuses_stage: 0
+    max_Bonuses_stage: 2
+    chance_Bonuses_stage: 0.001
+    min_fishMoney_stage: 10
+    max_fishMoney_stage: 12
+    part_openItems_stage: 1
+    activationDistance_stage: 450

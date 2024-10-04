@@ -17,18 +17,18 @@ public class ChthAngelCan : Cannon
     public override void Attack(GameObject[] markGun, float platformsSpeed, Vector3 target, MonoBehaviour toUseCoroutines)
     {
         GameObject bullet;
-        bullet = bulletsInfo[0].spawnBullet(bulletsInfo[0].Prefab, markGun[0], null, stamp);
+        bullet = bulletsInfo[0].spawnBullet(bulletsInfo[0].Prefab, markGun[0], null, stamp, out contentBullet[0]);
 
-        MoveToPos(toUseCoroutines, bullet, target + bullet.transform.forward * 2, bulletsInfo[0], platformsSpeed);
+        MoveToPos(toUseCoroutines, bullet, target + bullet.transform.forward * 2, bulletsInfo[0], platformsSpeed, contentBullet[0]);
     }
 
-    public override void MoveToPos(MonoBehaviour toUseCoroutines, GameObject obj, Vector3 target, BulletInfo bulletInfo, float platformsSpeed)
+    public override void MoveToPos(MonoBehaviour toUseCoroutines, GameObject obj, Vector3 target, BulletInfo bulletInfo, float platformsSpeed, ContentBullet contentBullet)
     {
         float speedMultiplier = stamp == null ? 1 : stamp.getStampValue();
-        toUseCoroutines.StartCoroutine(MovementCoroutine(obj, target, bulletInfo.Speed * speedMultiplier + platformsSpeed, toUseCoroutines));
+        toUseCoroutines.StartCoroutine(MovementCoroutine(obj, target, bulletInfo.Speed * speedMultiplier + platformsSpeed, toUseCoroutines, contentBullet));
     }
 
-    private protected IEnumerator MovementCoroutine(GameObject obj, Vector3 target, float speed, MonoBehaviour toUseCoroutines)
+    private protected IEnumerator MovementCoroutine(GameObject obj, Vector3 target, float speed, MonoBehaviour toUseCoroutines, ContentBullet contentBullet)
     {
         Coroutine spiningCoroutine = toUseCoroutines.StartCoroutine(SpinningCoroutine(obj, spinningSpeed));
         Vector3 start_pos = obj.transform.position;
@@ -43,6 +43,8 @@ public class ChthAngelCan : Cannon
             yield return 1;
         }
         toUseCoroutines.StopCoroutine(spiningCoroutine);
+        if (contentBullet.gameObject.activeInHierarchy)
+            contentBullet.Remove();
     }
 
     private IEnumerator SpinningCoroutine(GameObject bullet, float speed = 10)

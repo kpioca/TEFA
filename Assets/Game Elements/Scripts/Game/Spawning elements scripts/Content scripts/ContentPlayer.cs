@@ -7,6 +7,7 @@ using static CannonInfo;
 public class ContentPlayer : MonoBehaviour
 {
     [SerializeField] private StatusEffectInfo deathImmortalEffect;
+    [SerializeField] private StatusEffectInfo destroyArmorEffect;
     [SerializeField] private GameManager gameManager;
 
     public GameManager game_Manager => gameManager;
@@ -31,12 +32,15 @@ public class ContentPlayer : MonoBehaviour
     public int EffectTimer
     {
         get { return effectTimer; }
-        set { 
+        set {
             effectTimer = value;
         }
     }
 
-    [SerializeField] private bool isImmortal = false;
+
+    private bool isImmortal = false;
+    [SerializeField] private bool isAdminImmortal = false;
+    public bool IsAdminImmortal => isAdminImmortal;
 
     public Dictionary<string, StatusEffectInfo> appliedEffects = new Dictionary<string, StatusEffectInfo>();
     public List<StatusEffectInfo> effectsWithAppliedShaders;
@@ -60,22 +64,25 @@ public class ContentPlayer : MonoBehaviour
     {
         if (other.gameObject.TryGetComponent<ContentMisc>(out ContentMisc contentMisc))
         {
-             collectMisc(contentMisc, other.gameObject);
+            collectMisc(contentMisc, other.gameObject);
         }
 
-        else if(other.tag == "Bonus")
+        else if (other.tag == "Bonus")
         {
-            collectBonus(other.gameObject);
+            if (isAdminImmortal == false)
+            {
+                collectBonus(other.gameObject);
 
-            BonusInfo bonusInfo = other.GetComponent<ContentBonus>().bonusInfo;
-            bonusInfo.Action(gameManager, this);
+                BonusInfo bonusInfo = other.GetComponent<ContentBonus>().bonusInfo;
+                bonusInfo.Action(gameManager, this);
+            }
         }
 
-        else if (isImmortal && other.tag == "Trap")
+        else if ((isImmortal || isAdminImmortal) && other.tag == "Trap")
         {
             DestroyTrap(other.gameObject);
         }
-        else if (!isImmortal)
+        else if (!(isImmortal || isAdminImmortal))
         {
             if (other.tag == "Bullet")
             {
@@ -240,6 +247,23 @@ public class ContentPlayer : MonoBehaviour
         }
     }
 
+    public void effectActivateWithParameters(StatusEffectInfo effect, int[] parameters)
+    {
+        //if (!hasThisEffect(effect))
+        {
+            int duration = 0;
+            effect.ApplyEffect(gameManager, this, out duration, parameters);
+
+            if (effect.HaveTimer)
+            {
+                EffectTimer = duration;
+                if (effect_Timer.effectTimerCoroutine != null)
+                    StopCoroutine(effect_Timer.effectTimerCoroutine);
+                effect_Timer.effectTimerCoroutine = StartCoroutine(effect_Timer.EffectTimerCoroutine());
+            }
+        }
+    }
+
     public void removeEffect(StatusEffectInfo effect)
     {
         if (appliedEffects.ContainsKey(effect.EffectId))
@@ -256,7 +280,11 @@ public class ContentPlayer : MonoBehaviour
 
     public void changeImmortalState(bool state)
     {
-        isImmortal = state;
+        if (state == false) {
+            if (!(appliedEffects.ContainsKey("eff_im") && appliedEffects.ContainsKey("eff_im_d")))
+                isImmortal = state;
+        }
+        else isImmortal = state;
     }
 
     public void changeCounterHealth(int health)
@@ -266,6 +294,7 @@ public class ContentPlayer : MonoBehaviour
 
     public void changeCounterArmor(int armor)
     {
+        this.armor = armor;
         gameManager.changeArmor(armor);
     }
     private void attackBullet(Bullet bullet, GameObject bulletObj)
@@ -283,10 +312,9 @@ public class ContentPlayer : MonoBehaviour
             }
             else if (armor > 0)
             {
-                armor -= damage;
-                if (armor > 0) changeCounterArmor(armor);
+                effectActivateWithParameters(destroyArmorEffect, new int[1] { damage });
             }
-            if (armor <= 0)
+            if (armor < 0)
             {
                 armor = 0;
                 changeCounterArmor(armor);

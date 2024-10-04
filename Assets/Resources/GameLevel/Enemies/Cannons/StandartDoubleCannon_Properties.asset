@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: StandartDoubleCannon_Properties
   m_EditorClassIdentifier: 
   id: can_std
-  levelOfCoolness: 3
+  levelOfCoolness: 2
   prefab: {fileID: 6747746081925311420, guid: f5299b43bd5b1ff4d933379b2418b463, type: 3}
   sizeOfObjectPool: 8
   icon: {fileID: 21300000, guid: 8f5418c4477d0054d88c0adbc44b9353, type: 3}
@@ -26,5 +26,5 @@ MonoBehaviour:
   attackZoneZ: 24
   bullets_Info:
   - {fileID: 11400000, guid: 321e15f34c110ce45b507ddc5812828c, type: 2}
-  sizeOfProjectilePool: 16
+  sizeOfProjectilePool: 8
   intervalBetweenShots: 0.5

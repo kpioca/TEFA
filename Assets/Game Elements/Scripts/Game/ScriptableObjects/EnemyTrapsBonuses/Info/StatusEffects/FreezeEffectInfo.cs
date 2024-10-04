@@ -9,56 +9,91 @@ public class FreezeEffectInfo : StatusEffectInfo
     [SerializeField] private float percentSlowdown = 0.5f;
 
     private Coroutine effectCoroutine;
+
+    float startSpeedMove;
+
+    float startHeightJump;
+    float startSpeedRoute;
+
+    float decreaseSpeedMove = 0;
+
+    float decreaseHeightJump = 0;
+    float decreaseSpeedRoute = 0;
+
+    int duration;
+
     public override void ApplyEffect(GameManager gameManager, ContentPlayer contentPlayer, out int duration)
     {
         duration = durationSec;
-        if (effectCoroutine != null)
+        this.duration = durationSec;
+
+        if (effectCoroutine == null)
         {
-            gameManager.StopCoroutine(effectCoroutine);
-
-            float startSpeedMove = gameManager.Speed_playerDash;
-            float startSpeedJump = gameManager.Speed_playerJump;
-
-            float startHeightMove = gameManager.Height_playerDash;
-            float startHeightJump = gameManager.Height_playerJump;
-
-            gameManager.changePlayerMoveParameters(startSpeedMove, startHeightMove, startSpeedJump, startHeightJump);
-            gameManager.changeRouteSpeedMovement(gameManager.SpeedRouteMovement);
-            //contentPlayer.removeEffect(this);
+            effectCoroutine = gameManager.StartCoroutine(EffectCoroutine(gameManager, contentPlayer));
+            contentPlayer.applyEffect(this);
         }
-        effectCoroutine = gameManager.StartCoroutine(EffectCoroutine(gameManager, contentPlayer, duration));
-        contentPlayer.applyEffect(this);
     }
 
-    public override IEnumerator EffectCoroutine(GameManager gameManager, ContentPlayer contentPlayer, int duration)
+    public override IEnumerator EffectCoroutine(GameManager gameManager, ContentPlayer contentPlayer)
     {
-        float startSpeedMove = gameManager.Speed_playerDash;
-        float startSpeedJump = gameManager.Speed_playerJump;
+        //get current parameters
+        gameManager.getCurrentPlayerMoveParameters(out float speedMove, out float heightJump);
 
-        float startHeightMove = gameManager.Height_playerDash;
-        float startHeightJump = gameManager.Height_playerJump;
-        float startSpeedRoute = gameManager.SpeedRouteMovement;
+        startSpeedMove = speedMove;
+        startHeightJump = heightJump;
+        startSpeedRoute = gameManager.SpeedRouteMovement;
+        //
 
-        float speedMove;
-        float speedJump;
 
-        float heightMove;
-        float heightJump;
-        float speedRoute;
+        float speedRoute = startSpeedRoute;
 
-        speedMove = startSpeedMove *(1 - percentSlowdown);
-        speedJump = startSpeedJump * (1 - percentSlowdown);
-        heightMove = startHeightMove * (1 - percentSlowdown);
-        heightJump = startHeightJump * (1 - percentSlowdown);
-        speedRoute = startSpeedRoute * (1 - percentSlowdown);
+        //change parameters
 
-        gameManager.changeRouteSpeedMovement(speedRoute);
-        gameManager.changePlayerMoveParameters(speedMove, heightMove, speedJump, heightJump);
+        speedMove = speedMove * (1 - percentSlowdown);
+        heightJump = heightJump * (1 - percentSlowdown);
+        speedRoute = speedRoute * (1 - percentSlowdown);
+        //
 
-        yield return new WaitForSeconds(duration);
+        //calculate decrements
+        decreaseSpeedMove = startSpeedMove - speedMove;
+        decreaseHeightJump = startHeightJump - heightJump;
+        decreaseSpeedRoute = startSpeedRoute - speedRoute;
+        //
 
-        gameManager.changePlayerMoveParameters(startSpeedMove, startHeightMove, startSpeedJump, startHeightJump);
-        gameManager.changeRouteSpeedMovement(startSpeedRoute);
+
+        //apply effect parameters
+        if (startSpeedRoute > 0.00001)
+        {
+            gameManager.changeRouteSpeedMovement(speedRoute);
+            gameManager.addDecrementControlValue("speedRoute", effectId, decreaseSpeedRoute);
+        }
+        gameManager.changePlayerMoveParameters(speedMove, heightJump);
+
+        gameManager.player_Control.stopFall = true;
+        //
+
+        //add decrements to dictionary
+        gameManager.addDecrementControlValue("speedMove", effectId, decreaseSpeedMove);
+        gameManager.addDecrementControlValue("heightJump", effectId, decreaseHeightJump);
+        //
+
+
+        while (duration>0)
+        {
+            yield return new WaitForSeconds(1f);
+            duration--;
+        }
+
+        gameManager.applyLastDecrementControlValues("speedMove", effectId);
+        gameManager.applyLastDecrementControlValues("heightJump", effectId);
+        gameManager.applyLastDecrementControlValues("speedRoute", effectId);
+
+        decreaseSpeedMove = 0;
+        decreaseHeightJump = 0;
+        decreaseSpeedRoute = 0;
+
         contentPlayer.removeEffect(this);
+        gameManager.player_Control.stopFall = false;
+        effectCoroutine = null;
     }
 }

@@ -29,7 +29,18 @@ public class StatusEffectInfo : ScriptableObject
         duration = 0;
     }
 
+
+    public virtual void ApplyEffect(GameManager gameManager, ContentPlayer contentPlayer, out int duration, int[] parameters)
+    {
+        duration = 0;
+    }
+
     public virtual IEnumerator EffectCoroutine(GameManager gameManager, ContentPlayer contentPlayer, int duration)
+    {
+        yield return null;
+    }
+
+    public virtual IEnumerator EffectCoroutine(GameManager gameManager, ContentPlayer contentPlayer)
     {
         yield return null;
     }

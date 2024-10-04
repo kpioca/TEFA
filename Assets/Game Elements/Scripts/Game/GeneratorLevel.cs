@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting;
 
 
 public struct StagesSpawnParameters
@@ -255,9 +256,9 @@ public class GeneratorLevel : MonoBehaviour
         openedTraps = getOpenedItems(traps_properties, openedPart);
         openedBonuses = getOpenedItems(bonuses_properties, openedPart);
 
-        assignChancesToOpenedItems(openedEnemy, stage);
-        assignChancesToOpenedItems(openedTraps, stage);
-        assignChancesToOpenedItems(openedBonuses, stage);
+        assignChancesToOpenedItems(openedEnemy, stage, 3);
+        assignChancesToOpenedItems(openedTraps, stage, 3);
+        assignChancesToOpenedItems(openedBonuses, stage, 3);
 
         //
         Debug.Log($"---------STATE {stage}---------");
@@ -309,7 +310,109 @@ public class GeneratorLevel : MonoBehaviour
             return listOpenedItems;
         }
     }
-    private void assignChancesToOpenedItems<T>(List<T> listOpenedItems, int num_state = 1) where T : SpawnElementInfo
+    private void assignChancesToOpenedItems<T>(List<T> listOpenedItems, int num_state = 1, int chanceScaler = 2) where T : SpawnElementInfo
+    {
+        int n = listOpenedItems.Count;
+
+        if (n == 0) return;
+        else
+        {
+            int sum = 0;
+            float medium;
+            float chance = 0;
+            int value = 0;
+            int i = 0;
+            int j = 0;
+            int n_rate = 0;
+
+            List<float> chances = new List<float>();
+
+            List<List<int>> levelOfCoolnessItems = new List<List<int>>();
+            List<int> UniqueLevelOfCoolness = new List<int>();
+            List<int> groupItems = new List<int>();
+            for (i = 0; i < n; i++)
+            {
+                if (groupItems.Count > 0 && chanceScaler * listOpenedItems[i].LevelOfCoolness != groupItems[0])
+                {
+                    levelOfCoolnessItems.Add(groupItems);
+                    UniqueLevelOfCoolness.Add(groupItems[0] / chanceScaler);
+                    groupItems = new List<int>();
+                }
+                value = chanceScaler * listOpenedItems[i].LevelOfCoolness;
+                groupItems.Add(value);
+            }
+            if (groupItems.Count != 0)
+            {
+                levelOfCoolnessItems.Add(groupItems);
+                UniqueLevelOfCoolness.Add(groupItems[0] / chanceScaler);
+            }
+
+            List<List<int>> rateItems = new List<List<int>>(levelOfCoolnessItems);
+            UniqueLevelOfCoolness.Reverse();
+
+            n_rate = rateItems.Count;
+
+            //reverse all levelOfCoolness
+
+            List<int> currGroup;
+            int m = 0;
+            int levelOfCoolness = 0;
+            for (i = 0; i < n_rate; i++)
+            {
+                currGroup = rateItems[i];
+                m = currGroup.Count;
+                levelOfCoolness = UniqueLevelOfCoolness[i];
+                for (j = 0; j < m; j++)
+                {
+                    currGroup[j] = levelOfCoolness * chanceScaler;
+                    sum += currGroup[j];
+                }
+            }
+            //
+
+            medium = (float)sum / n;
+
+            //change chances for other states
+            if (num_state != 1)
+            {
+                for (i = 0; i < n_rate; i++)
+                {
+                    currGroup = rateItems[i];
+                    m = currGroup.Count;
+                    for (j = 0; j < m; j++)
+                    {
+                        if (currGroup[j] <= medium)
+                        {
+                            currGroup[j] += num_state - 1;
+                            sum += num_state - 1;
+                        }
+                        else if (currGroup[j] >= num_state)
+                        {
+                            currGroup[j] -= (num_state - 1);
+                            sum -= (num_state - 1);
+                        }
+                    }
+                }
+            }
+
+
+            //count chances
+            for (i = 0; i < n_rate; i++)
+            {
+                currGroup = rateItems[i];
+                m = currGroup.Count;
+                chance = (currGroup.Sum() / (float)m) / sum;
+                for (j = 0; j < m; j++)
+                    chances.Add(chance);
+            }
+            //
+
+            for (i = 0; i < n; i++)
+                listOpenedItems[i].ChanceIfSpawnThisType = chances[i];
+        }
+    }
+
+    private void assignChancesToOpenedItems_original<T>(List<T> listOpenedItems, int num_state = 1, int chanceScaler = 2) where T : SpawnElementInfo
     {
         int n = listOpenedItems.Count;
 
@@ -324,7 +427,7 @@ public class GeneratorLevel : MonoBehaviour
             List<int> levelOfCoolnessItems = new List<int>();
             for (int i = 0; i < n; i++)
             {
-                value = 2 * listOpenedItems[i].LevelOfCoolness;
+                value = chanceScaler * listOpenedItems[i].LevelOfCoolness;
                 levelOfCoolnessItems.Add(value);
                 sum += value;
             }
@@ -341,7 +444,7 @@ public class GeneratorLevel : MonoBehaviour
                 {
                     if (rateItems[i] <= medium)
                     {
-                        rateItems[i] += num_state-1;
+                        rateItems[i] += num_state - 1;
                         sum += num_state - 1;
                     }
                     else if (rateItems[i] >= num_state)

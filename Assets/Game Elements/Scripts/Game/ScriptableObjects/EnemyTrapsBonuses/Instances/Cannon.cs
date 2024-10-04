@@ -16,6 +16,8 @@ public class Cannon : Enemy
     [SerializeField] private protected int sizeOfProjectilePool = 12;
     public int SizeOfProjectilePool => sizeOfProjectilePool;
 
+    private protected ContentBullet[] contentBullet = new ContentBullet[1];
+
 
     private protected Rigidbody projectile_rb;
 
@@ -25,27 +27,34 @@ public class Cannon : Enemy
         this.sizeOfProjectilePool = info.SizeOfProjectilePool;
         if (stamp != null)
             stamp.applyStampEffectOnCannon(this);
-
+        
+        //
+        
     }
 
     public virtual void Attack(GameObject[] markGun, float platformsSpeed, Vector3 target, MonoBehaviour toUseCoroutines = null)
     {
         GameObject bullet;
-        bullet = bulletsInfo[0].spawnBullet(bulletsInfo[0].Prefab, markGun[0], null, stamp);
+        bullet = bulletsInfo[0].spawnBullet(bulletsInfo[0].Prefab, markGun[0], null, stamp, out contentBullet[0]);
+        
+        //
+        //bullet.transform.parent = instance.transform;
+        //platformsSpeed = 6;
+        //
 
-        MoveToPos(toUseCoroutines, bullet, target + bullet.transform.forward * 2, bulletsInfo[0], platformsSpeed);
+        MoveToPos(toUseCoroutines, bullet, target + bullet.transform.forward * 2, bulletsInfo[0], platformsSpeed, contentBullet[0]);
     }
 
-    public virtual void MoveToPos(MonoBehaviour toUseCoroutines, GameObject obj, Vector3 target, BulletInfo bulletInfo, float platformsSpeed)
+    public virtual void MoveToPos(MonoBehaviour toUseCoroutines, GameObject obj, Vector3 target, BulletInfo bulletInfo, float platformsSpeed, ContentBullet contentBullet)
     {
         float speedMultiplier = stamp == null ? 1 : stamp.getStampValue();
-        toUseCoroutines.StartCoroutine(MovementCoroutine(obj, target, bulletInfo.Speed * speedMultiplier + platformsSpeed));
+        toUseCoroutines.StartCoroutine(MovementCoroutine(obj, target, bulletInfo.Speed * speedMultiplier + platformsSpeed, contentBullet));
 
         //projectile_rb = obj.GetComponent<Rigidbody>();
         //projectile_rb.velocity = obj.transform.forward * (bulletInfo.Speed + platformsSpeed);
     }
 
-    private protected virtual IEnumerator MovementCoroutine(GameObject obj, Vector3 target, float speed)
+    private protected virtual IEnumerator MovementCoroutine(GameObject obj, Vector3 target, float speed, ContentBullet contentBullet)
     {
         Vector3 start_pos = obj.transform.position;
 
@@ -58,6 +67,8 @@ public class Cannon : Enemy
             obj.transform.position = Vector3.Lerp(start_pos, target, runningTime / totalRunningTime);
             yield return 1;
         }
+        if(contentBullet.gameObject.activeInHierarchy)
+            contentBullet.Remove();
     }
 
 }

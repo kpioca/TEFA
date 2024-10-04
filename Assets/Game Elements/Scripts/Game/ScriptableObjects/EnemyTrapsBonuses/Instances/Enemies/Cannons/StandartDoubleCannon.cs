@@ -12,6 +12,7 @@ public class StandartDoubleCannon : Cannon
     {
         this.intervalBetweenShots = info.IntervalBetweenShots;
         intervalBetweenShots = this.intervalBetweenShots;
+        contentBullet = new ContentBullet[2];
     }
 
     public override void Attack(GameObject[] markGun, float platformsSpeed, Vector3 target, MonoBehaviour toUseCoroutines)
@@ -23,12 +24,12 @@ public class StandartDoubleCannon : Cannon
     public IEnumerator AttackCoroutine(GameObject markGun, Vector3 target, float platformsSpeed, MonoBehaviour toUseCoroutines)
     {
         GameObject bullet;
-        bullet = bulletsInfo[0].spawnBullet(bulletsInfo[0].Prefab, markGun, null, stamp);
-        MoveToPos(toUseCoroutines, bullet, target + bullet.transform.forward * 2, bulletsInfo[0], platformsSpeed);
+        bullet = bulletsInfo[0].spawnBullet(bulletsInfo[0].Prefab, markGun, null, stamp, out contentBullet[0]);
+        MoveToPos(toUseCoroutines, bullet, target + bullet.transform.forward * 2, bulletsInfo[0], platformsSpeed, contentBullet[0]);
 
         yield return new WaitForSeconds(intervalBetweenShots);
 
-        bullet = bulletsInfo[0].spawnBullet(bulletsInfo[0].Prefab, markGun, null, stamp);
-        MoveToPos(toUseCoroutines, bullet, target + bullet.transform.forward * 2, bulletsInfo[0], platformsSpeed);
+        bullet = bulletsInfo[0].spawnBullet(bulletsInfo[0].Prefab, markGun, null, stamp, out contentBullet[1]);
+        MoveToPos(toUseCoroutines, bullet, target + bullet.transform.forward * 2, bulletsInfo[0], platformsSpeed, contentBullet[1]);
     }
 }

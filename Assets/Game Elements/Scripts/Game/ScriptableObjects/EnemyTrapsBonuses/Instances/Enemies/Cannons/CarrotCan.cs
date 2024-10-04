@@ -14,6 +14,7 @@ public class CarrotCan : Cannon
     public CarrotCan(CarrotCanInfo info, GameObject instance, Stamp stamp = null) : base(info, instance, stamp)
     {
         chance_bulletCollapse = info.chance_bullet_Collapse;
+        contentBullet = new ContentBullet[6];
     }
 
     float t;
@@ -21,10 +22,10 @@ public class CarrotCan : Cannon
     public override void Attack(GameObject[] markGun, float platformsSpeed, Vector3 target, MonoBehaviour toUseCoroutines)
     {
         GameObject bullet1, bullet2;
-        bullet1 = bulletsInfo[0].spawnBullet(bulletsInfo[0].Prefab, markGun[0], null, stamp);
-        bullet2 = bulletsInfo[0].spawnBullet(bulletsInfo[0].Prefab, markGun[1], null, stamp);
+        bullet1 = bulletsInfo[0].spawnBullet(bulletsInfo[0].Prefab, markGun[0], null, stamp, out contentBullet[0]);
+        bullet2 = bulletsInfo[0].spawnBullet(bulletsInfo[0].Prefab, markGun[1], null, stamp, out contentBullet[1]);
 
-        MoveToPos(toUseCoroutines, bullet1, bullet2, target + (bullet1.transform.forward + bullet2.transform.forward)/2 + (Vector3.up) + Vector3.back, bulletsInfo[0], bulletsInfo[1], platformsSpeed);
+        MoveToPos(toUseCoroutines, bullet1, bullet2, target + ((bullet1.transform.forward + bullet2.transform.forward)/2) + (Vector3.up) + Vector3.back, bulletsInfo[0], bulletsInfo[1], platformsSpeed);
     }
 
     public void MoveToPos(MonoBehaviour toUseCoroutines, GameObject bullet1, GameObject bullet2, Vector3 target, BulletInfo bulletInfo, BulletInfo extra_bulletInfo, float platformsSpeed)
@@ -72,6 +73,10 @@ public class CarrotCan : Cannon
                     bulletMain2.transform.position = Vector3.Lerp(start_pos2, target2, runningTime / totalRunningTime);
                 yield return 1;
             }
+            if (contentBullet[0].gameObject.activeInHierarchy)
+                contentBullet[0].Remove();
+            if (contentBullet[1].gameObject.activeInHierarchy)
+                contentBullet[1].Remove();
         }
         else
         {
@@ -107,14 +112,14 @@ public class CarrotCan : Cannon
 
                     KhtPool.ReturnObject(bulletMain1);
 
-                    extraBullet1_1 = bulletsInfo[1].spawnBullet(extra_bulletInfo.Prefab, pos11, rotation1, null, stamp);
-                    extraBullet1_2 = bulletsInfo[1].spawnBullet(extra_bulletInfo.Prefab, pos12, rotation1, null, stamp);
-                    extraBullet1_3 = bulletsInfo[1].spawnBullet(extra_bulletInfo.Prefab, pos13, rotation1, null, stamp);
+                    extraBullet1_1 = bulletsInfo[1].spawnBullet(extra_bulletInfo.Prefab, pos11, rotation1, null, stamp, out contentBullet[0]);
+                    extraBullet1_2 = bulletsInfo[1].spawnBullet(extra_bulletInfo.Prefab, pos12, rotation1, null, stamp, out contentBullet[1]);
+                    extraBullet1_3 = bulletsInfo[1].spawnBullet(extra_bulletInfo.Prefab, pos13, rotation1, null, stamp, out contentBullet[2]);
 
 
-                    toUseCoroutines.StartCoroutine(MovementExtraCoroutine(extraBullet1_1, target, speedExtra, Vector3.up));
-                    toUseCoroutines.StartCoroutine(MovementExtraCoroutine(extraBullet1_2, target, speedExtra, Vector3.right));
-                    toUseCoroutines.StartCoroutine(MovementExtraCoroutine(extraBullet1_3, target, speedExtra, Vector3.left));
+                    toUseCoroutines.StartCoroutine(MovementExtraCoroutine(extraBullet1_1, target, speedExtra, Vector3.up, contentBullet[0]));
+                    toUseCoroutines.StartCoroutine(MovementExtraCoroutine(extraBullet1_2, target, speedExtra, Vector3.right, contentBullet[1]));
+                    toUseCoroutines.StartCoroutine(MovementExtraCoroutine(extraBullet1_3, target, speedExtra, Vector3.left, contentBullet[2]));
 
                 }
                 if (isActiveBullet2)
@@ -128,14 +133,14 @@ public class CarrotCan : Cannon
 
                     KhtPool.ReturnObject(bulletMain2);
 
-                    extraBullet2_1 = bulletsInfo[1].spawnBullet(extra_bulletInfo.Prefab, pos21, rotation2, null, stamp);
-                    extraBullet2_2 = bulletsInfo[1].spawnBullet(extra_bulletInfo.Prefab, pos22, rotation2, null, stamp);
-                    extraBullet2_3 = bulletsInfo[1].spawnBullet(extra_bulletInfo.Prefab, pos23, rotation2, null, stamp);
+                    extraBullet2_1 = bulletsInfo[1].spawnBullet(extra_bulletInfo.Prefab, pos21, rotation2, null, stamp, out contentBullet[3]);
+                    extraBullet2_2 = bulletsInfo[1].spawnBullet(extra_bulletInfo.Prefab, pos22, rotation2, null, stamp, out contentBullet[4]);
+                    extraBullet2_3 = bulletsInfo[1].spawnBullet(extra_bulletInfo.Prefab, pos23, rotation2, null, stamp, out contentBullet[5]);
 
 
-                    toUseCoroutines.StartCoroutine(MovementExtraCoroutine(extraBullet2_1, target, speedExtra, Vector3.up));
-                    toUseCoroutines.StartCoroutine(MovementExtraCoroutine(extraBullet2_2, target, speedExtra, Vector3.left));
-                    toUseCoroutines.StartCoroutine(MovementExtraCoroutine(extraBullet2_3, target, speedExtra, Vector3.right));
+                    toUseCoroutines.StartCoroutine(MovementExtraCoroutine(extraBullet2_1, target, speedExtra, Vector3.up, contentBullet[3]));
+                    toUseCoroutines.StartCoroutine(MovementExtraCoroutine(extraBullet2_2, target, speedExtra, Vector3.left, contentBullet[4]));
+                    toUseCoroutines.StartCoroutine(MovementExtraCoroutine(extraBullet2_3, target, speedExtra, Vector3.right, contentBullet[5]));
                 }
             }
         }
@@ -147,7 +152,7 @@ public class CarrotCan : Cannon
         else return false;
     }
 
-    private IEnumerator MovementExtraCoroutine(GameObject obj, Vector3 target, float speed, Vector3 dirToCurvature, float MaxOffset = 5, int n_segments = 10)
+    private IEnumerator MovementExtraCoroutine(GameObject obj, Vector3 target, float speed, Vector3 dirToCurvature, ContentBullet content, float MaxOffset = 5, int n_segments = 10)
     {
         Vector3 start_pos = obj.transform.position;
         Vector3 last_pos;
@@ -278,6 +283,8 @@ public class CarrotCan : Cannon
             yield return 1;
         }
         runningTime = 0;
+        if (content.gameObject.activeInHierarchy)
+            content.Remove();
     }
 
     void LerpLine3(Vector3[] poses, GameObject obj, float speed)

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI;
 
@@ -117,6 +118,10 @@ public class GeneratorLevelProperties
                amount_typeTraps <= databaseTraps.Count &&
                amount_typeBonuses <= databaseBonuses.Count)
             {
+                temp_e.Sort();
+                temp_t.Sort();
+                temp_b.Sort();
+
                 n = databaseEnemy.Count;
                 addRandomItemsFromTo<EnemyInfo>(temp_e, amount_typeEnemy, out enemy_properties);
 
@@ -176,7 +181,7 @@ public class GeneratorLevelProperties
 
     public void addRandomItemsFromTo<T>(List<T> fromList, int amount, out List<T> toList) where T : SpawnElementInfo
     {
-        toList = getElementsWithChance(fromList, amount);
+        toList = getElementsWithChance(fromList, amount, 1f);
     }
 
     private T getRandomElement<T>(List<T> listItems) where T : Object
@@ -186,44 +191,88 @@ public class GeneratorLevelProperties
         return listItems[k];
     }
 
-    private List<T> getElementsWithChance<T>(List<T> listItems, int amount) where T : SpawnElementInfo
+    private List<T> getElementsWithChance<T>(List<T> listItems, int amount, float chanceScaler = 2) where T : SpawnElementInfo
     {
         int n;
+        int n_rate;
         int k;
-        int j = 0;
+        int p = 0;
         int i = 0;
+        int j = 0;
 
         List<T> elements = new List<T>();
 
-        for (j = 0; j < amount; j++)
+        for (p = 0; p < amount; p++)
         {
             n = listItems.Count;
             if (n == 0) return elements;
             else
             {
                 int sum = 0;
-                float medium;
                 float chance = 0;
                 int value = 0;
                 List<float> chances = new List<float>();
 
-                List<int> levelOfCoolnessItems = new List<int>();
+                List<List<int>> levelOfCoolnessItems = new List<List<int>>();
+                List<int> UniqueLevelOfCoolness = new List<int>();
+                List<int> groupItems = new List<int>();
+                int coolness = 0;
                 for (i = 0; i < n; i++)
                 {
-                    value = 2 * listItems[i].LevelOfCoolness;
-                    levelOfCoolnessItems.Add(value);
-                    sum += value;
+                    value = (int)(listItems[i].LevelOfCoolness * chanceScaler);
+                    //value = (int)Mathf.Pow(listItems[i].LevelOfCoolness, chanceScaler);
+                    if (groupItems.Count > 0)
+                    {
+                        if (value != groupItems[0])
+                        {
+                            levelOfCoolnessItems.Add(groupItems);
+                            UniqueLevelOfCoolness.Add(coolness);
+                            groupItems = new List<int>();
+                        }
+                    }
+                    coolness = listItems[i].LevelOfCoolness;
+                    groupItems.Add(value);
+                }
+                if (groupItems.Count != 0)
+                {
+                    levelOfCoolnessItems.Add(groupItems);
+                    UniqueLevelOfCoolness.Add(coolness);
                 }
 
-                List<int> rateItems = new List<int>(levelOfCoolnessItems);
-                rateItems.Reverse();
+                List<List<int>> rateItems = new List<List<int>>(levelOfCoolnessItems);
+                UniqueLevelOfCoolness.Reverse();
 
-                medium = (float)sum / n;
-
-                for (i = 0; i < n; i++)
+                n_rate = rateItems.Count;
+                List<int> currGroup;
+                int m = 0;
+                int levelOfCoolness = 0;
+                for (i = 0; i < n_rate; i++)
                 {
-                    chance = rateItems[i] / (float)sum;
-                    chances.Add(chance);
+                    currGroup = rateItems[i];
+                    m = currGroup.Count;
+                    levelOfCoolness = UniqueLevelOfCoolness[i];
+                    for (j = 0; j < m; j++)
+                    {
+                        currGroup[j] = (int)(levelOfCoolness * chanceScaler);
+                        //currGroup[j] = (int)Mathf.Pow(levelOfCoolness, chanceScaler);
+                        sum += currGroup[j];
+                    }
+                }
+
+
+                for (i = 0; i < n_rate; i++)
+                {
+                    currGroup = rateItems[i];
+                    m = currGroup.Count;
+                    chance = (currGroup.Sum() / (float)m)/sum;
+                    for (j = 0; j < m; j++)
+                        chances.Add(chance);
+                }
+
+                Debug.Log("---");
+                for(i = 0; i < n; i++)
+                {
+                    Debug.Log($"{listItems[i].Id} - {listItems[i].LevelOfCoolness} - {chances[i]}");
                 }
 
                 elements.Add(getRandomElementFromList(listItems, chances, out k));
@@ -232,8 +281,7 @@ public class GeneratorLevelProperties
         }
         return elements;
     }
-
-    private List<float> getChances<T>(List<T> listItems) where T : SpawnElementInfo
+    private List<float> getChances<T>(List<T> listItems, int chanceScaler = 2) where T : SpawnElementInfo
     {
         int n;
         int k;
@@ -253,7 +301,7 @@ public class GeneratorLevelProperties
             List<int> levelOfCoolnessItems = new List<int>();
             for (i = 0; i < n; i++)
             {
-                value = 2 * listItems[i].LevelOfCoolness;
+                value = chanceScaler * listItems[i].LevelOfCoolness;
                 levelOfCoolnessItems.Add(value);
                 sum += value;
             }

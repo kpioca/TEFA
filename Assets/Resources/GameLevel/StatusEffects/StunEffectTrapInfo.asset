@@ -17,4 +17,4 @@ MonoBehaviour:
   effectMaterial: {fileID: 2100000, guid: 4ffe535d543afd441a24a96479d65078, type: 2}
   durationSec: 1
   haveTimer: 0
-  percentSlowdown: 0.8
+  percentSlowdown: 0.7

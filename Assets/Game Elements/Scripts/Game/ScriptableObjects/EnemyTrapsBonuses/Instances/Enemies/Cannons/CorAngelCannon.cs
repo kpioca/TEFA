@@ -16,15 +16,15 @@ public class CorAngelCannon : Cannon
     public override void Attack(GameObject[] markGun, float platformsSpeed, Vector3 target, MonoBehaviour toUseCoroutines)
     {
         GameObject bullet;
-        bullet = bulletsInfo[0].spawnBullet(bulletsInfo[0].Prefab, markGun[0], null, stamp);
+        bullet = bulletsInfo[0].spawnBullet(bulletsInfo[0].Prefab, markGun[0], null, stamp, out contentBullet[0]);
 
-        MoveToPos(toUseCoroutines, bullet, target, bulletsInfo[0], platformsSpeed);
+        MoveToPos(toUseCoroutines, bullet, target, bulletsInfo[0], platformsSpeed, contentBullet[0]);
     }
 
-    public override void MoveToPos(MonoBehaviour toUseCoroutines, GameObject obj, Vector3 target, BulletInfo bulletInfo, float platformsSpeed)
+    public override void MoveToPos(MonoBehaviour toUseCoroutines, GameObject obj, Vector3 target, BulletInfo bulletInfo, float platformsSpeed, ContentBullet contentBullet)
     {
         float speedMultiplier = stamp == null ? 1 : stamp.getStampValue();
-        toUseCoroutines.StartCoroutine(MovementCoroutine(obj, obj.transform.forward * 20, target, bulletInfo.Speed * speedMultiplier + platformsSpeed, 25));
+        toUseCoroutines.StartCoroutine(MovementCoroutine(obj, obj.transform.forward * 20, target, bulletInfo.Speed * speedMultiplier + platformsSpeed, 25, contentBullet));
 
         //projectile_rb = obj.GetComponent<Rigidbody>();
         //projectile_rb.velocity = obj.transform.forward * (bulletInfo.Speed + platformsSpeed);
@@ -77,7 +77,7 @@ public class CorAngelCannon : Cannon
     //}
 
 
-    public virtual IEnumerator MovementCoroutine(GameObject obj, Vector3 last_pos, Vector3 target, float speed, int n_segments)
+    public virtual IEnumerator MovementCoroutine(GameObject obj, Vector3 last_pos, Vector3 target, float speed, int n_segments, ContentBullet contentBullet)
     {
         float amplitude = 5; //5
         float frequency = 150/amplitude; //150;
@@ -143,6 +143,8 @@ public class CorAngelCannon : Cannon
             yield return 1;
         }
         runningTime = 0;
+        if (contentBullet.gameObject.activeInHierarchy)
+            contentBullet.Remove();
     }
 
     float func1(float x, float frequency, float amplitude, int iterator)

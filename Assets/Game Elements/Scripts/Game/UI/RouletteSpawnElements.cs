@@ -44,8 +44,8 @@ public class RouletteSpawnElements : MonoBehaviour
         this.allTraps = allTraps;
         this.allBonuses = allBonuses;
 
-        
-        if (currentEnemy.Count <= 6)
+
+        if (currentEnemy.Count <= enemyElements.Length && currentBonuses.Count <= bonusesElements.Length && currentTraps.Count <= trapsElements.Length)
         {
             initialize();
             StartCoroutine(rouletteProcess());

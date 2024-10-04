@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RainbowCannon_Properties
   m_EditorClassIdentifier: 
   id: can_rb
-  levelOfCoolness: 5
+  levelOfCoolness: 4
   prefab: {fileID: 7855831155646338418, guid: 6cc2709fb34dd8f42870c585c9c9c118, type: 3}
   sizeOfObjectPool: 8
   icon: {fileID: 21300000, guid: 6e6a9e8050b6b5741ba9ae4b3a62e416, type: 3}

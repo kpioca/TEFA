@@ -37,6 +37,7 @@ public class AttackZone : MonoBehaviour
         }
     }
 
+    
     private IEnumerator AttackCoroutine(GameObject player)
     {
         string animationAttackName = "Attack";
@@ -59,7 +60,7 @@ public class AttackZone : MonoBehaviour
             animator.enabled = true;
             animator.Play(animationAttackName);
         }
-        cannon.Attack(marksGun, game_Manager.SpeedRouteMovement, player.transform.position, game_Manager);
+        cannon.Attack(marksGun, game_Manager.getPlatformSpeedForBullets(), player.transform.position, game_Manager);
         if (animator != null && amount_AttackAnimations > 1)
         {
             if (amount_AttackAnimations > 1)

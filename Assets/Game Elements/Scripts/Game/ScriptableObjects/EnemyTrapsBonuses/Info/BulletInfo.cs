@@ -36,14 +36,14 @@ public class BulletInfo : ScriptableObject
     public StatusEffectInfo EffectInfo => effectInfo;
 
 
-    public GameObject spawnBullet(GameObject prefab, GameObject markGun, Transform parent, Stamp stamp)
+    public GameObject spawnBullet(GameObject prefab, GameObject markGun, Transform parent, Stamp stamp, out ContentBullet contentBullet)
     {
         if(stamp == null)
         {
             GameObject temp = KhtPool.GetObject(prefab);
             temp.transform.position = markGun.transform.position;
             temp.transform.rotation = markGun.transform.rotation;
-            ContentBullet contentBullet = temp.GetComponent<ContentBullet>();
+            contentBullet = temp.GetComponent<ContentBullet>();
             contentBullet.bulletInstance = new Bullet(this);
             temp.transform.SetParent(parent);
             temp.SetActive(true);
@@ -51,7 +51,6 @@ public class BulletInfo : ScriptableObject
         }
         else
         {
-            ContentBullet contentBullet;
             GameObject temp = stamp.spawnBulletWithStamp(prefab, markGun, parent, this, out contentBullet);
             applyStampMaterial(stamp, contentBullet.BulletMainObject);
             return temp;
@@ -59,14 +58,14 @@ public class BulletInfo : ScriptableObject
         
     }
 
-    public GameObject spawnBullet(GameObject prefab, Vector3 pos, Quaternion rotation, Transform parent, Stamp stamp)
+    public GameObject spawnBullet(GameObject prefab, Vector3 pos, Quaternion rotation, Transform parent, Stamp stamp, out ContentBullet contentBullet)
     {
         if (stamp == null)
         {
             GameObject temp = KhtPool.GetObject(prefab);
             temp.transform.position = pos;
             temp.transform.rotation = rotation;
-            ContentBullet contentBullet = temp.GetComponent<ContentBullet>();
+            contentBullet = temp.GetComponent<ContentBullet>();
             contentBullet.bulletInstance = new Bullet(this);
             temp.transform.SetParent(parent);
             temp.SetActive(true);
@@ -74,7 +73,6 @@ public class BulletInfo : ScriptableObject
         }
         else
         {
-            ContentBullet contentBullet;
             GameObject temp = stamp.spawnBulletWithStamp(prefab, pos, rotation, parent, this, out contentBullet);
             applyStampMaterial(stamp, contentBullet.BulletMainObject);
             return temp;

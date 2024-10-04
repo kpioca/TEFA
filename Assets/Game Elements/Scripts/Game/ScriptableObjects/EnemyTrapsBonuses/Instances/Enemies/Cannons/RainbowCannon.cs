@@ -21,6 +21,7 @@ public class RainbowCannon : Cannon
         intervalBetweenShots = this.intervalBetweenShots;
         setUpElement(charge2, out n_charges);
         n_shots = n_charges;
+        contentBullet = new ContentBullet[n_charges];
     }
 
     public void setUpElement(GameObject charge2, out int n_charges)
@@ -91,18 +92,18 @@ public class RainbowCannon : Cannon
 
         for(int i = 0; i < n_charges; i++)
         {
-            bullet = projectiles[i].spawnBullet(projectiles[i].Prefab, markGun, null, stamp);
-            MoveToPos(toUseCoroutines, bullet, target + bullet.transform.forward * 2, projectiles[i].Speed, platformsSpeed);
+            bullet = projectiles[i].spawnBullet(projectiles[i].Prefab, markGun, null, stamp, out contentBullet[i]);
+            MoveToPos(toUseCoroutines, bullet, target + bullet.transform.forward * 2, projectiles[i].Speed, platformsSpeed, contentBullet[i]);
 
             yield return new WaitForSeconds(intervalBetweenShots);
         }
        
     }
 
-    public virtual void MoveToPos(MonoBehaviour toUseCoroutines, GameObject obj, Vector3 target, float speed, float platformsSpeed)
+    public virtual void MoveToPos(MonoBehaviour toUseCoroutines, GameObject obj, Vector3 target, float speed, float platformsSpeed, ContentBullet contentBullet)
     {
         float speedMultiplier = stamp == null ? 1 : stamp.getStampValue();
-        toUseCoroutines.StartCoroutine(MovementCoroutine(obj, target, speed * speedMultiplier + platformsSpeed));
+        toUseCoroutines.StartCoroutine(MovementCoroutine(obj, target, speed * speedMultiplier + platformsSpeed, contentBullet));
 
         //projectile_rb = obj.GetComponent<Rigidbody>();
         //projectile_rb.velocity = obj.transform.forward * (bulletInfo.Speed + platformsSpeed);

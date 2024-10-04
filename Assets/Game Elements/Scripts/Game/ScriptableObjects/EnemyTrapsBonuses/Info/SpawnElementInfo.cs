@@ -1,8 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnElementInfo : ScriptableObject
+public class SpawnElementInfo : ScriptableObject, IComparable<SpawnElementInfo>
 {
     [SerializeField] private protected string id;
     public string Id => id;
@@ -25,4 +26,8 @@ public class SpawnElementInfo : ScriptableObject
         set { chanceIfSpawnThisType = value; }
     }
 
+    public int CompareTo(SpawnElementInfo obj)
+    {
+        return levelOfCoolness.CompareTo(obj.levelOfCoolness);
+    }
 }

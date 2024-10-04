@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effectName: Immortal Effect
   effectId: eff_im
-  effectMaterial: {fileID: 2100000, guid: 7a338cd63b08b57468c229b78587f545, type: 2}
+  effectMaterial: {fileID: 2100000, guid: 2021b80465b68164195adf7fc890adea, type: 2}
   durationSec: 10
   haveTimer: 1

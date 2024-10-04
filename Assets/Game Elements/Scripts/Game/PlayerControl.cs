@@ -12,12 +12,19 @@ public class PlayerControl : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     [Header("Parameters")]
     [SerializeField] private float speed_move;
-    [SerializeField] private float height_move;
+
+    public float SpeedMove => speed_move;
 
     [SerializeField] private float speed_jump;
+
+    public float SpeedJump => speed_jump;
+
     [SerializeField] private float height_jump;
 
+    public float HeightJump => height_jump;
+
     [SerializeField] private float speed_fall;
+    public float SpeedFall => speed_fall;
 
     [SerializeField] private Vector3 target;
 
@@ -39,19 +46,22 @@ public class PlayerControl : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public bool isMoving = false;
     public bool stopMove = false;
+    public bool stopFall = false;
     public bool isJumping = false;
     public bool isFalling = false;
     public bool isTargetChanged = false;
+    public bool isJumpingEffectActivated = false;
 
     public void Start()
     {
         curr_camPos_num = 1;
 
         speed_move = gameManager.Speed_playerDash;
-        height_move = gameManager.Height_playerDash;
 
         speed_jump = gameManager.Speed_playerJump;
         height_jump = gameManager.Height_playerJump;
+
+        speed_fall = gameManager.SpeedFall;
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -119,13 +129,11 @@ public class PlayerControl : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
                 }
             }
         }
-        else if (isJumping)
+        else if (isJumping && !stopFall)
         {
             if (eventData.delta.y < 0)
             {
                 StopCoroutine(jumpingCoroutine);
-                if (movementCoroutine != null && isMoving)
-                    StopCoroutine(movementCoroutine);
                 fallCoroutine = StartCoroutine(fall_Coroutine(speed_fall, mainCamera.gameObject));
             }
 
@@ -134,10 +142,24 @@ public class PlayerControl : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         else if (!isMoving && !isJumping)
         {
             if (eventData.delta.y > 0)
-                jumpingCoroutine = StartCoroutine(jump_Coroutine(speed_jump, height_jump, mainCamera.gameObject));
+                jumpingCoroutine = StartCoroutine(jump_Coroutine(speed_jump, speed_jump, height_jump, mainCamera.gameObject));
         }
     }
 
+    public void activateJumpEffect(float speed_jump, float speed_fall, float height_jump)
+    {
+        if (!isJumpingEffectActivated)
+        {
+            if (movementCoroutine != null)
+                StopCoroutine(movementCoroutine);
+            if (fallCoroutine != null)
+                StopCoroutine(fallCoroutine);
+            if (jumpingCoroutine != null)
+                StopCoroutine(jumpingCoroutine);
+
+            jumpingCoroutine = StartCoroutine(jumpEffect_Coroutine(speed_jump, speed_fall, height_jump, mainCamera.gameObject));
+        }
+    }
     private IEnumerator moveToNextPos_Coroutine2(int curr_num, int increment, Vector3[] positions, float speed_move, float height_move, GameObject obj)
     {
         Vector3 start_pos = obj.transform.position;
@@ -255,22 +277,34 @@ public class PlayerControl : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
         isJumping = false;
         isFalling = false;
+        stopMove = false;
         isMoving = false;
     }
-    private IEnumerator jump_Coroutine(float speed_jump, float height_jump, GameObject obj)
+
+
+
+    private IEnumerator jumpEffect_Coroutine(float speed_jump, float speed_fall, float height_jump, GameObject obj)
     {
         Vector3 start_pos = obj.transform.position;
 
         float lowPoint = start_pos.y;
         float highPoint = start_pos.y + height_jump;
 
+        List<float> distances = new List<float>() { Vector3.Distance(start_pos, camera_positions[0]), Vector3.Distance(start_pos, camera_positions[1]), Vector3.Distance(start_pos, camera_positions[2]) };
+        float min_Dist = distances.Min();
+        int k = distances.FindIndex(dist => dist == min_Dist);
+
         float runningTime;
         float totalRunningTime;
 
-
+        stopFall = true;
+        stopMove = false;
         isJumping = true;
+        isMoving = false;
+        isFalling = false;
+        isJumpingEffectActivated = true;
 
-        target = new Vector3(start_pos.x, highPoint, start_pos.z);
+        target = new Vector3(camera_positions[k].x, highPoint, camera_positions[k].z);
 
         runningTime = 0;
         totalRunningTime = Vector3.Distance(start_pos, target) / speed_jump;
@@ -278,6 +312,13 @@ public class PlayerControl : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         while (runningTime < totalRunningTime)
         {
             runningTime += Time.deltaTime;
+
+            if (stopMove != true)
+            {
+                if (runningTime >= (Mathf.Floor(totalRunningTime / Time.deltaTime * 3 / 4) * Time.deltaTime)) //you can't move
+                    stopMove = true;
+            }
+
             if (isTargetChanged)
             {
                 start_pos = obj.transform.position;
@@ -294,7 +335,62 @@ public class PlayerControl : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         start_pos = target;
         target = new Vector3(start_pos.x, lowPoint, start_pos.z);
 
+        stopMove = false;
+
+        runningTime = 0;
+        totalRunningTime = Vector3.Distance(start_pos, target) / speed_fall;
+
+        while (runningTime < totalRunningTime)
+        {
+            runningTime += Time.deltaTime;
+
+
+            if (stopMove != true)
+            {
+                if (runningTime >= (Mathf.Floor(totalRunningTime / Time.deltaTime * 3 / 4) * Time.deltaTime))
+                {  //you can't move
+                    stopMove = true;
+                    isJumpingEffectActivated = false;
+                }
+            }
+
+
+            if (isTargetChanged)
+            {
+                start_pos = obj.transform.position;
+                runningTime = 0;
+                totalRunningTime = Vector3.Distance(start_pos, target) / speed_fall;
+                isTargetChanged = false;
+            }
+
+
+            obj.transform.position = Vector3.Lerp(start_pos, target, runningTime / totalRunningTime);
+            yield return 0;
+        }
+
+        obj.transform.position = target;
+
+        stopFall = false;
+        stopMove = false;
+        isJumping = false;
         isMoving = false;
+        isFalling = false;
+        isJumpingEffectActivated = false;
+    }
+    private IEnumerator jump_Coroutine(float speed_jump, float speed_fall, float height_jump, GameObject obj)
+    {
+        Vector3 start_pos = obj.transform.position;
+
+        float lowPoint = start_pos.y;
+        float highPoint = start_pos.y + height_jump;
+
+        float runningTime;
+        float totalRunningTime;
+
+        stopMove = false;
+        isJumping = true;
+
+        target = new Vector3(start_pos.x, highPoint, start_pos.z);
 
         runningTime = 0;
         totalRunningTime = Vector3.Distance(start_pos, target) / speed_jump;
@@ -303,8 +399,32 @@ public class PlayerControl : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         {
             runningTime += Time.deltaTime;
 
+            if (isTargetChanged)
+            {
+                start_pos = obj.transform.position;
+                runningTime = 0;
+                totalRunningTime = Vector3.Distance(start_pos, target) / speed_jump;
+                isTargetChanged = false;
+            }
+            obj.transform.position = Vector3.Lerp(start_pos, target, runningTime / totalRunningTime);
+            yield return 0;
+        }
+
+        //obj.transform.position = target;
+
+        start_pos = target;
+        target = new Vector3(start_pos.x, lowPoint, start_pos.z);
+
+
+        runningTime = 0;
+        totalRunningTime = Vector3.Distance(start_pos, target) / speed_fall;
+
+        while (runningTime < totalRunningTime)
+        {
+            runningTime += Time.deltaTime;
+
             
-            if (isMoving != true)
+            if (stopMove != true)
             {
                 if (runningTime >= (Mathf.Floor(totalRunningTime / Time.deltaTime * 3 / 4) * Time.deltaTime)) //you can't move
                     stopMove = true;
@@ -315,7 +435,7 @@ public class PlayerControl : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             {
                 start_pos = obj.transform.position;
                 runningTime = 0;
-                totalRunningTime = Vector3.Distance(start_pos, target) / speed_jump;
+                totalRunningTime = Vector3.Distance(start_pos, target) / speed_fall;
                 isTargetChanged = false;
             }
 
@@ -342,11 +462,19 @@ public class PlayerControl : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         else return true;
     }
 
-    public void changePlayerParameters(float speedMove, float heightMove, float speedJump, float heightJump)
+    public void changePlayerParameters(float speedMove, float heightJump)
     {
         speed_move = speedMove;
-        height_move = heightMove;
-        speed_jump = speedJump;
+        height_jump = heightJump;
+    }
+
+    public void changeSpeedMove(float speedMove)
+    {
+        speed_move = speedMove;
+    }
+
+    public void changeHeightJump(float heightJump)
+    {
         height_jump = heightJump;
     }
 

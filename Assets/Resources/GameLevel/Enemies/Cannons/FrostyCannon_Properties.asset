@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FrostyCannon_Properties
   m_EditorClassIdentifier: 
   id: can_fr
-  levelOfCoolness: 2
+  levelOfCoolness: 1
   prefab: {fileID: 588390230111410287, guid: 31d590ee6fdae2842b7e25d21577a090, type: 3}
   sizeOfObjectPool: 8
   icon: {fileID: 21300000, guid: 97863fdebc0b22e42886cf4af38ff959, type: 3}
