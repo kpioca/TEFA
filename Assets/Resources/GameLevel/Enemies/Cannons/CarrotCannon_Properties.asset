@@ -29,3 +29,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1daff648cc02a60459ca997e32ded095, type: 2}
   sizeOfProjectilePool: 16
   chance_bulletCollapse: 0.5
+  particlesBulletDestruction: {fileID: 586265465599792263, guid: 4da2a6208d2e728439684307cc1c1d1f,
+    type: 3}

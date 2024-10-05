@@ -11,10 +11,13 @@ public class CarrotCan : Cannon
     [SerializeField] private protected float chance_bulletCollapse;
     public float chance_bullet_Collapse => chance_bulletCollapse;
 
+    [SerializeField] GameObject particlesBulletDestruction;
+
     public CarrotCan(CarrotCanInfo info, GameObject instance, Stamp stamp = null) : base(info, instance, stamp)
     {
         chance_bulletCollapse = info.chance_bullet_Collapse;
         contentBullet = new ContentBullet[6];
+        particlesBulletDestruction = info.ParticlesBulletDestruction;
     }
 
     float t;
@@ -110,6 +113,7 @@ public class CarrotCan : Cannon
 
                     rotation1 = bulletMain1.transform.rotation;
 
+                    SpawnParticles(pos1, toUseCoroutines, particlesBulletDestruction);
                     KhtPool.ReturnObject(bulletMain1);
 
                     extraBullet1_1 = bulletsInfo[1].spawnBullet(extra_bulletInfo.Prefab, pos11, rotation1, null, stamp, out contentBullet[0]);
@@ -131,6 +135,7 @@ public class CarrotCan : Cannon
 
                     rotation2 = bulletMain2.transform.rotation;
 
+                    SpawnParticles(pos2, toUseCoroutines, particlesBulletDestruction);
                     KhtPool.ReturnObject(bulletMain2);
 
                     extraBullet2_1 = bulletsInfo[1].spawnBullet(extra_bulletInfo.Prefab, pos21, rotation2, null, stamp, out contentBullet[3]);
@@ -316,5 +321,20 @@ public class CarrotCan : Cannon
             rotation = Quaternion.LookRotation(direction);
             obj.transform.rotation = Quaternion.Lerp(obj.transform.rotation, rotation, speed * Time.deltaTime);
         }
+    }
+
+
+    public void SpawnParticles(Vector3 position, MonoBehaviour forCoroutine, GameObject destructionParticlesPrefab)
+    {
+        forCoroutine.StartCoroutine(particlesCoroutine(destructionParticlesPrefab, position));
+    }
+    public IEnumerator particlesCoroutine(GameObject destructionParticlesPrefab, Vector3 position)
+    {
+        GameObject destructionParticlesInstance = KhtPool.GetObject(destructionParticlesPrefab);
+        destructionParticlesInstance.SetActive(true);
+        destructionParticlesInstance.transform.SetParent(null);
+        destructionParticlesInstance.transform.position = new Vector3(position.x, position.y + 0.7f, position.z);
+        yield return new WaitForSeconds(1f);
+        KhtPool.ReturnObject(destructionParticlesInstance);
     }
 }

@@ -26,9 +26,18 @@ public class TrapInfo : SpawnElementInfo
 
 
     [SerializeField] protected StatusEffectInfo effectInfo;
-    public StatusEffectInfo EffectInfo => effectInfo;
+    public virtual StatusEffectInfo EffectInfo
+    {
+        get { return effectInfo; }
+        set { effectInfo = value; }
+    }
 
     [Header("Other")]
     [SerializeField] private protected bool doHoleInRoad;
     public bool DoHoleInRoad => doHoleInRoad;
+
+    public virtual void DestroyTrap(GameObject gameObject)
+    {
+        KhtPool.ReturnObject(gameObject);
+    }
 }

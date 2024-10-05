@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ContentPlayer contentPlayer;
 
     [SerializeField] private GameObject deathPanel;
+    [SerializeField] private ResultMenu resultMenu;
+    [SerializeField] private GameDataManager gameDataManager;
     [SerializeField] private GeneratorLevel generator_Level;
     public GeneratorLevel generatorLevel => generator_Level;
 
@@ -176,6 +178,10 @@ public class GameManager : MonoBehaviour
     {
         //isGameOver = true;
         playerControl.enabled = false;
+        Animator animator = contentPlayer.gameObject.GetComponent<Animator>();
+        animator.enabled = false;
+        animator.Rebind();
+        resultMenu.setResult(pathCounter.PathScore, fishMoney, food, gameDataManager);
         deathPanel.SetActive(true);
     }
 

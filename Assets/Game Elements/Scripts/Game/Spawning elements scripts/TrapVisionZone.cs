@@ -23,6 +23,15 @@ public class TrapVisionZone : MonoBehaviour
         animator.enabled = true;
         animator.Play(animationID);
         yield return new WaitForSeconds(animationClip.length);
+        animator.Rebind();
         animator.enabled = false;
     }
+
+    private void OnDisable()
+    {
+        animator.Rebind();
+        animator.enabled = false;
+    }
+
+
 }

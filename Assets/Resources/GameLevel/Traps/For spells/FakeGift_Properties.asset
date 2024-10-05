@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 009ce7e4fab820e41a66342bdf92a94c, type: 3}
+  m_Name: FakeGift_Properties
+  m_EditorClassIdentifier: 
+  id: fake_gift
+  levelOfCoolness: 3
+  prefab: {fileID: 1292306993468350904, guid: 3718b5eba49227444ba04fa207747f47, type: 3}
+  sizeOfObjectPool: 16
+  icon: {fileID: 0}
+  haveAttackDamage: 0
+  attackDamage: 0
+  hasEffect: 1
+  ignoreArmor: 0
+  effectInfo: {fileID: 0}
+  doHoleInRoad: 0
+  effectsForUse:
+  - {fileID: 11400000, guid: 38f9c9cb11ca90840b3b52bbb3bf082c, type: 2}
+  - {fileID: 11400000, guid: 6f45d97657215904f9c80cfb4aeb080c, type: 2}
+  isUsedRandomEffect: 1

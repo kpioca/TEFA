@@ -27,11 +27,11 @@ public class CreateTrapSpellInfo : MageSpellInfo
         
         int n2 = trapPull.Length;
         int k2 = Random.Range(0, n2);
-        if (trap_marks[k1].isTaken == true) {
+        if (trap_marks[k1].isTaken == true && trap_marks[k1].spawnPlace != null) {
 
             KhtPool.ReturnObject(trap_marks[k1].spawnPlace.obj);
             infoPieceOfPath.deleteTrapElement(trap_marks[k1].spawnPlace.num);
-            trap_marks[k1].isTaken = false;
+            //trap_marks[k1].isTaken = false;
             trap_marks[k1].spawnPlace = null;
 
             if (holesInstances[k1].isTaken == true)
@@ -42,7 +42,7 @@ public class CreateTrapSpellInfo : MageSpellInfo
             }
             trap = spawnTrap(infoPieceOfPath, road, trapPull[k2], trap_marks, holesInstances, k1);
         }
-        else
+        else if(trap_marks[k1].isTaken == false)
         {
             trap = spawnTrap(infoPieceOfPath, road, trapPull[k2], trap_marks, holesInstances, k1);
         }

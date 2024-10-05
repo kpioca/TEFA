@@ -14,6 +14,8 @@ public class PathCounter : MonoBehaviour
     [SerializeField] private TMP_Text pathCounterText;
     [SerializeField] private int pathScore;
 
+    
+
     private int n_stages = 0;
     private LinkedList<int[]> activationDistances = new LinkedList<int[]>(new[] { new int[2] { -1, -1 } });
     public int PathScore => pathScore;
@@ -23,6 +25,13 @@ public class PathCounter : MonoBehaviour
 
     LinkedListNode<int[]> currentStageDistance;
     [SerializeField] private float speedCount;
+
+    [Header("Level View")]
+    [SerializeField] private GameObject levelView;
+
+    [Header("Level icons")]
+    [SerializeField] private Sprite[] levelIcons;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -71,8 +80,11 @@ public class PathCounter : MonoBehaviour
                 if (currentStageDistance.Next.Value[0] == pathScore)
                 {
                     n_stage = currentStageDistance.Next.Value[1];
+                    if(levelIcons.Length > n_stage)
+                        levelView.GetComponent<Image>().sprite = levelIcons[n_stage];
                     currentStageDistance = currentStageDistance.Next;
                 }
+                else n_stage = -1;
             }
             else n_stage = -1;
 

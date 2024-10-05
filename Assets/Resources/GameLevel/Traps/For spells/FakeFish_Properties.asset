@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 009ce7e4fab820e41a66342bdf92a94c, type: 3}
+  m_Name: FakeFish_Properties
+  m_EditorClassIdentifier: 
+  id: fake_fish
+  levelOfCoolness: 2
+  prefab: {fileID: 1044314485572937766, guid: 76d9b2661742df24db5a18aae5a413a1, type: 3}
+  sizeOfObjectPool: 16
+  icon: {fileID: 0}
+  haveAttackDamage: 1
+  attackDamage: 1
+  hasEffect: 0
+  ignoreArmor: 1
+  effectInfo: {fileID: 0}
+  doHoleInRoad: 0

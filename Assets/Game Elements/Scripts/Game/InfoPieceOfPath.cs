@@ -20,7 +20,6 @@ public class Mark
     }
 }
 
-
 public class SpawnPlace
 {
     public GameObject obj;

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using static CannonInfo;
 
@@ -219,14 +220,18 @@ public class ContentPlayer : MonoBehaviour
             objectParts[i].GetComponent<MeshRenderer>().SetMaterials(new List<Material> { baseMaterials[i] });
     }
 
+    //¡¿√
     private void deleteMaterial(int numMaterial)
     {
         numMaterial++;
         int n = objectParts.Length;
         for (int i = 0; i < n; i++) {
             List<Material> materials = new List<Material>(objectParts[i].GetComponent<MeshRenderer>().materials);
-            materials.RemoveAt(numMaterial);
-            objectParts[i].GetComponent<MeshRenderer>().SetMaterials(materials);
+            if (numMaterial < materials.Count)
+            {
+                materials.RemoveAt(numMaterial);
+                objectParts[i].GetComponent<MeshRenderer>().SetMaterials(materials);
+            }
         }
                
     }
@@ -264,6 +269,7 @@ public class ContentPlayer : MonoBehaviour
         }
     }
 
+    //¡¿√
     public void removeEffect(StatusEffectInfo effect)
     {
         if (appliedEffects.ContainsKey(effect.EffectId))
@@ -281,7 +287,8 @@ public class ContentPlayer : MonoBehaviour
     public void changeImmortalState(bool state)
     {
         if (state == false) {
-            if (!(appliedEffects.ContainsKey("eff_im") && appliedEffects.ContainsKey("eff_im_d")))
+            if (!((appliedEffects.ContainsKey("eff_im") && appliedEffects.ContainsKey("eff_d_ar"))
+                || (appliedEffects.ContainsKey("eff_im") && appliedEffects.ContainsKey("eff_im_d"))))
                 isImmortal = state;
         }
         else isImmortal = state;
@@ -350,8 +357,7 @@ public class ContentPlayer : MonoBehaviour
             }
             else if (armor > 0)
             {
-                armor -= damage;
-                if (armor > 0) changeCounterArmor(armor);
+                effectActivateWithParameters(destroyArmorEffect, new int[1] { damage });
             }
             if (armor <= 0) 
             {

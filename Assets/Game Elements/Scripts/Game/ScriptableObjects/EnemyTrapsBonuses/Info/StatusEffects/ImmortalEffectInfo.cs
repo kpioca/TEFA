@@ -34,5 +34,6 @@ public class ImmortalEffectInfo : StatusEffectInfo
         contentPlayer.changeImmortalState(false);
 
         contentPlayer.removeEffect(this);
+        effectCoroutine = null;
     }
 }

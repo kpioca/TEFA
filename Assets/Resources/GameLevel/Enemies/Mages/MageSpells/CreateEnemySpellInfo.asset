@@ -19,13 +19,13 @@ MonoBehaviour:
     type: 3}
   enemyPull:
   - {fileID: 11400000, guid: 75bb605aa4137a0468c7ea79c1c97dea, type: 2}
+  - {fileID: 11400000, guid: 3c9f7b981a23d7c45be9745d5d58b933, type: 2}
   - {fileID: 11400000, guid: 58057b5392eb88848bbd54a412abe464, type: 2}
   - {fileID: 11400000, guid: 84b0cff53645bc54f9ebba9331fb1f78, type: 2}
   - {fileID: 11400000, guid: db443f2f8c809ce429abbe87a3b46a32, type: 2}
+  - {fileID: 11400000, guid: 603773d8a45802c41891ad74719c0e06, type: 2}
   - {fileID: 11400000, guid: 288796754b2c4f0478b46a9c8181b470, type: 2}
   - {fileID: 11400000, guid: 40197d76e2a7d894c97da71616c5f31d, type: 2}
   - {fileID: 11400000, guid: 5f3b645db4b40984396af142e59d1060, type: 2}
   - {fileID: 11400000, guid: 6c498809195d54f43a93112fc1050a88, type: 2}
   - {fileID: 11400000, guid: 26f5b364b30946f4e90b4ef23754cc8a, type: 2}
-  - {fileID: 11400000, guid: 3c9f7b981a23d7c45be9745d5d58b933, type: 2}
-  - {fileID: 11400000, guid: 603773d8a45802c41891ad74719c0e06, type: 2}
