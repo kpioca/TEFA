@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
     public float SpeedCount => speedCount;
 
 
-
+    public int FishMultiplier { get; set; }
     //[Header("Game")]
     //[SerializeField] private bool isGameOver = false;
 
@@ -151,7 +151,6 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         GlobalEventManager.OnGameOver += GameOver;
-        GlobalEventManager.OnUnSubscribe += unSubscribe;
 
         speedRouteMovement = start_speedRouteMovement;
         speedCount = speedRouteMovement / (start_speedRouteMovement - 1);
@@ -171,7 +170,6 @@ public class GameManager : MonoBehaviour
     void unSubscribe()
     {
         GlobalEventManager.OnGameOver -= GameOver;
-        GlobalEventManager.OnUnSubscribe -= unSubscribe;
     }
 
     void GameOver()
@@ -181,8 +179,9 @@ public class GameManager : MonoBehaviour
         Animator animator = contentPlayer.gameObject.GetComponent<Animator>();
         animator.enabled = false;
         animator.Rebind();
-        resultMenu.setResult(pathCounter.PathScore, fishMoney, food, gameDataManager);
+        resultMenu.setResult(pathCounter.PathScore, pathCounter.currentStageDistance.Value[1], fishMoney, food, FishMultiplier, gameDataManager);
         deathPanel.SetActive(true);
+        unSubscribe();
     }
 
     public void allDisable()
@@ -205,8 +204,12 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
-        GlobalEventManager.UnSubscribe();
-        SceneManager.LoadScene(0);
+        SceneManager.LoadSceneAsync(0);
+    }
+
+    public void OpenMainMenu()
+    {
+        SceneManager.LoadSceneAsync(1);
     }
 
     // Update is called once per frame

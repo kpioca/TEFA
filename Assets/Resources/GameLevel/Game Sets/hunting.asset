@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: hunting
   m_EditorClassIdentifier: 
   nameSet: The hunting
-  levelOfCoolness: 2
+  levelOfCoolness: 3
   enemies:
   - {fileID: 11400000, guid: 40197d76e2a7d894c97da71616c5f31d, type: 2}
   traps:
@@ -21,3 +21,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d1df209f3e5482c4db5149ceeb071dc4, type: 2}
   bonuses:
   - {fileID: 11400000, guid: 6830d3dbf12f6824889a0385a9d2a423, type: 2}
+  multiplier: 2

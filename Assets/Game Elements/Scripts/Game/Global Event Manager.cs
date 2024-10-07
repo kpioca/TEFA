@@ -9,18 +9,13 @@ public class GlobalEventManager: MonoBehaviour
     public static Action<float> OnChangeSpeedRouteMovement;
     public static Action<int> OnChangeStageGame;
     public static Action OnGameOver;
-    public static Action OnUnSubscribe;
+
 
 
     public void Start()
     {
     }
 
-
-    public static void UnSubscribe()
-    {
-        if (OnUnSubscribe != null) OnUnSubscribe.Invoke();
-    }
     public static void GameOver()
     {
         if (OnGameOver != null) OnGameOver.Invoke();

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class DestroyableAndCollectable : MonoBehaviour
 {
-    [HideInInspector] public GameManager gameManager;
-    [HideInInspector] public InfoPieceOfPath info;
+    [HideInInspector] public GameManager gameManager { get; set; }
+    [HideInInspector] public InfoPieceOfPath info { get; set; }
     private BulletInfo bulletInfo;
 
 

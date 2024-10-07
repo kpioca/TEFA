@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: carrotLove
   m_EditorClassIdentifier: 
   nameSet: The carrot love
-  levelOfCoolness: 3
+  levelOfCoolness: 2
   enemies:
   - {fileID: 11400000, guid: 603773d8a45802c41891ad74719c0e06, type: 2}
   - {fileID: 11400000, guid: 3c9f7b981a23d7c45be9745d5d58b933, type: 2}
@@ -21,3 +21,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f2ff9362949a1b44aa96b14f2701e588, type: 2}
   bonuses:
   - {fileID: 11400000, guid: e3bf9e0600e306a4ba3bcf91b01be704, type: 2}
+  multiplier: 1

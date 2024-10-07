@@ -38,3 +38,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d9b28af2ef38d014f8180d5f76f4cc00, type: 2}
   - {fileID: 11400000, guid: 6830d3dbf12f6824889a0385a9d2a423, type: 2}
   - {fileID: 11400000, guid: e3bf9e0600e306a4ba3bcf91b01be704, type: 2}
+  multiplier: 3

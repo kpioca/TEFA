@@ -9,9 +9,6 @@ public class RouletteSpawnElements : MonoBehaviour
 {
     [SerializeField] private DissolvingStartWindow dissolvingStartWindow;
 
-    [SerializeField] private GameObject[] containers;
-    [SerializeField] private GameObject[] roulettePlaces;
-
     [SerializeField] private GameObject[] enemyElements;
     [SerializeField] private GameObject[] trapsElements;
     [SerializeField] private GameObject[] bonusesElements;

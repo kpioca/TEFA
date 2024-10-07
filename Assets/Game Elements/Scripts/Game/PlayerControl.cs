@@ -293,6 +293,7 @@ public class PlayerControl : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         List<float> distances = new List<float>() { Vector3.Distance(start_pos, camera_positions[0]), Vector3.Distance(start_pos, camera_positions[1]), Vector3.Distance(start_pos, camera_positions[2]) };
         float min_Dist = distances.Min();
         int k = distances.FindIndex(dist => dist == min_Dist);
+        curr_camPos_num = k;
 
         float runningTime;
         float totalRunningTime;

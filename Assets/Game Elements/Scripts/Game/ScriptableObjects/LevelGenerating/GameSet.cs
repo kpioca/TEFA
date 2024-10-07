@@ -6,19 +6,20 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "GameSet", menuName = "LevelProperties/New GameSet")]
 public class GameSet : ScriptableObject
 {
-    public string nameSet = "";
-    public int levelOfCoolness = 1;
+    [SerializeField] private string nameSet = "";
+    public string NameSet => nameSet;
+    [SerializeField] private int levelOfCoolness = 1;
+    public int LevelOfCoolness => levelOfCoolness;
 
-    public List<EnemyInfo> enemies;
-    public List<TrapInfo> traps;
-    public List<BonusInfo> bonuses;
+    [SerializeField] private List<EnemyInfo> enemies;
+    public List<EnemyInfo> Enemies => enemies;
+    [SerializeField] private List<TrapInfo> traps;
+    public List <TrapInfo> Traps => traps;
+    [SerializeField] private List<BonusInfo> bonuses;
+    public List<BonusInfo> Bonuses => bonuses;
 
-    public GameSet(string nameSet, int levelOfCoolness, List<EnemyInfo> enemies, List<TrapInfo> traps, List<BonusInfo> bonuses)
-    {
-        this.nameSet = nameSet;
-        this.levelOfCoolness = levelOfCoolness;
-        this.enemies = enemies;
-        this.traps = traps;
-        this.bonuses = bonuses;
-    }
+    [Header("For Fish Multiplier")]
+    [Range(0f, 10f)]
+    [SerializeField] private protected float multiplier = 1;
+    public float Multiplier => multiplier;
 }

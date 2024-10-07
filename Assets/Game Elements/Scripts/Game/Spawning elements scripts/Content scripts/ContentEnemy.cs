@@ -49,13 +49,11 @@ public class ContentEnemy : MonoBehaviour
     public void Start()
     {
         GlobalEventManager.OnGameOver += GameOver;
-        GlobalEventManager.OnUnSubscribe += unSubscribe;
     }
 
     void unSubscribe()
     {
         GlobalEventManager.OnGameOver -= GameOver;
-        GlobalEventManager.OnUnSubscribe -= unSubscribe;
     }
     public void setVisionZone(Enemy enemy)
     {
@@ -104,5 +102,6 @@ public class ContentEnemy : MonoBehaviour
             else if(attackMageZone != null)
                 attackMageZone.enabled = false;
         }
+        unSubscribe();
     }
 }

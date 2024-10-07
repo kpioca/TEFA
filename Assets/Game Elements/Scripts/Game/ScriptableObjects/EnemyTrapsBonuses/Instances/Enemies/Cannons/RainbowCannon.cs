@@ -79,14 +79,14 @@ public class RainbowCannon : Cannon
     {
         List<BulletInfo> projectiles = new List<BulletInfo>();
 
-        setUpNumCharges(charge2, out n_charges);
+        //setUpNumCharges(charge2, out n_charges);
 
         projectiles = getRandomBulletsFromListBullets(new List<BulletInfo>(bulletsInfo), n_charges);
 
-        toUseCoroutines.StartCoroutine(AttackCoroutine(markGun[0], target, platformsSpeed, projectiles, n_charges, toUseCoroutines));
+        toUseCoroutines.StartCoroutine(AttackCoroutine(markGun[0], target, platformsSpeed, projectiles, toUseCoroutines));
     }
 
-    private IEnumerator AttackCoroutine(GameObject markGun, Vector3 target, float platformsSpeed, List<BulletInfo> projectiles, int n_charges, MonoBehaviour toUseCoroutines)
+    private IEnumerator AttackCoroutine(GameObject markGun, Vector3 target, float platformsSpeed, List<BulletInfo> projectiles, MonoBehaviour toUseCoroutines)
     {
         GameObject bullet;
 

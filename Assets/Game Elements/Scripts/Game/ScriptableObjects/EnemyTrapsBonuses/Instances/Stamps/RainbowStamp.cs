@@ -25,6 +25,7 @@ public class RainbowStamp : Stamp
         set { sizes = value; }
 
     }
+
     public RainbowStamp(RainbowStampInfo info) : base(info)
     {
         damage_Increase = info.damageIncrease;

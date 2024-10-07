@@ -16,6 +16,7 @@ public class SizeStamp : Stamp
         set { sizes = value; }
 
     }
+
     public SizeStamp(SizeStampInfo info) : base(info)
     {
         size_Multiplier = info.sizeMultiplier;

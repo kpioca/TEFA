@@ -12,7 +12,7 @@ public class SpawnNewPlatform : MonoBehaviour
     {
         if (other.gameObject.name == "despawnBorder")
         {
-            GlobalEventManager.OnPathWaySpawn();
+            GlobalEventManager.SpawnPathWay();
         }
     }
 }

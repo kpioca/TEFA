@@ -21,12 +21,12 @@ public class JumpEffectInfo : StatusEffectInfo
             gameManager.StopCoroutine(effectCoroutine);
         }
         effectCoroutine = gameManager.StartCoroutine(EffectCoroutine(contentPlayer, duration));
-        contentPlayer.applyEffect(this);
 
     }
 
     public IEnumerator EffectCoroutine(ContentPlayer contentPlayer, int duration)
     {
+        contentPlayer.applyEffect(this);
         yield return new WaitForSeconds(duration);
         contentPlayer.removeEffect(this);
         effectCoroutine = null;

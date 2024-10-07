@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: rapid confusion
   m_EditorClassIdentifier: 
   nameSet: The rapid confusion
-  levelOfCoolness: 2
+  levelOfCoolness: 1
   enemies:
   - {fileID: 11400000, guid: 40197d76e2a7d894c97da71616c5f31d, type: 2}
   - {fileID: 11400000, guid: 84b0cff53645bc54f9ebba9331fb1f78, type: 2}
@@ -21,3 +21,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 66da89282f45194459007d4de6cd5387, type: 2}
   bonuses:
   - {fileID: 11400000, guid: d9b28af2ef38d014f8180d5f76f4cc00, type: 2}
+  multiplier: 1

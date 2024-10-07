@@ -10,6 +10,9 @@ public class Stamp
     [SerializeField] private protected Material bullet_Material;
     public Material bulletMaterial => bullet_Material;
 
+    [SerializeField] private protected float fishMultiplier = 0;
+    public float FishMultiplier => fishMultiplier;
+
     [Header("Instance Parameters")]
     [SerializeField] private protected CannonInfo cannonInfo_;
     public CannonInfo cannonInfo
@@ -21,6 +24,7 @@ public class Stamp
     {
         enemy_Material = info.enemyMaterial;
         bullet_Material = info.bulletMaterial;
+        fishMultiplier = info.Multiplier;
     }
 
     public static Stamp createStampFromInfo(StampInfo stampInfo)

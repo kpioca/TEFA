@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: happyHouse
   m_EditorClassIdentifier: 
   nameSet: The happy house
-  levelOfCoolness: 3
+  levelOfCoolness: 2
   enemies:
   - {fileID: 11400000, guid: ccd159625dc283243a97813c83e9e120, type: 2}
   traps:
   - {fileID: 11400000, guid: 66297a52645238b4590dff6f13c48a98, type: 2}
   bonuses:
   - {fileID: 11400000, guid: e3bf9e0600e306a4ba3bcf91b01be704, type: 2}
+  multiplier: 1

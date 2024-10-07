@@ -9,11 +9,16 @@ public class SaveData
     public int fish;
     public int food;
     public int recordPath;
+    public int recordLevel;
 
-    public SaveData(int recordPath)
+    public SaveData(int recordPath, int recordLevel, int fish, int food)
     {
         this.recordPath = recordPath;
+        this.recordLevel = recordLevel;
+        this.fish = fish;
+        this.food = food;
     }
+
 }
 public class GameDataManager : MonoBehaviour
 {
@@ -26,16 +31,17 @@ public class GameDataManager : MonoBehaviour
 
     private void Start()
     {
+        if(resultMenu != null)
         resultMenu.initRecordPath(this);
         //Save("/levelSkinSetDatabase.json", levelSkinSetDatabase._skinSetData);
     }
 
-    public void LoadRecordPath(object obj)
+    public void LoadDataGame(object obj)
     {
         Load("/data.json", obj);
     }
 
-    public void SaveRecordPath(object obj)
+    public void SaveDataGame(object obj)
     {
         Save("/data.json", obj);
     }

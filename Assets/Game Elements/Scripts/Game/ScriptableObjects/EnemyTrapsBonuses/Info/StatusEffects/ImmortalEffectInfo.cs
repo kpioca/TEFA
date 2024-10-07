@@ -16,12 +16,13 @@ public class ImmortalEffectInfo : StatusEffectInfo
         if (effectCoroutine == null)
         {
             effectCoroutine = gameManager.StartCoroutine(EffectCoroutine(gameManager, contentPlayer));
-            contentPlayer.applyEffect(this);
         }
     }
 
     public override IEnumerator EffectCoroutine(GameManager gameManager, ContentPlayer contentPlayer)
     {
+        contentPlayer.applyEffect(this);
+
         contentPlayer.changeImmortalState(true);
 
 

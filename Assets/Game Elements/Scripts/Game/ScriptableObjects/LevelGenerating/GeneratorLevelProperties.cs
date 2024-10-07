@@ -42,16 +42,17 @@ public class GeneratorLevelProperties
 
     
 
-    public GeneratorLevelProperties(LevelPropertiesDatabase database, out string setName, out List<float>[] chances)
+    public GeneratorLevelProperties(LevelPropertiesDatabase database, out string setName, out GameSet gameSet, out List<float>[] chances)
     {
         this.database = database;
-        setName = makeLevelProperties(out chances);
+        setName = makeLevelProperties(out chances, out gameSet);
     }
 
-    public string makeLevelProperties(out List<float>[] chances)
+    public string makeLevelProperties(out List<float>[] chances, out GameSet gameSet)
     {
         chanceGameSet = database.ChanceSpawnGameSet;
         chances = new List<float>[3];
+        gameSet = null;
 
         List<GameSet> databaseGameSets = database.GameSets;
         List<EnemyInfo> databaseEnemy = database.Enemy_properties;
@@ -67,13 +68,13 @@ public class GeneratorLevelProperties
 
             gameSet = databaseGameSets[num_set];
 
-            amount_typeEnemy = gameSet.enemies.Count;
-            amount_typeTraps = gameSet.traps.Count;
-            amount_typeBonuses = gameSet.bonuses.Count;
+            amount_typeEnemy = gameSet.Enemies.Count;
+            amount_typeTraps = gameSet.Traps.Count;
+            amount_typeBonuses = gameSet.Bonuses.Count;
 
-            enemy_properties = new List<EnemyInfo>(gameSet.enemies);
-            traps_properties = new List<TrapInfo>(gameSet.traps);
-            bonuses_properties = new List<BonusInfo>(gameSet.bonuses);
+            enemy_properties = new List<EnemyInfo>(gameSet.Enemies);
+            traps_properties = new List<TrapInfo>(gameSet.Traps);
+            bonuses_properties = new List<BonusInfo>(gameSet.Bonuses);
 
             stamps = getStamps(enemy_properties.Count);
 
@@ -88,8 +89,8 @@ public class GeneratorLevelProperties
             islands_properties = databaseIslands;
             roadParts_properties = databaseRoadParts;
 
-            Debug.Log($"GAMESET - {gameSet.nameSet}");
-            return $"\n\nGameset:\n{gameSet.nameSet}";
+            Debug.Log($"GAMESET - {gameSet.NameSet}");
+            return $"\n\nGameset:\n{gameSet.NameSet}";
         }
         else
         {
@@ -139,6 +140,7 @@ public class GeneratorLevelProperties
         }
         return "";
     }
+
 
     //public void addRandomItemsFromTo<T>(List<T> fromList, int amount, int randMaxExclusive, List<T> toList)
     //{
@@ -269,11 +271,13 @@ public class GeneratorLevelProperties
                         chances.Add(chance);
                 }
 
+                /*
                 Debug.Log("---");
                 for(i = 0; i < n; i++)
                 {
                     Debug.Log($"{listItems[i].Id} - {listItems[i].LevelOfCoolness} - {chances[i]}");
                 }
+                */
 
                 elements.Add(getRandomElementFromList(listItems, chances, out k));
                 listItems.RemoveAt(k);

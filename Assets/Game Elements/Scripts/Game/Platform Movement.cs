@@ -18,7 +18,6 @@ public class PlatformMovement : MonoBehaviour
         speedMovement = manager.SpeedRouteMovement;
         GlobalEventManager.OnGameOver += GameOver;
         GlobalEventManager.OnChangeSpeedRouteMovement += ChangeSpeedMovement;
-        GlobalEventManager.OnUnSubscribe += unSubscribe;
     }
 
     // Update is called once per frame
@@ -27,11 +26,11 @@ public class PlatformMovement : MonoBehaviour
     {
         GlobalEventManager.OnGameOver -= GameOver;
         GlobalEventManager.OnChangeSpeedRouteMovement -= ChangeSpeedMovement;
-        GlobalEventManager.OnUnSubscribe -= unSubscribe;
     }
 
     void GameOver()
     {
+        unSubscribe();
         this.enabled = false;
     }
 

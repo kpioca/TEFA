@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: quickDeath
   m_EditorClassIdentifier: 
   nameSet: The quick death
-  levelOfCoolness: 2
+  levelOfCoolness: 1
   enemies:
   - {fileID: 11400000, guid: db443f2f8c809ce429abbe87a3b46a32, type: 2}
   - {fileID: 11400000, guid: 40197d76e2a7d894c97da71616c5f31d, type: 2}
@@ -22,3 +22,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 66da89282f45194459007d4de6cd5387, type: 2}
   bonuses:
   - {fileID: 11400000, guid: 6830d3dbf12f6824889a0385a9d2a423, type: 2}
+  multiplier: 1

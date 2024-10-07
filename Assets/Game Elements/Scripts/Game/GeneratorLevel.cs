@@ -111,8 +111,8 @@ public class GeneratorLevel : MonoBehaviour
     {
         GlobalEventManager.OnPathWaySpawn += spawnNewPathWay;
         GlobalEventManager.OnChangeStageGame += newStageGame;
+        GlobalEventManager.OnGameOver += unSubscribe;
         init(out generator, database);
-        GlobalEventManager.OnUnSubscribe += unSubscribe;
 
     }
 
@@ -120,7 +120,7 @@ public class GeneratorLevel : MonoBehaviour
     {
         GlobalEventManager.OnPathWaySpawn -= spawnNewPathWay;
         GlobalEventManager.OnChangeStageGame -= newStageGame;
-        GlobalEventManager.OnUnSubscribe -= unSubscribe;
+        GlobalEventManager.OnGameOver -= unSubscribe;
     }
 
     // Update is called once per frame
@@ -134,8 +134,10 @@ public class GeneratorLevel : MonoBehaviour
         string text = "";
         float rand_num1;
         int rand_num2;
+        GameSet gameSet = null;
+        ModificatorInfo modificator = null;
 
-        generator = new GeneratorLevelProperties(database, out text, out chancesForRoulette);
+        generator = new GeneratorLevelProperties(database, out text, out gameSet, out chancesForRoulette);
         
 
         spawnParameters = new StagesSpawnParameters(database);
@@ -177,13 +179,14 @@ public class GeneratorLevel : MonoBehaviour
         {
             rand_num2 = UnityEngine.Random.Range(0, database.Modificators.Count);
             spawnParameters = database.Modificators[rand_num2].Action(spawnParameters);
+            modificator = database.Modificators[rand_num2];
 
-            text_info_level.text += $"\n\nModificator:\n{database.Modificators[rand_num2].NameModificator}";
+            text_info_level.text += $"\n\nModificator:\n{modificator.NameModificator}";
         }
         text_info_level.text += text;
 
 
-        //
+        /*
         Debug.Log($"---------Spawn Elements Info---------");
         Debug.Log($"Enemies : {enemy_properties.Count}\nTraps : {traps_properties.Count}\nBonuses : {bonuses_properties.Count}");
         Debug.Log("-Enemies-");
@@ -198,13 +201,69 @@ public class GeneratorLevel : MonoBehaviour
         Debug.Log("-Stamps-");
         for (int i = 0; i < stamps.Count; i++)
             Debug.Log($"Cannon : {stamps[i].cannonInfo}");
-        //
+        */
 
         n_stage = changeStageGame(0, out openedEnemy, out openedTraps, out openedBonuses, stageParameters[0].Part_openItems_stage, enemy_properties, traps_properties, bonuses_properties);
 
         initSpawnPartPath(ready_partsOfPath, n_AllSpawnedPlatforms, new Vector3(0, 0, 0), distZbetweenPlatforms, roadParts_properties, openedEnemy, openedTraps, openedBonuses, misc_properties, n_securePlatforms);
+
+        gameManager.FishMultiplier = getMultiplier(gameSet, stamps, modificator);
         gameManager.roads = ready_partsOfPath;
         gameManager.allDisable();
+    }
+
+    public int getMultiplier(GameSet gameSet, List<Stamp> stamps, ModificatorInfo modificator)
+    {
+        int n = 0;
+        float multiplier = 1;
+        string debugMessage = "";
+        int n_multiplier_elements = 0;
+
+        if (gameSet != null)
+        {
+            multiplier += gameSet.Multiplier;
+            debugMessage += $"Gameset:\n+{gameSet.Multiplier}";
+            n_multiplier_elements += 1;
+        }
+        if (modificator != null)
+        {
+            multiplier += modificator.Multiplier;
+            debugMessage += $"Modificator:\n+{modificator.Multiplier}";
+            n_multiplier_elements += 1;
+        }
+        if(stamps != null)
+        {
+            n = stamps.Count;
+            if (n > 0)
+            {
+                debugMessage += $"Stamps:\n";
+                for (int i = 0; i < n; i++)
+                {
+                    multiplier += stamps[i].FishMultiplier;
+                    debugMessage += $"+{stamps[i].FishMultiplier}\n";
+                }
+
+                if (n >= 4) multiplier += 2;
+                n_multiplier_elements += 1;
+            }
+        }
+        if (n_multiplier_elements == 3) {
+
+            multiplier += 2;
+            debugMessage += $"Three Elements:\n+2";
+        }
+        else if (n_multiplier_elements == 2) {
+            multiplier += 1;
+            debugMessage += $"Two Elements:\n+1";
+        }
+
+        if (multiplier >= 15)
+        {
+            multiplier = 99f;
+            debugMessage += $"Max multiplier:\n+84";
+        }
+        Debug.Log(debugMessage);
+        return (int)Mathf.Ceil(multiplier);
     }
 
     private void setEnemyForStamps(List<Stamp> stamps, List<EnemyInfo> listEnemyInfo)
@@ -260,7 +319,7 @@ public class GeneratorLevel : MonoBehaviour
         assignChancesToOpenedItems(openedTraps, stage, 3);
         assignChancesToOpenedItems(openedBonuses, stage, 3);
 
-        //
+        /*
         Debug.Log($"---------STATE {stage}---------");
         Debug.Log("-Enemies-");
         for (int i = 0; i < openedEnemy.Count; i++)
@@ -271,7 +330,7 @@ public class GeneratorLevel : MonoBehaviour
         Debug.Log("-Bonuses-");
         for (int i = 0; i < openedBonuses.Count; i++)
             Debug.Log($"Id : {openedBonuses[i].Id} , chance : {openedBonuses[i].ChanceIfSpawnThisType}");
-        //
+        */
 
         return stage;
     }

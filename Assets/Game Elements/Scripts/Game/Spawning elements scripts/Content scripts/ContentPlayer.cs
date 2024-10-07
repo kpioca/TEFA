@@ -43,9 +43,9 @@ public class ContentPlayer : MonoBehaviour
     [SerializeField] private bool isAdminImmortal = false;
     public bool IsAdminImmortal => isAdminImmortal;
 
-    public Dictionary<string, StatusEffectInfo> appliedEffects = new Dictionary<string, StatusEffectInfo>();
-    public List<StatusEffectInfo> effectsWithAppliedShaders;
-    Material[] baseMaterials;
+    private Dictionary<string, StatusEffectInfo> appliedEffects = new Dictionary<string, StatusEffectInfo>();
+    [SerializeField] private List<StatusEffectInfo> effectsWithAppliedShaders = new List<StatusEffectInfo>();
+    [SerializeField] private List<Material> shaderMaterials = new List<Material>();
 
     [Header("For shaders")]
     [SerializeField] private GameObject[] objectParts;
@@ -53,13 +53,11 @@ public class ContentPlayer : MonoBehaviour
     private void Start()
     {
         GlobalEventManager.OnGameOver += GameOver;
-        GlobalEventManager.OnUnSubscribe += unSubscribe;
     }
 
     void unSubscribe()
     {
         GlobalEventManager.OnGameOver -= GameOver;
-        GlobalEventManager.OnUnSubscribe -= unSubscribe;
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -106,6 +104,7 @@ public class ContentPlayer : MonoBehaviour
 
     void GameOver()
     {
+        unSubscribe();
         this.enabled = false;
     }
     
@@ -179,39 +178,21 @@ public class ContentPlayer : MonoBehaviour
 
     public void applyEffect(StatusEffectInfo effect)
     {
+        debugInfo("apply");
         if (!appliedEffects.ContainsKey(effect.EffectId))
         {
-            Material[] tempBaseMaterials;
             if (!effectsWithAppliedShaders.Any(eff => eff.EffectId == effect.EffectId))
             {
-                if (applyShader(effect, out tempBaseMaterials))
+                if (applyShader(effect))
                     effectsWithAppliedShaders.Add(effect);
-                if (tempBaseMaterials != null && baseMaterials == null)
-                    baseMaterials = tempBaseMaterials;
             }
             appliedEffects[effect.EffectId] = effect;
         }
+        debugInfo("applied");
     }
 
-    private bool applyShader(StatusEffectInfo effect, out Material[] baseMaterials)
-    {
-        int n = objectParts.Length;
-        Material shaderMaterial = effect.EffectMaterial;
-        baseMaterials = null;
-        if (shaderMaterial != null)
-        {
-            baseMaterials = new Material[n];
-            for (int i = 0; i < n; i++)
-            {
-                Material[] materials = objectParts[i].GetComponent<MeshRenderer>().materials;
-                baseMaterials[i] = materials[0];
-                List<Material> materialsList = new List<Material>(materials) { shaderMaterial };
-                objectParts[i].GetComponent<MeshRenderer>().SetMaterials(materialsList);
-            }
-            return true;
-        }
-        else return false;
-    }
+
+
 
     private void applyBaseMaterialss(Material[] baseMaterials)
     {
@@ -220,21 +201,44 @@ public class ContentPlayer : MonoBehaviour
             objectParts[i].GetComponent<MeshRenderer>().SetMaterials(new List<Material> { baseMaterials[i] });
     }
 
+    private void applyMaterialsToPlayer()
+    {
+        List<Material> materialsList;
+        Material baseMaterial;
+        int n = objectParts.Length;
+        for (int i = 0; i < n; i++)
+        {
+            baseMaterial = objectParts[i].GetComponent<MeshRenderer>().materials[0];
+
+            materialsList = new List<Material>(shaderMaterials);
+            materialsList.Insert(0, baseMaterial);
+
+            objectParts[i].GetComponent<MeshRenderer>().SetMaterials(materialsList);
+        }
+    }
+    private bool applyShader(StatusEffectInfo effect)
+    {
+        int n = objectParts.Length;
+        Material shaderMaterial = effect.EffectMaterial;
+
+        if (shaderMaterial != null)
+        {
+            shaderMaterials.Add(shaderMaterial);
+            applyMaterialsToPlayer();
+            return true;
+        }
+        else return false;
+    }
+
     //¡¿√
     private void deleteMaterial(int numMaterial)
     {
-        numMaterial++;
-        int n = objectParts.Length;
-        for (int i = 0; i < n; i++) {
-            List<Material> materials = new List<Material>(objectParts[i].GetComponent<MeshRenderer>().materials);
-            if (numMaterial < materials.Count)
-            {
-                materials.RemoveAt(numMaterial);
-                objectParts[i].GetComponent<MeshRenderer>().SetMaterials(materials);
-            }
-        }
+        shaderMaterials.RemoveAt(numMaterial);
+        applyMaterialsToPlayer();
                
     }
+
+
     public void effectActivate(StatusEffectInfo effect)
     {
         //if (!hasThisEffect(effect))
@@ -272,16 +276,21 @@ public class ContentPlayer : MonoBehaviour
     //¡¿√
     public void removeEffect(StatusEffectInfo effect)
     {
+        debugInfo("remove");
+        int num;
         if (appliedEffects.ContainsKey(effect.EffectId))
         {
-            int num = effectsWithAppliedShaders.FindIndex(eff => eff.EffectId == effect.EffectId);
-            if (num != -1)
+            num = effectsWithAppliedShaders.FindIndex(eff => eff.EffectId == effect.EffectId);
+            Debug.Log($"{num} - {effect.EffectId}");
+            if (num >= 0)
             {
+                Debug.Log("OK");
                 effectsWithAppliedShaders.RemoveAt(num);
                 deleteMaterial(num);
             }
             appliedEffects.Remove(effect.EffectId);
         }
+        debugInfo("removed");
     }
 
     public void changeImmortalState(bool state)
@@ -296,6 +305,7 @@ public class ContentPlayer : MonoBehaviour
 
     public void changeCounterHealth(int health)
     {
+        Health = health;
         gameManager.changeHealth(health);
     }
 
@@ -312,16 +322,23 @@ public class ContentPlayer : MonoBehaviour
         {
             if (bullet.IgnoreArmor || armor == 0)
             {
-                health -= damage;
-                if(health > 0)
-                    changeCounterHealth(health);
+                Health -= damage;
+                if(Health > 0)
+                    changeCounterHealth(Health);
+                else if (Health <= 0)
+                {
+                    Health = 0;
+                    changeCounterHealth(Health);
+                    GlobalEventManager.GameOver();
+                    return;
+                }
                 effectActivate(deathImmortalEffect);
             }
             else if (armor > 0)
             {
                 effectActivateWithParameters(destroyArmorEffect, new int[1] { damage });
             }
-            if (armor < 0)
+            else if (armor <= 0)
             {
                 armor = 0;
                 changeCounterArmor(armor);
@@ -330,14 +347,7 @@ public class ContentPlayer : MonoBehaviour
 
         if (bullet.IsBreakInCollision)
             KhtPool.ReturnObject(bulletObj);
-
-        if (health <= 0)
-        {
-            health = 0;
-            changeCounterHealth(health);
-            GlobalEventManager.GameOver();
-        }
-        else if (bullet.HasEffect)
+        if (bullet.HasEffect)
            effectActivate(bullet.EffectInfo);
 
     }
@@ -350,16 +360,23 @@ public class ContentPlayer : MonoBehaviour
         {
             if (trap.IgnoreArmor || armor == 0)
             {
-                health -= damage;
-                if (health > 0)
-                    changeCounterHealth(health);
+                Health -= damage;
+                if (Health > 0)
+                    changeCounterHealth(Health);
+                else if (Health <= 0)
+                {
+                    Health = 0;
+                    changeCounterHealth(Health);
+                    GlobalEventManager.GameOver();
+                    return;
+                }
                 effectActivate(deathImmortalEffect);
             }
             else if (armor > 0)
             {
                 effectActivateWithParameters(destroyArmorEffect, new int[1] { damage });
             }
-            if (armor <= 0) 
+            else if (armor <= 0) 
             {
                 armor = 0;
                 changeCounterArmor(armor);
@@ -368,14 +385,7 @@ public class ContentPlayer : MonoBehaviour
         }
 
         DestroyTrap(trapObj);
-
-        if (health <= 0)
-        {
-            health = 0;
-            changeCounterHealth(health);
-            GlobalEventManager.GameOver();
-        }
-        else if (trap.HasEffect)
+        if (trap.HasEffect)
             effectActivate(trap.EffectInfo);
     }
 
@@ -415,5 +425,21 @@ public class ContentPlayer : MonoBehaviour
                     deleteMisc(gameObject, destr);
             }
         }
+    }
+
+    private void debugInfo(string str)
+    {
+        int n = appliedEffects.Count;
+
+        string info = str + "\n";
+        info += "------\n";
+        foreach(var element in appliedEffects)
+        {
+            info += $"id: {element.Key}, effect: {element.Value.EffectName}\n";
+        }
+        info += "------";
+
+        Debug.Log(info);
+
     }
 }

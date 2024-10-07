@@ -9,6 +9,7 @@ public class DamageStamp : Stamp
     [Range(1, 5)]
     [SerializeField] int damage_Increase;
     public int damageIncrease => damage_Increase;
+
     public DamageStamp(DamageStampInfo info) : base(info)
     {
         damage_Increase = info.damageIncrease;

@@ -7,14 +7,13 @@ using TMPro;
 public class DissolvingStartWindow : MonoBehaviour
 {
     [SerializeField] GameManager gameManager;
-    [SerializeField] RawImage rawImage;
     [SerializeField] private TMP_Text text_info_level;
     Material material;
     [SerializeField] float duration;
     [SerializeField] float smoothness = 0.01f;
     void Start()
     {
-        material = GetComponent<RawImage>().material;
+        material = GetComponent<Image>().material;
 
         material.SetFloat("_alphaClip", 0);
     }
@@ -26,7 +25,7 @@ public class DissolvingStartWindow : MonoBehaviour
 
     public void dissolveAnimation()
     {
-        material = GetComponent<RawImage>().material;
+        material = GetComponent<Image>().material;
         StartCoroutine(appearance(material, smoothness, duration));
     }
 

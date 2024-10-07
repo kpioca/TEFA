@@ -15,16 +15,21 @@ public class ResultMenu : MonoBehaviour
     [SerializeField] TMP_Text foodCounter;
     [SerializeField] TMP_Text totalFishCounter;
 
+    private int allFish;
+    private int allFood;
+
     public int pathValue;
+    public int levelValue;
     public int recordPathValue;
+    public int recordLevel;
     public void setPathCounter()
     {
-        pathCounter.text = pathValue.ToString() + "<sprite=1>";
+        pathCounter.text = pathValue.ToString() + "<sprite=1>" + $"<sprite={levelValue+4}>";
     }
 
     public void setRecordPath()
     {
-        recordPathCounter.text = recordPathValue.ToString() + "<sprite=0>";
+        recordPathCounter.text = recordPathValue.ToString() + "<sprite=0>" + $"<sprite={recordLevel+4}>";
     }
 
     public void setFishCounter(int value)
@@ -42,34 +47,51 @@ public class ResultMenu : MonoBehaviour
         foodCounter.text = value.ToString() + "<sprite=3>";
     }
 
-    public void setTotalFishCounterCounter(int value)
+    public void setTotalFishCounter(int value)
     {
         totalFishCounter.text = value.ToString() + "<sprite=2>";
     }
 
     public void initRecordPath(GameDataManager gameDataManager)
     {
-        SaveData saveData = new SaveData(0);
-        gameDataManager.LoadRecordPath(saveData);
+        SaveData saveData = new SaveData(0, 0, 0, 0);
+        gameDataManager.LoadDataGame(saveData);
         recordPathValue = saveData.recordPath;
+        recordLevel = saveData.recordLevel;
+        allFish = saveData.fish;
+        allFood = saveData.food;
+
         setRecordPath();
     }
 
-    public void setResult(int path, int fish, int food, GameDataManager gameDataManager)
+    public void setResult(int path, int level, int fish, int food, int multiplier, GameDataManager gameDataManager)
     {
         pathValue = path;
+        levelValue = level;
+        int totalFish;
         setPathCounter();
         if (recordPathValue < pathValue)
         {
             recordPathValue = pathValue;
-            gameDataManager.SaveRecordPath(new SaveData(recordPathValue));
+            recordLevel = levelValue;
+        }
+        else if(recordLevel < levelValue)
+        {
+            recordPathValue = pathValue;
+            recordLevel = levelValue;
         }
         setRecordPath();
 
-        setMultiplierCounter(1);
+        setMultiplierCounter(multiplier);
         setFishCounter(fish);
         setFoodCounter(food);
-        setTotalFishCounterCounter(fish);
+        totalFish = fish * multiplier;
+        setTotalFishCounter(totalFish);
+
+        allFish += totalFish;
+        allFood += food;
+
+        gameDataManager.SaveDataGame(new SaveData(recordPathValue, recordLevel, allFish, allFood));
     }
 
 

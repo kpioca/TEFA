@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: magicHappiness
   m_EditorClassIdentifier: 
   nameSet: The magic happiness
-  levelOfCoolness: 4
+  levelOfCoolness: 3
   enemies:
   - {fileID: 11400000, guid: bc424cc45aabc1f43b0fe561b8c685a7, type: 2}
   - {fileID: 11400000, guid: ccd159625dc283243a97813c83e9e120, type: 2}
@@ -21,3 +21,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 66da89282f45194459007d4de6cd5387, type: 2}
   bonuses:
   - {fileID: 11400000, guid: e3bf9e0600e306a4ba3bcf91b01be704, type: 2}
+  multiplier: 2

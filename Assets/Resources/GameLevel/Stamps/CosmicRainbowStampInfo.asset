@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemy_Material: {fileID: 2100000, guid: e335df496fb84b641bf989d695a94406, type: 2}
   bullet_Material: {fileID: 2100000, guid: b7f9fcf257c4cd849978d12a4546c44f, type: 2}
+  multiplier: 1.5
   damage_Increase: 1
   speed_Multiplier: 2
   size_Multiplier: 2.5

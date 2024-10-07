@@ -28,12 +28,13 @@ public class StunEffectInfo : StatusEffectInfo
         if (effectCoroutine == null)
         {
             effectCoroutine = gameManager.StartCoroutine(EffectCoroutine(gameManager, contentPlayer));
-            contentPlayer.applyEffect(this);
         }
     }
 
     public override IEnumerator EffectCoroutine(GameManager gameManager, ContentPlayer contentPlayer)
     {
+        contentPlayer.applyEffect(this);
+
         //get current parameters
         gameManager.getCurrentPlayerMoveParameters(out float speedMove, out float heightJump);
 

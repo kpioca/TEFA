@@ -14,16 +14,16 @@ public class PathCounter : MonoBehaviour
     [SerializeField] private TMP_Text pathCounterText;
     [SerializeField] private int pathScore;
 
-    
+    bool isDead = false;
 
     private int n_stages = 0;
-    private LinkedList<int[]> activationDistances = new LinkedList<int[]>(new[] { new int[2] { -1, -1 } });
+    private LinkedList<int[]> activationDistances = new LinkedList<int[]>();
     public int PathScore => pathScore;
 
-    public Coroutine PathCounterCoroutine;
+    private Coroutine PathCounterCoroutine;
 
 
-    LinkedListNode<int[]> currentStageDistance;
+    public LinkedListNode<int[]> currentStageDistance;
     [SerializeField] private float speedCount;
 
     [Header("Level View")]
@@ -36,7 +36,7 @@ public class PathCounter : MonoBehaviour
     void Start()
     {
         n_stages = database.stageParameters.Count;
-        for (int i = 1; i < n_stages; i++)
+        for (int i = 0; i < n_stages; i++)
         {
             activationDistances.AddLast(new int[2] { database.stageParameters[i].ActivationDistance_stage, i });
         }
@@ -45,13 +45,11 @@ public class PathCounter : MonoBehaviour
         currentStageDistance = activationDistances.First;
 
         GlobalEventManager.OnGameOver += GameOver;
-        GlobalEventManager.OnUnSubscribe += unSubscribe;
     }
 
     void unSubscribe()
     {
         GlobalEventManager.OnGameOver -= GameOver;
-        GlobalEventManager.OnUnSubscribe -= unSubscribe;
     }
 
 
@@ -63,9 +61,12 @@ public class PathCounter : MonoBehaviour
 
     public void startPathCounter()
     {
-        if (PathCounterCoroutine != null)
-            StopCoroutine(PathCounterCoroutine);
-        PathCounterCoroutine = StartCoroutine(pathCounterCoroutine());
+        if (!isDead)
+        {
+            if (PathCounterCoroutine != null)
+                StopCoroutine(PathCounterCoroutine);
+            PathCounterCoroutine = StartCoroutine(pathCounterCoroutine());
+        }
     }
 
     
@@ -101,7 +102,10 @@ public class PathCounter : MonoBehaviour
 
     void GameOver()
     {
-        StopCoroutine(PathCounterCoroutine);
+        stopPathCounter();
+        unSubscribe();
+        isDead = true;
+        this.enabled = false;
     }
 
     public void changeSpeedCount(float speedCount)
@@ -109,12 +113,12 @@ public class PathCounter : MonoBehaviour
 
         if (speedCount == 0)
         {
-            StopCoroutine(PathCounterCoroutine);
+            stopPathCounter();
         }
         else if (this.speedCount == 0)
         {
             this.speedCount = speedCount;
-            PathCounterCoroutine = StartCoroutine(pathCounterCoroutine());
+            startPathCounter();
         }
         this.speedCount = speedCount;
     }

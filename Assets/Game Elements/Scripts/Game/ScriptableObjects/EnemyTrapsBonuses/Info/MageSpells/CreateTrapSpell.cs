@@ -40,17 +40,17 @@ public class CreateTrapSpellInfo : MageSpellInfo
                 holesInstances[k1].spawnPlace.obj.SetActive(true);
                 holesInstances[k1].spawnPlace = null;
             }
-            trap = spawnTrap(infoPieceOfPath, road, trapPull[k2], trap_marks, holesInstances, k1);
+            trap = spawnTrap(infoPieceOfPath, road, trapPull[k2], trap_marks, holesInstances, k1, gameManager);
         }
         else if(trap_marks[k1].isTaken == false)
         {
-            trap = spawnTrap(infoPieceOfPath, road, trapPull[k2], trap_marks, holesInstances, k1);
+            trap = spawnTrap(infoPieceOfPath, road, trapPull[k2], trap_marks, holesInstances, k1, gameManager);
         }
         SpawnParticles(trap_marks[k1].obj.transform, gameManager);
 
     }
 
-    private GameObject spawnTrap(InfoPieceOfPath infoPieceOfPath, GameObject road, TrapInfo trap, Mark[] trap_marks, Mark[] holesInstances, int num_mark)
+    private GameObject spawnTrap(InfoPieceOfPath infoPieceOfPath, GameObject road, TrapInfo trap, Mark[] trap_marks, Mark[] holesInstances, int num_mark, GameManager gameManager)
     {
         GameObject trapObj = spawnObjectWithPrefabParameters(trap.Prefab, trap_marks[num_mark].obj.transform.position, road.transform);
         Mark hole;
@@ -63,6 +63,7 @@ public class CreateTrapSpellInfo : MageSpellInfo
             destr.num = infoPieceOfPath.Traps.Count;
             destr.info = infoPieceOfPath;
             destr.type = "trap";
+            destr.gameManager = gameManager;
         }
 
         int num2 = infoPieceOfPath.Traps.Count;

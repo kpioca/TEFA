@@ -24,3 +24,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 30c3cab9c175b8e4da2b8371edeca811, type: 2}
   bonuses:
   - {fileID: 11400000, guid: d9b28af2ef38d014f8180d5f76f4cc00, type: 2}
+  multiplier: 2

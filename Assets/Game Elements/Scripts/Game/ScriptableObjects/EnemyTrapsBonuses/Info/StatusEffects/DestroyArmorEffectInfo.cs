@@ -55,13 +55,14 @@ public class DestroyArmorEffectInfo : StatusEffectInfo
             }
 
             effectCoroutine = gameManager.StartCoroutine(EffectCoroutine(contentPlayer));
-            contentPlayer.applyEffect(this);
         }
 
     }
 
     public IEnumerator EffectCoroutine(ContentPlayer contentPlayer)
     {
+        contentPlayer.applyEffect(this);
+
         contentPlayer.changeImmortalState(true);
 
 
