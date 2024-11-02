@@ -107,13 +107,23 @@ public class GeneratorLevel : MonoBehaviour
 
     List<Stamp> stamps;
 
-    void Start()
+    public void Initialize()
+    {
+        init(out generator, database);
+    }
+
+    private void OnEnable()
     {
         GlobalEventManager.OnPathWaySpawn += spawnNewPathWay;
         GlobalEventManager.OnChangeStageGame += newStageGame;
         GlobalEventManager.OnGameOver += unSubscribe;
-        init(out generator, database);
+    }
 
+    private void OnDisable()
+    {
+        GlobalEventManager.OnPathWaySpawn -= spawnNewPathWay;
+        GlobalEventManager.OnChangeStageGame -= newStageGame;
+        GlobalEventManager.OnGameOver -= unSubscribe;
     }
 
     void unSubscribe()
@@ -121,12 +131,6 @@ public class GeneratorLevel : MonoBehaviour
         GlobalEventManager.OnPathWaySpawn -= spawnNewPathWay;
         GlobalEventManager.OnChangeStageGame -= newStageGame;
         GlobalEventManager.OnGameOver -= unSubscribe;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     private void init(out GeneratorLevelProperties generator, LevelPropertiesDatabase database)
@@ -137,8 +141,13 @@ public class GeneratorLevel : MonoBehaviour
         GameSet gameSet = null;
         ModificatorInfo modificator = null;
 
+        bool hasGameset = false;
+        bool hasModificator = false;
+
         generator = new GeneratorLevelProperties(database, out text, out gameSet, out chancesForRoulette);
-        
+
+        if (text != "")
+            hasGameset = true;
 
         spawnParameters = new StagesSpawnParameters(database);
 
@@ -153,8 +162,6 @@ public class GeneratorLevel : MonoBehaviour
 
         stamps = generator.Stamps;
         setEnemyForStamps(stamps, enemy_properties);
-
-        rouletteSpawnElements.startRoulette(chancesForRoulette, enemy_properties, traps_properties, bonuses_properties, database.Enemy_properties, database.Traps_properties, database.Bonuses_properties);
 
         enemy_propertiesDict = database.Enemy_propertiesDict;
         traps_propertiesDict = database.Traps_propertiesDict;
@@ -174,16 +181,30 @@ public class GeneratorLevel : MonoBehaviour
 
         rand_num1 = UnityEngine.Random.Range(0, 1f);
 
-
         if (rand_num1 <= database.ChanceModificator)
         {
             rand_num2 = UnityEngine.Random.Range(0, database.Modificators.Count);
             spawnParameters = database.Modificators[rand_num2].Action(spawnParameters);
             modificator = database.Modificators[rand_num2];
+            hasModificator = true;
 
-            text_info_level.text += $"\n\nModificator:\n{modificator.NameModificator}";
+            if (hasGameset)
+                text += "    ";
+            text += $"{modificator.NameModificator}";
         }
-        text_info_level.text += text;
+
+        if (hasGameset)
+        {
+            text_info_level.text += "Gameset:";
+            if(hasModificator)
+                text_info_level.text += "    ";
+        }
+        if (hasModificator)
+        {
+            text_info_level.text += "Modificator:";
+        }
+        text_info_level.text += $"\n{text}";
+
 
 
         /*
@@ -209,7 +230,8 @@ public class GeneratorLevel : MonoBehaviour
 
         gameManager.FishMultiplier = getMultiplier(gameSet, stamps, modificator);
         gameManager.roads = ready_partsOfPath;
-        gameManager.allDisable();
+        gameManager.DisablePlatformMovement();
+        rouletteSpawnElements.startRoulette(enemy_properties, traps_properties, bonuses_properties, stamps, gameManager.FishMultiplier);
     }
 
     public int getMultiplier(GameSet gameSet, List<Stamp> stamps, ModificatorInfo modificator)
@@ -678,6 +700,9 @@ public class GeneratorLevel : MonoBehaviour
 
 
         InfoPieceOfPath info = raw_road.GetComponent<InfoPieceOfPath>();
+        PlatformMovement platformMovement = raw_road.GetComponent<PlatformMovement>();
+        platformMovement.Initialize(gameManager);
+
         rPattern = setRoadGenerationPattern(rPatterns, info);
 
         List<Mark> islandsSmallMarks = new List<Mark>(getInfoIslandsSmallMarks(info));

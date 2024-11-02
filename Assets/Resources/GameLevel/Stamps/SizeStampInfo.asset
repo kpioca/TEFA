@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemy_Material: {fileID: 2100000, guid: bc3cfe5ee8198914699e70ce49befbac, type: 2}
   bullet_Material: {fileID: 2100000, guid: 40e35bcbf0ecca940896bf0225419a63, type: 2}
+  icon: {fileID: 21300000, guid: af0a64c442961d048ae599c31b93167d, type: 3}
   multiplier: 0.5
   size_Multiplier: 2

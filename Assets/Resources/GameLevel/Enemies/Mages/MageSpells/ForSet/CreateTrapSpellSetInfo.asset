@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7528b880d4745e4fbffbc106c0e222a, type: 3}
+  m_Name: CreateTrapSpellSetInfo
+  m_EditorClassIdentifier: 
+  spellName: Create Trap
+  spellId: cr_trap
+  levelOfCoolness: 2
+  particles: {fileID: 586265465599792263, guid: 593230a79cf662241af7fd4c98fb1bcd,
+    type: 3}
+  trapPull:
+  - {fileID: 11400000, guid: 30c3cab9c175b8e4da2b8371edeca811, type: 2}
+  - {fileID: 11400000, guid: d1df209f3e5482c4db5149ceeb071dc4, type: 2}
+  - {fileID: 11400000, guid: f2ff9362949a1b44aa96b14f2701e588, type: 2}
+  - {fileID: 11400000, guid: 673fc799e301f2345be9f6014791a201, type: 2}
+  - {fileID: 11400000, guid: a6ffd9db6cc9bff4c9253264ca601c0c, type: 2}
+  - {fileID: 11400000, guid: 8f1316cfa429bb84db04ae2c6e2a9219, type: 2}
+  - {fileID: 11400000, guid: fdcf365886b219d49b82ffa2dd089aff, type: 2}

@@ -5,7 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "JumpEffectInfo", menuName = "LevelProperties/Status Effects/New JumpEffectInfo")]
 public class JumpEffectInfo : StatusEffectInfo
 {
-    private Coroutine effectCoroutine;
 
 
     [SerializeField] float speed_jump;

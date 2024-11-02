@@ -189,7 +189,7 @@ MonoBehaviour:
   - min_Enemy_stage: 0
     max_Enemy_stage: 1
     min_Traps_stage: 0
-    max_Traps_stage: 3
+    max_Traps_stage: 2
     min_Bonuses_stage: 0
     max_Bonuses_stage: 1
     chance_Bonuses_stage: 0.05
@@ -199,7 +199,7 @@ MonoBehaviour:
     activationDistance_stage: 0
   - min_Enemy_stage: 0
     max_Enemy_stage: 2
-    min_Traps_stage: 2
+    min_Traps_stage: 1
     max_Traps_stage: 4
     min_Bonuses_stage: 0
     max_Bonuses_stage: 1
@@ -211,7 +211,7 @@ MonoBehaviour:
   - min_Enemy_stage: 1
     max_Enemy_stage: 3
     min_Traps_stage: 2
-    max_Traps_stage: 5
+    max_Traps_stage: 4
     min_Bonuses_stage: 0
     max_Bonuses_stage: 2
     chance_Bonuses_stage: 0.15
@@ -221,8 +221,8 @@ MonoBehaviour:
     activationDistance_stage: 90
   - min_Enemy_stage: 2
     max_Enemy_stage: 4
-    min_Traps_stage: 3
-    max_Traps_stage: 6
+    min_Traps_stage: 2
+    max_Traps_stage: 4
     min_Bonuses_stage: 0
     max_Bonuses_stage: 2
     chance_Bonuses_stage: 0.15
@@ -232,8 +232,8 @@ MonoBehaviour:
     activationDistance_stage: 175
   - min_Enemy_stage: 3
     max_Enemy_stage: 5
-    min_Traps_stage: 4
-    max_Traps_stage: 7
+    min_Traps_stage: 3
+    max_Traps_stage: 5
     min_Bonuses_stage: 0
     max_Bonuses_stage: 2
     chance_Bonuses_stage: 0.05
@@ -243,8 +243,8 @@ MonoBehaviour:
     activationDistance_stage: 260
   - min_Enemy_stage: 4
     max_Enemy_stage: 6
-    min_Traps_stage: 6
-    max_Traps_stage: 8
+    min_Traps_stage: 4
+    max_Traps_stage: 6
     min_Bonuses_stage: 0
     max_Bonuses_stage: 2
     chance_Bonuses_stage: 0.02
@@ -254,8 +254,8 @@ MonoBehaviour:
     activationDistance_stage: 340
   - min_Enemy_stage: 6
     max_Enemy_stage: 6
-    min_Traps_stage: 8
-    max_Traps_stage: 10
+    min_Traps_stage: 5
+    max_Traps_stage: 7
     min_Bonuses_stage: 0
     max_Bonuses_stage: 2
     chance_Bonuses_stage: 0.001

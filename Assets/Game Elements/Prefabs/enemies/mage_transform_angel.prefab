@@ -81,7 +81,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7219373137297438305
 Transform:
   m_ObjectHideFlags: 0
@@ -124,8 +124,8 @@ MonoBehaviour:
   attackZoneX: -1
   attackZoneY: -1
   attackZoneZ: -1
-  element1: {fileID: 0}
-  element2: {fileID: 0}
+  objParameters: []
+  enemy_Parts: []
 --- !u!95 &2296869986125354189
 Animator:
   serializedVersion: 5
@@ -525,6 +525,7 @@ MonoBehaviour:
   contentEnemy: {fileID: 5654142693353440917}
   animator: {fileID: 2296869986125354189}
   attackAnimationClip: {fileID: 7400000, guid: 21ef335e1ea6d7840b5e531bf475a223, type: 2}
+  markGun: {fileID: 0}
 --- !u!1 &4719906308600931549
 GameObject:
   m_ObjectHideFlags: 0

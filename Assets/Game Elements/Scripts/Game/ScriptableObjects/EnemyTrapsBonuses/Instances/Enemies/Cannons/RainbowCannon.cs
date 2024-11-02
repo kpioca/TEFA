@@ -93,7 +93,7 @@ public class RainbowCannon : Cannon
         for(int i = 0; i < n_charges; i++)
         {
             bullet = projectiles[i].spawnBullet(projectiles[i].Prefab, markGun, null, stamp, out contentBullet[i]);
-            MoveToPos(toUseCoroutines, bullet, target + bullet.transform.forward * 2, projectiles[i].Speed, platformsSpeed, contentBullet[i]);
+            MoveToPos(toUseCoroutines, bullet, target + bullet.transform.forward * 2 + Vector3.up, projectiles[i].Speed, platformsSpeed, contentBullet[i]);
 
             yield return new WaitForSeconds(intervalBetweenShots);
         }

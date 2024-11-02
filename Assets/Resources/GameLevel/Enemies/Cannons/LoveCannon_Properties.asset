@@ -13,16 +13,17 @@ MonoBehaviour:
   m_Name: LoveCannon_Properties
   m_EditorClassIdentifier: 
   id: can_love
+  type: 0
   levelOfCoolness: 3
   prefab: {fileID: 5096971641058345655, guid: 603a54f2613cc9c4cbcdf6040fd06e01, type: 3}
   sizeOfObjectPool: 8
-  icon: {fileID: 21300000, guid: 436b4d3b8c1c7354aa4526c4ed364420, type: 3}
+  icon: {fileID: 21300000, guid: 0136f5199fe118e4fb48d3351e216759, type: 3}
   haveAttackDamage: 1
   visionZoneX: 18
-  visionZoneY: 7
+  visionZoneY: 14
   visionZoneZ: 43
   attackZoneX: 18
-  attackZoneY: 7
+  attackZoneY: 14
   attackZoneZ: 30
   bullets_Info:
   - {fileID: 11400000, guid: b202268e8a243bd41a30b0043f841091, type: 2}

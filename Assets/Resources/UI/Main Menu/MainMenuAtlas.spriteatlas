@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MainMenuAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 233e6b3d8f9a0d84cbe9c8759be73c2e, type: 3}
+    - {fileID: 2800000, guid: 19f8e8e46df7d504195051dcd5f114f6, type: 3}
+    - {fileID: 2800000, guid: 7161c514f02122a42bcad7bad5fa1446, type: 3}
+    - {fileID: 2800000, guid: c3edc7425af156344aba24d2babd25ca, type: 3}
+    - {fileID: 2800000, guid: ab2c4015d89a88746b2148bbfa3f9859, type: 3}
+    - {fileID: 2800000, guid: a48d9b1988b588f488284f9b6f1f6ed9, type: 3}
+    - {fileID: 2800000, guid: 282730855a1091844ae2586a408090f5, type: 3}
+    - {fileID: 2800000, guid: acc9756fe82902f4ab94c6ab9f91e128, type: 3}
+    - {fileID: 2800000, guid: eba512347d534e74c957dea93a03b773, type: 3}
+    - {fileID: 2800000, guid: 3fa3afd9538e0fd4f8187ae935b2d5b6, type: 3}
+    - {fileID: 2800000, guid: 8a1fbe1e880325e43873f5727b280b57, type: 3}
+    - {fileID: 2800000, guid: 31ea9ae4db350544b9816c1164c93d53, type: 3}
+    - {fileID: 2800000, guid: 04c58ab6fb64b9d438f250bae6f1c665, type: 3}
+    - {fileID: 2800000, guid: 0c17b508b4e6d1449b484eff6d4249b3, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - c3edc7425af156344aba24d2babd25ca: 21300000
+    - 7161c514f02122a42bcad7bad5fa1446: 21300000
+    - eba512347d534e74c957dea93a03b773: 21300000
+    - 19f8e8e46df7d504195051dcd5f114f6: 21300000
+    - 31ea9ae4db350544b9816c1164c93d53: 21300000
+    - ab2c4015d89a88746b2148bbfa3f9859: 21300000
+    - 282730855a1091844ae2586a408090f5: 21300000
+    - 04c58ab6fb64b9d438f250bae6f1c665: 21300000
+    - 0c17b508b4e6d1449b484eff6d4249b3: 21300000
+    - a48d9b1988b588f488284f9b6f1f6ed9: 21300000
+    - 3fa3afd9538e0fd4f8187ae935b2d5b6: 21300000
+    - 233e6b3d8f9a0d84cbe9c8759be73c2e: 21300000
+    - 8a1fbe1e880325e43873f5727b280b57: 21300000
+    - acc9756fe82902f4ab94c6ab9f91e128: 21300000
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: c3edc7425af156344aba24d2babd25ca, type: 3}
+  - {fileID: 21300000, guid: 7161c514f02122a42bcad7bad5fa1446, type: 3}
+  - {fileID: 21300000, guid: eba512347d534e74c957dea93a03b773, type: 3}
+  - {fileID: 21300000, guid: 19f8e8e46df7d504195051dcd5f114f6, type: 3}
+  - {fileID: 21300000, guid: 31ea9ae4db350544b9816c1164c93d53, type: 3}
+  - {fileID: 21300000, guid: ab2c4015d89a88746b2148bbfa3f9859, type: 3}
+  - {fileID: 21300000, guid: 282730855a1091844ae2586a408090f5, type: 3}
+  - {fileID: 21300000, guid: 04c58ab6fb64b9d438f250bae6f1c665, type: 3}
+  - {fileID: 21300000, guid: 0c17b508b4e6d1449b484eff6d4249b3, type: 3}
+  - {fileID: 21300000, guid: a48d9b1988b588f488284f9b6f1f6ed9, type: 3}
+  - {fileID: 21300000, guid: 3fa3afd9538e0fd4f8187ae935b2d5b6, type: 3}
+  - {fileID: 21300000, guid: 233e6b3d8f9a0d84cbe9c8759be73c2e, type: 3}
+  - {fileID: 21300000, guid: 8a1fbe1e880325e43873f5727b280b57, type: 3}
+  - {fileID: 21300000, guid: acc9756fe82902f4ab94c6ab9f91e128, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Demonstration_zone_1
+  - food_top_panel
+  - Button_plus
+  - Main_top_panel
+  - Button_shop
+  - Container_food
+  - Button_inventory
+  - Button_shop_open
+  - Menu_upgrade
+  - Button_buy_upgrade_point
+  - Button_play 1
+  - Main_down_panel
+  - Button_minus
+  - Button_inventory_open
+  m_RenderDataMap: {}
+  m_Tag: MainMenuAtlas
+  m_IsVariant: 0

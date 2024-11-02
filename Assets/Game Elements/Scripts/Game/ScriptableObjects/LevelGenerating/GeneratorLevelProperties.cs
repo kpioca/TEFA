@@ -90,7 +90,7 @@ public class GeneratorLevelProperties
             roadParts_properties = databaseRoadParts;
 
             Debug.Log($"GAMESET - {gameSet.NameSet}");
-            return $"\n\nGameset:\n{gameSet.NameSet}";
+            return $"{gameSet.NameSet}";
         }
         else
         {

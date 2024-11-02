@@ -8,11 +8,11 @@ public class ArmorInfo : BonusInfo
     [SerializeField] StatusEffectInfo effectInfo;
 
     [Header("Bonus parameters")]
-    [SerializeField] int max_armor = 3;
+    [SerializeField] int max_add_armor = 3;
     [SerializeField] int armor_value = 1;
     public override void Action(GameManager gameManager, ContentPlayer contentPlayer)
     {
-        if (contentPlayer.Armor < max_armor)
+        if (contentPlayer.Armor < contentPlayer.MaxArmor + max_add_armor)
         {
             contentPlayer.Armor += armor_value;
             contentPlayer.changeCounterArmor(contentPlayer.Armor);

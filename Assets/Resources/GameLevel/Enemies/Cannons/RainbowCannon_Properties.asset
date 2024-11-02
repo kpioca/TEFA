@@ -13,16 +13,17 @@ MonoBehaviour:
   m_Name: RainbowCannon_Properties
   m_EditorClassIdentifier: 
   id: can_rb
+  type: 0
   levelOfCoolness: 4
   prefab: {fileID: 7855831155646338418, guid: 6cc2709fb34dd8f42870c585c9c9c118, type: 3}
   sizeOfObjectPool: 8
-  icon: {fileID: 21300000, guid: 6e6a9e8050b6b5741ba9ae4b3a62e416, type: 3}
+  icon: {fileID: 21300000, guid: 134adb9fb20440249bfd25f0be2061f8, type: 3}
   haveAttackDamage: 1
   visionZoneX: 18
-  visionZoneY: 7
+  visionZoneY: 14
   visionZoneZ: 53
   attackZoneX: 18
-  attackZoneY: 7
+  attackZoneY: 14
   attackZoneZ: 24
   bullets_Info:
   - {fileID: 11400000, guid: 73398f685b25a984090422e450bc59f7, type: 2}

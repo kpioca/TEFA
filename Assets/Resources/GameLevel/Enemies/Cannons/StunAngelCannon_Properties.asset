@@ -13,16 +13,17 @@ MonoBehaviour:
   m_Name: StunAngelCannon_Properties
   m_EditorClassIdentifier: 
   id: can_stu_ang
+  type: 2
   levelOfCoolness: 4
   prefab: {fileID: 1685321416666824426, guid: a85eeee2d8ab56b49bd46e1a7d13b4f6, type: 3}
   sizeOfObjectPool: 8
-  icon: {fileID: 21300000, guid: ffad7221fd188284ea93ab8a6b207f11, type: 3}
+  icon: {fileID: 21300000, guid: cf92662905c003a46ae4b68b7215bbf4, type: 3}
   haveAttackDamage: 0
   visionZoneX: 18
-  visionZoneY: 7
+  visionZoneY: 14
   visionZoneZ: 53
   attackZoneX: 18
-  attackZoneY: 7
+  attackZoneY: 14
   attackZoneZ: 35
   bullets_Info:
   - {fileID: 11400000, guid: d3df5c278ce242d4c8a189a7723db2e0, type: 2}

@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0141d7c357a1fc488e6dd76816e51fc, type: 3}
+  m_Name: TransformAngelSetInfo
+  m_EditorClassIdentifier: 
+  id: mage_tr_ang
+  type: 2
+  levelOfCoolness: 5
+  prefab: {fileID: 2013109036119917530, guid: d9d788014ecbe174789ceb54eb2ed040, type: 3}
+  sizeOfObjectPool: 8
+  icon: {fileID: 21300000, guid: 6174942ada2936148bc8eba232cd70bf, type: 3}
+  haveAttackDamage: 0
+  visionZoneX: 18
+  visionZoneY: 7
+  visionZoneZ: 53
+  attackZoneX: 18
+  attackZoneY: 7
+  attackZoneZ: 42
+  spellPull:
+  - {fileID: 11400000, guid: bb2862928c0d39547b5e05dae10aea35, type: 2}
+  - {fileID: 11400000, guid: c883fe71e0ab9be46a996127bbc2c07c, type: 2}

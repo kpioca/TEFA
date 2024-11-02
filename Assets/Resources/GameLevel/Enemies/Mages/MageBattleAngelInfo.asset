@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: MageBattleAngelInfo
   m_EditorClassIdentifier: 
   id: mage_bt_ang
+  type: 2
   levelOfCoolness: 5
   prefab: {fileID: 5274425928923916518, guid: 766f694495882a5429f6a489e766506a, type: 3}
   sizeOfObjectPool: 8
-  icon: {fileID: 21300000, guid: 9abd898ac2c4d524f85815aee0adf07b, type: 3}
+  icon: {fileID: 21300000, guid: 722c1ca982770ee48ba57e6242d30c8a, type: 3}
   haveAttackDamage: 1
   visionZoneX: 18
   visionZoneY: 7

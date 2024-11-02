@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: b_sn
   prefab: {fileID: 3967082119896466894, guid: 5054b11b1ec20ed44957f2bd5a600346, type: 3}
-  speed: 15
+  speed: 13
   damage: 1
   hasEffect: 0
   isBreakInCollision: 0
+  ignoreArmor: 0
   effectInfo: {fileID: 0}

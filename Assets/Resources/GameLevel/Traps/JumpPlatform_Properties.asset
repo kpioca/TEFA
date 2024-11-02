@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: JumpPlatform_Properties
   m_EditorClassIdentifier: 
   id: j_plat
+  type: 2
   levelOfCoolness: 2
   prefab: {fileID: 6753743509767600497, guid: b405809c5a6d4de47bf7228ca8206f56, type: 3}
   sizeOfObjectPool: 16
-  icon: {fileID: 21300000, guid: e33cdcd9205ca944882fdeabe037f056, type: 3}
+  icon: {fileID: 21300000, guid: e32e3cadc660efa44894871f5d6617d1, type: 3}
   haveAttackDamage: 0
   attackDamage: 0
   hasEffect: 1

@@ -3,10 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum TypeSpawnElement
+{
+    Forest,
+    Water,
+    Sky
+}
 public class SpawnElementInfo : ScriptableObject, IComparable<SpawnElementInfo>
 {
     [SerializeField] private protected string id;
     public string Id => id;
+    [Header("Type")]
+    [SerializeField] private protected TypeSpawnElement type;
+    public TypeSpawnElement Type => type;
+
     [Header("The rarity level ")]
     [SerializeField] private protected int levelOfCoolness = 1;
     public int LevelOfCoolness => levelOfCoolness;
@@ -30,4 +40,6 @@ public class SpawnElementInfo : ScriptableObject, IComparable<SpawnElementInfo>
     {
         return levelOfCoolness.CompareTo(obj.levelOfCoolness);
     }
+
+
 }

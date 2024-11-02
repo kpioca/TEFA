@@ -46,9 +46,14 @@ public class ContentEnemy : MonoBehaviour
     public Dictionary<string, float> NumParameters => numParameters;
 
 
-    public void Start()
+    private void OnEnable()
     {
         GlobalEventManager.OnGameOver += GameOver;
+    }
+
+    private void OnDisable()
+    {
+        GlobalEventManager.OnGameOver -= GameOver;
     }
 
     void unSubscribe()

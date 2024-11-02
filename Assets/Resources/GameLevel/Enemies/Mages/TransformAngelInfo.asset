@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: TransformAngelInfo
   m_EditorClassIdentifier: 
   id: mage_tr_ang
+  type: 2
   levelOfCoolness: 5
   prefab: {fileID: 2013109036119917530, guid: d9d788014ecbe174789ceb54eb2ed040, type: 3}
   sizeOfObjectPool: 8
-  icon: {fileID: 21300000, guid: 10000f01d5bfb814a8c1df0808d110a7, type: 3}
+  icon: {fileID: 21300000, guid: 6174942ada2936148bc8eba232cd70bf, type: 3}
   haveAttackDamage: 0
   visionZoneX: 18
   visionZoneY: 7

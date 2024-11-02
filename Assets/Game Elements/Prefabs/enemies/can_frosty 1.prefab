@@ -150,7 +150,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7625208639746530326
 Transform:
   m_ObjectHideFlags: 0
@@ -194,8 +194,7 @@ MonoBehaviour:
   attackZoneX: -1
   attackZoneY: -1
   attackZoneZ: -1
-  element1: {fileID: 0}
-  element2: {fileID: 0}
+  objParameters: []
   enemy_Parts:
   - {fileID: 4436742112521169854}
   - {fileID: 8059014797429850056}
@@ -281,7 +280,7 @@ Transform:
   m_GameObject: {fileID: 3696646804476150143}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.327, z: 0.88999987}
+  m_LocalPosition: {x: 0, y: 0.327, z: 1.199}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []

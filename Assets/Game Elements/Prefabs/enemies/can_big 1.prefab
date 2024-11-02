@@ -192,7 +192,7 @@ Transform:
   m_GameObject: {fileID: 3713105341011540035}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.3780001, z: 0.86399984}
+  m_LocalPosition: {x: 0, y: 0.3780001, z: 1.199}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -382,7 +382,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1070413742373215042
 Transform:
   m_ObjectHideFlags: 0
@@ -426,8 +426,7 @@ MonoBehaviour:
   attackZoneX: -1
   attackZoneY: -1
   attackZoneZ: -1
-  element1: {fileID: 0}
-  element2: {fileID: 0}
+  objParameters: []
   enemy_Parts:
   - {fileID: 6968056299271456022}
   - {fileID: 4398528981178788891}

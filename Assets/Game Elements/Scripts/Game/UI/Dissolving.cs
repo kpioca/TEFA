@@ -8,14 +8,8 @@ public class DissolvingStartWindow : MonoBehaviour
 {
     [SerializeField] GameManager gameManager;
     [SerializeField] private TMP_Text text_info_level;
-    Material material;
-    [SerializeField] float duration;
-    [SerializeField] float smoothness = 0.01f;
     void Start()
     {
-        material = GetComponent<Image>().material;
-
-        material.SetFloat("_alphaClip", 0);
     }
 
     void Update()
@@ -23,11 +17,6 @@ public class DissolvingStartWindow : MonoBehaviour
         
     }
 
-    public void dissolveAnimation()
-    {
-        material = GetComponent<Image>().material;
-        StartCoroutine(appearance(material, smoothness, duration));
-    }
 
     IEnumerator appearance(Material material, float alphaAdd, float duration)
     {

@@ -23,6 +23,12 @@ public class StatusEffectInfo : ScriptableObject
 
     public bool HaveTimer => haveTimer;
 
+    private protected Coroutine effectCoroutine;
+
+    public virtual void ClearCoroutine()
+    {
+        effectCoroutine = null;
+    }
 
     public virtual void ApplyEffect(GameManager gameManager, ContentPlayer contentPlayer, out int duration)
     {

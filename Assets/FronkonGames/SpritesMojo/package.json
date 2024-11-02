@@ -1,0 +1,16 @@
+{
+  "name": "fronkongames.spritesmojo",
+  "version": "1.0.3",
+  "displayName": "Sprites Mojo",
+  "decription": "A collection of 2D effects to add more juice and mojo to your games.",
+  "unity": "2021.3",
+  "unityRelease": "26f1",
+  "dependencies":  {  },
+  "keywords": [ "unity", "sprite", "mojo", "fx", "effects", "2D", "shader", "ramp", "dissolve", "retro", "outline" ],
+  "author":
+  {
+    "name": "Fronkon Games",
+    "email": "fronkongames@gmail.com",
+    "url": "https://fronkongames.github.io/"
+  }
+}

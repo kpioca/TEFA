@@ -9,18 +9,24 @@ public class ContentPlayer : MonoBehaviour
 {
     [SerializeField] private StatusEffectInfo deathImmortalEffect;
     [SerializeField] private StatusEffectInfo destroyArmorEffect;
-    [SerializeField] private GameManager gameManager;
+    private GameManager gameManager;
 
     public GameManager game_Manager => gameManager;
-    [SerializeField] private EffectTimer effect_Timer;
+    [SerializeField] private Animator playerAnimator;
+    public Animator PlayerAnimator => playerAnimator;
+    private EffectTimer effect_Timer;
 
     [SerializeField] private int health = 1;
+
 
     public int Health
     {
         get { return health; }
         set { health = value; }
     }
+
+    public int MaxHealth {get;set;}
+    public int MaxArmor { get; set; }
 
     [SerializeField] private int armor = 0;
     public int Armor
@@ -43,6 +49,8 @@ public class ContentPlayer : MonoBehaviour
     [SerializeField] private bool isAdminImmortal = false;
     public bool IsAdminImmortal => isAdminImmortal;
 
+    private Dictionary<string, StatusEffectInfo> appliedImmortalEffects = new Dictionary<string, StatusEffectInfo>();
+
     private Dictionary<string, StatusEffectInfo> appliedEffects = new Dictionary<string, StatusEffectInfo>();
     [SerializeField] private List<StatusEffectInfo> effectsWithAppliedShaders = new List<StatusEffectInfo>();
     [SerializeField] private List<Material> shaderMaterials = new List<Material>();
@@ -50,11 +58,27 @@ public class ContentPlayer : MonoBehaviour
     [Header("For shaders")]
     [SerializeField] private GameObject[] objectParts;
 
-    private void Start()
+    public void Initialize(GameManager gameManager, EffectTimer effectTimer, IPersistentData persistentData)
+    {
+        this.gameManager = gameManager;
+        effect_Timer = effectTimer;
+        effectTimer.Initialize(this);
+
+        Health = persistentData.saveData.Health;
+        MaxHealth = persistentData.saveData.Health;
+        Armor = persistentData.saveData.Armor;
+        MaxArmor = persistentData.saveData.Armor;
+    }
+
+    private void OnEnable()
     {
         GlobalEventManager.OnGameOver += GameOver;
     }
 
+    private void OnDisable()
+    {
+        GlobalEventManager.OnGameOver -= GameOver;
+    }
     void unSubscribe()
     {
         GlobalEventManager.OnGameOver -= GameOver;
@@ -102,12 +126,27 @@ public class ContentPlayer : MonoBehaviour
         }
     }
 
+    public float getAnimatorSpeedMultiplier()
+    {
+        return playerAnimator.GetFloat("SpeedMultiplier");
+    }
+
+    public void setAnimatorSpeedMultiplier(float value)
+    {
+        playerAnimator.SetFloat("SpeedMultiplier", value);
+    }
     void GameOver()
     {
         unSubscribe();
+        clearEffects();
         this.enabled = false;
     }
     
+    void clearEffects()
+    {
+        foreach(var item in appliedEffects)
+            item.Value.ClearCoroutine();
+    }
     void collectMisc(ContentMisc content, GameObject obj)
     {
         switch (content.Misc_Info.Id)
@@ -178,7 +217,6 @@ public class ContentPlayer : MonoBehaviour
 
     public void applyEffect(StatusEffectInfo effect)
     {
-        debugInfo("apply");
         if (!appliedEffects.ContainsKey(effect.EffectId))
         {
             if (!effectsWithAppliedShaders.Any(eff => eff.EffectId == effect.EffectId))
@@ -188,7 +226,20 @@ public class ContentPlayer : MonoBehaviour
             }
             appliedEffects[effect.EffectId] = effect;
         }
-        debugInfo("applied");
+    }
+
+    public void addImmortalEffectToDictionary(StatusEffectInfo effect)
+    {
+        string id = effect.EffectId;
+        if (!appliedImmortalEffects.ContainsKey(id))
+            appliedImmortalEffects.Add(id, effect);
+    }
+
+    public void removeImmortalEffectFromDictionary(StatusEffectInfo effect)
+    {
+        string id = effect.EffectId;
+        if (appliedImmortalEffects.ContainsKey(id))
+            appliedImmortalEffects.Remove(id);
     }
 
 
@@ -276,28 +327,25 @@ public class ContentPlayer : MonoBehaviour
     //ÁÀÃ
     public void removeEffect(StatusEffectInfo effect)
     {
-        debugInfo("remove");
         int num;
         if (appliedEffects.ContainsKey(effect.EffectId))
         {
             num = effectsWithAppliedShaders.FindIndex(eff => eff.EffectId == effect.EffectId);
-            Debug.Log($"{num} - {effect.EffectId}");
+            //Debug.Log($"{num} - {effect.EffectId}");
             if (num >= 0)
             {
-                Debug.Log("OK");
+                //Debug.Log("OK");
                 effectsWithAppliedShaders.RemoveAt(num);
                 deleteMaterial(num);
             }
             appliedEffects.Remove(effect.EffectId);
         }
-        debugInfo("removed");
     }
 
     public void changeImmortalState(bool state)
     {
         if (state == false) {
-            if (!((appliedEffects.ContainsKey("eff_im") && appliedEffects.ContainsKey("eff_d_ar"))
-                || (appliedEffects.ContainsKey("eff_im") && appliedEffects.ContainsKey("eff_im_d"))))
+            if (appliedImmortalEffects.Count == 0)
                 isImmortal = state;
         }
         else isImmortal = state;

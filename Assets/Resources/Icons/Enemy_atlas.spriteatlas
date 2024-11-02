@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Enemy_atlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 0
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 1024
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_IgnorePlatformSupport: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: f46da92a06cd1e14bb508657aa6865a9, type: 3}
+    - {fileID: 2800000, guid: 7d44e60365972a140be27509767c67d3, type: 3}
+    - {fileID: 2800000, guid: 8a34fdf0ffb74964ca624de35d4915ed, type: 3}
+    - {fileID: 2800000, guid: a84c46f42618eda419eaeba8ab8b25c5, type: 3}
+    - {fileID: 2800000, guid: f256bdcd9c6da6446af021cfbf3da649, type: 3}
+    - {fileID: 2800000, guid: 0136f5199fe118e4fb48d3351e216759, type: 3}
+    - {fileID: 2800000, guid: 134adb9fb20440249bfd25f0be2061f8, type: 3}
+    - {fileID: 2800000, guid: fa0a87e6dc7f2324f983bae533173a98, type: 3}
+    - {fileID: 2800000, guid: 3b0a2efe9853e98439e03149cbcc700f, type: 3}
+    - {fileID: 2800000, guid: cf92662905c003a46ae4b68b7215bbf4, type: 3}
+    - {fileID: 2800000, guid: 41e4ddc952a64bd47886d6c48114000b, type: 3}
+    - {fileID: 2800000, guid: 722c1ca982770ee48ba57e6242d30c8a, type: 3}
+    - {fileID: 2800000, guid: 6174942ada2936148bc8eba232cd70bf, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - 8a34fdf0ffb74964ca624de35d4915ed: 21300000
+    - 7d44e60365972a140be27509767c67d3: 21300000
+    - a84c46f42618eda419eaeba8ab8b25c5: 21300000
+    - fa0a87e6dc7f2324f983bae533173a98: 21300000
+    - 0136f5199fe118e4fb48d3351e216759: 21300000
+    - cf92662905c003a46ae4b68b7215bbf4: 21300000
+    - 722c1ca982770ee48ba57e6242d30c8a: 21300000
+    - 41e4ddc952a64bd47886d6c48114000b: 21300000
+    - 6174942ada2936148bc8eba232cd70bf: 21300000
+    - f46da92a06cd1e14bb508657aa6865a9: 21300000
+    - f256bdcd9c6da6446af021cfbf3da649: 21300000
+    - 3b0a2efe9853e98439e03149cbcc700f: 21300000
+    - 134adb9fb20440249bfd25f0be2061f8: 21300000
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 8a34fdf0ffb74964ca624de35d4915ed, type: 3}
+  - {fileID: 21300000, guid: 7d44e60365972a140be27509767c67d3, type: 3}
+  - {fileID: 21300000, guid: a84c46f42618eda419eaeba8ab8b25c5, type: 3}
+  - {fileID: 21300000, guid: fa0a87e6dc7f2324f983bae533173a98, type: 3}
+  - {fileID: 21300000, guid: 0136f5199fe118e4fb48d3351e216759, type: 3}
+  - {fileID: 21300000, guid: cf92662905c003a46ae4b68b7215bbf4, type: 3}
+  - {fileID: 21300000, guid: 722c1ca982770ee48ba57e6242d30c8a, type: 3}
+  - {fileID: 21300000, guid: 41e4ddc952a64bd47886d6c48114000b, type: 3}
+  - {fileID: 21300000, guid: 6174942ada2936148bc8eba232cd70bf, type: 3}
+  - {fileID: 21300000, guid: f46da92a06cd1e14bb508657aa6865a9, type: 3}
+  - {fileID: 21300000, guid: f256bdcd9c6da6446af021cfbf3da649, type: 3}
+  - {fileID: 21300000, guid: 3b0a2efe9853e98439e03149cbcc700f, type: 3}
+  - {fileID: 21300000, guid: 134adb9fb20440249bfd25f0be2061f8, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - can_chthonic_angel_1
+  - can_carrot_1
+  - can_corrupt_angel_1
+  - can_sniper_1
+  - can_love_1
+  - can_stun_angel_1
+  - mage_battle_angel_1
+  - can_standart_1
+  - mage_transform_angel_1
+  - can_big_1
+  - can_frosty_1
+  - can_st_double_1
+  - can_rainbow_1
+  m_RenderDataMap: {}
+  m_Tag: Enemy_atlas
+  m_IsVariant: 0

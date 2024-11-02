@@ -1,0 +1,21 @@
+## [1.0.3] - 17-06-2023
+
+### Added
+- Support to Unity 2022.3
+
+## [1.0.2] - 17-06-2023
+
+### Changed
+- Update to Unity 2021.3
+
+### Fixed
+- Smalls fixes.
+
+## [1.0.1] - 28-03-2020
+
+### Fixed
+- "Mode" property of the "Dissolve" effect changed from "EnumVariable" to "KeywordsVariable".
+
+## [1.0.0] - 10-03-2020
+
+- Initial release.

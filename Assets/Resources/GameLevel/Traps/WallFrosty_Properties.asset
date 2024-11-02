@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: WallFrosty_Properties
   m_EditorClassIdentifier: 
   id: wall_fr
+  type: 0
   levelOfCoolness: 1
   prefab: {fileID: 1143935151030011577, guid: 50518cf200c5c124ab869f2d83d2acfc, type: 3}
   sizeOfObjectPool: 16
-  icon: {fileID: 21300000, guid: 609b33f5f652b794394fcaccd428726a, type: 3}
+  icon: {fileID: 21300000, guid: 271b244a37b9f574885c381580f1f0e4, type: 3}
   haveAttackDamage: 0
   attackDamage: 0
   hasEffect: 1

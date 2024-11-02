@@ -52,7 +52,7 @@ public class PlayerControl : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public bool isTargetChanged = false;
     public bool isJumpingEffectActivated = false;
 
-    public void Start()
+    public void Initialize()
     {
         curr_camPos_num = 1;
 

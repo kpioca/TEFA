@@ -635,7 +635,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2082396670103083613
 Transform:
   m_ObjectHideFlags: 0
@@ -679,8 +679,7 @@ MonoBehaviour:
   attackZoneX: -1
   attackZoneY: -1
   attackZoneZ: -1
-  element1: {fileID: 0}
-  element2: {fileID: 0}
+  objParameters: []
   enemy_Parts:
   - {fileID: 1017221074467579950}
   - {fileID: 4751587733943540381}

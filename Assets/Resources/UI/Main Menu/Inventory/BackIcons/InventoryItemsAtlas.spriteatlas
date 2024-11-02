@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: InventoryItemsAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 1024
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_IgnorePlatformSupport: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 8
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 94f749c5680526042877c017f7abe421, type: 3}
+    - {fileID: 2800000, guid: 4be673879cd59554aa34ba684470356a, type: 3}
+    - {fileID: 2800000, guid: 73cb0d7dc3adf964590a51c5a8d20ee1, type: 3}
+    - {fileID: 2800000, guid: 29cd7e7544bfabf47aaf1c099815abbb, type: 3}
+    - {fileID: 2800000, guid: 1c1c1b415bff3c1499adef4dd06e3f93, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - 1c1c1b415bff3c1499adef4dd06e3f93: 21300000
+    - 29cd7e7544bfabf47aaf1c099815abbb: 21300000
+    - 94f749c5680526042877c017f7abe421: 21300000
+    - 4be673879cd59554aa34ba684470356a: 21300000
+    - 73cb0d7dc3adf964590a51c5a8d20ee1: 21300000
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 1c1c1b415bff3c1499adef4dd06e3f93, type: 3}
+  - {fileID: 21300000, guid: 29cd7e7544bfabf47aaf1c099815abbb, type: 3}
+  - {fileID: 21300000, guid: 94f749c5680526042877c017f7abe421, type: 3}
+  - {fileID: 21300000, guid: 4be673879cd59554aa34ba684470356a, type: 3}
+  - {fileID: 21300000, guid: 73cb0d7dc3adf964590a51c5a8d20ee1, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - InventoryItem_epic_back
+  - InventoryItem_mythic_back
+  - InventoryItem_common_back
+  - InventoryItem_legendary_back
+  - InventoryItem_rare_back
+  m_RenderDataMap: {}
+  m_Tag: InventoryItemsAtlas
+  m_IsVariant: 0

@@ -5,6 +5,7 @@ using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering.LookDev;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -16,14 +17,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMP_Text healthCounterText;
     [SerializeField] private TMP_Text armorCounterText;
 
-    [SerializeField] private PathCounter pathCounter;
+    [SerializeField] public PathCounter pathCounter;
     [SerializeField] private PlayerControl playerControl;
     public PlayerControl player_Control => playerControl;
-    [SerializeField] private ContentPlayer contentPlayer;
+    private ContentPlayer _contentPlayer;
+    public ContentPlayer contentPlayer => _contentPlayer;
 
     [SerializeField] private GameObject deathPanel;
-    [SerializeField] private ResultMenu resultMenu;
-    [SerializeField] private GameDataManager gameDataManager;
+    [SerializeField] public ResultMenu resultMenu;
     [SerializeField] private GeneratorLevel generator_Level;
     public GeneratorLevel generatorLevel => generator_Level;
 
@@ -56,14 +57,19 @@ public class GameManager : MonoBehaviour
     public float speedCount;
     public float SpeedCount => speedCount;
 
-
+    bool isRestart = false;
     public int FishMultiplier { get; set; }
     //[Header("Game")]
     //[SerializeField] private bool isGameOver = false;
 
+    IPersistentData _persistentData;
+    IDataProvider _dataProvider;
+
     [Header("Collectables")]
     [SerializeField] private int fishMoney = 0;
+    public int FishMoney => fishMoney;
     [SerializeField] private int food = 0;
+    public int Food => food;
     //public bool IsGameOver
     //{
     //    get { return isGameOver; }
@@ -78,7 +84,8 @@ public class GameManager : MonoBehaviour
     {
         {"speedMove",  new Dictionary<string, List<float>>()},
         {"heightJump",  new Dictionary<string, List<float>>()},
-        {"speedRoute",  new Dictionary<string, List<float>>()}
+        {"speedRoute",  new Dictionary<string, List<float>>()},
+        {"multiplierAnimator", new Dictionary<string, List<float>>() }
     };
 
     public void addDecrementControlValue(string keyValue, string keyEffect, float value)
@@ -91,33 +98,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void applyAllDecrementControlValues(string keyValue, string keyEffect)
-    {
-        if (decrementsControlValues[keyValue].ContainsKey(keyEffect))
-        {
-            List<float> list = decrementsControlValues[keyValue][keyEffect];
-            int n = list.Count;
-            float value = list.Sum();
-
-            switch (keyValue)
-            {
-                case "speedMove":
-                    value = getSpeedMove() + value;
-                    changeSpeedMove(value);
-                    break;
-                case "heightJump":
-                    value = getHeightJump() + value;
-                    changeHeightJump(value); 
-                    break;
-                case "speedRoute":
-                    value = speedRouteMovement + value;
-                    changeRouteSpeedMovement(value);
-                    break;
-            }
-            list.Clear();
-            decrementsControlValues[keyValue].Remove(keyEffect);
-        }
-    }
 
     public void applyLastDecrementControlValues(string keyValue, string keyEffect)
     {
@@ -141,6 +121,10 @@ public class GameManager : MonoBehaviour
                     value = speedRouteMovement + value;
                     changeRouteSpeedMovement(value);
                     break;
+                case "multiplierAnimator":
+                    value = _contentPlayer.getAnimatorSpeedMultiplier() + value;
+                    _contentPlayer.setAnimatorSpeedMultiplier(value);
+                    break;
             }
             list.RemoveAt(n - 1);
             if (list.Count == 0)
@@ -148,26 +132,38 @@ public class GameManager : MonoBehaviour
 
         }
     }
-    void Awake()
+    public void Initialize(IPersistentData persistentData, IDataProvider dataProvider, ContentPlayer contentPlayer)
     {
-        GlobalEventManager.OnGameOver += GameOver;
 
         speedRouteMovement = start_speedRouteMovement;
         speedCount = speedRouteMovement / (start_speedRouteMovement - 1);
 
         moneyCounterText.text = fishMoney.ToString();
 
-        changeHealth(contentPlayer.Health);
-        changeArmor(contentPlayer.Armor);
-    }
+        _persistentData = persistentData;
+        _dataProvider = dataProvider;
+        _contentPlayer = contentPlayer;
 
-    private void Start()
-    {
+        changeHealth(_persistentData.saveData.Health);
+        changeArmor(_persistentData.saveData.Armor);
+
+        //void start
         roads = generatorLevel.ready_partsOfPath;
-        allDisable();
+        //allDisable();
     }
 
-    void unSubscribe()
+    private void OnEnable()
+    {
+        GlobalEventManager.OnGameOver += GameOver;
+    }
+
+    private void OnDisable()
+    {
+        GlobalEventManager.OnGameOver -= GameOver;
+    }
+
+
+    public void unSubscribe()
     {
         GlobalEventManager.OnGameOver -= GameOver;
     }
@@ -176,40 +172,58 @@ public class GameManager : MonoBehaviour
     {
         //isGameOver = true;
         playerControl.enabled = false;
-        Animator animator = contentPlayer.gameObject.GetComponent<Animator>();
+        Animator animator = _contentPlayer.gameObject.GetComponent<Animator>();
         animator.enabled = false;
         animator.Rebind();
-        resultMenu.setResult(pathCounter.PathScore, pathCounter.currentStageDistance.Value[1], fishMoney, food, FishMultiplier, gameDataManager);
-        deathPanel.SetActive(true);
+        if (!isRestart)
+        {
+            resultMenu.setResult(pathCounter.PathScore, pathCounter.currentStageDistance.Value[1], fishMoney, food, FishMultiplier);
+            deathPanel.SetActive(true);
+            StopAllCoroutines();
+        }
         unSubscribe();
     }
 
-    public void allDisable()
+    
+
+    public void DisablePlatformMovement()
     {
-        playerControl.enabled = false;
         int n = roads.Count;
-        for(int i = 0; i < n; i++)
+        for (int i = 0; i < n; i++)
             roads[i].GetComponent<PlatformMovement>().enabled = false;
-        pathCounter.stopPathCounter();
     }
 
     public void allEnable()
     {
-        playerControl.enabled = true;
+        playerControl.gameObject.SetActive(true);
         int n = roads.Count;
         for (int i = 0; i < n; i++)
             roads[i].GetComponent<PlatformMovement>().enabled = true;
+        pathCounter.gameObject.SetActive(true);
         pathCounter.startPathCounter();
+        _contentPlayer.gameObject.GetComponent<Animator>().enabled = true;
     }
 
+    public void RestartBeforeGame()
+    {
+        StartCoroutine(RestartCoroutine());
+    }
+
+    IEnumerator RestartCoroutine()
+    {
+        isRestart = true;
+        GlobalEventManager.GameOver();
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadSceneAsync(1);
+    }
     public void RestartGame()
     {
-        SceneManager.LoadSceneAsync(0);
+        SceneManager.LoadSceneAsync(1);
     }
 
     public void OpenMainMenu()
     {
-        SceneManager.LoadSceneAsync(1);
+        SceneManager.LoadSceneAsync(0);
     }
 
     // Update is called once per frame

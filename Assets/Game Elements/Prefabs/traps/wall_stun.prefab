@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4379170705298827423
 Transform:
   m_ObjectHideFlags: 0
@@ -81,8 +81,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 464ef8327c4e3e843afbfe43f6a589a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 0}
-  info: {fileID: 0}
   num: 0
   type: 
   destroyInEnemyAttackCollision: 1

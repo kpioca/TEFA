@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87d2000c38567bf4090c601c213154aa, type: 3}
+  m_Name: SkinDatabase
+  m_EditorClassIdentifier: 
+  <CatSkins>k__BackingField:
+  - {fileID: 11400000, guid: 9c9d228020a22af489e73c748433656b, type: 2}
+  - {fileID: 11400000, guid: ecd4747868f735c4582c6b9a8727d714, type: 2}
+  - {fileID: 11400000, guid: c98b1ec0f08fc824ebdf8fd29cfb1682, type: 2}
+  - {fileID: 11400000, guid: c0a839f4541c5ea4a8aa317742724b82, type: 2}
+  - {fileID: 11400000, guid: a9d8b0ea36a1ed447a367b941627cbb9, type: 2}
+  - {fileID: 11400000, guid: 666a1b5d9eca9da42a96a83360225b39, type: 2}
+  - {fileID: 11400000, guid: 330ef2870f40dd34e98fc7a94b80b255, type: 2}
+  - {fileID: 11400000, guid: e08548011a1e7f6418e2cf34dd023eba, type: 2}
+  - {fileID: 11400000, guid: db52f04508cb66f47907d3c20fc4d23a, type: 2}
+  - {fileID: 11400000, guid: eaad6fa104248654096771f7d4bcad5e, type: 2}
+  - {fileID: 11400000, guid: 1faf5773537898c40b82c3ba55a62623, type: 2}

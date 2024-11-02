@@ -5,7 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "DestroyArmorEffectInfo", menuName = "LevelProperties/Status Effects/New DestroyArmorEffectInfo")]
 public class DestroyArmorEffectInfo : StatusEffectInfo
 {
-    private Coroutine effectCoroutine;
 
     [SerializeField] int defaultDecreaseArmor = 1;
 
@@ -63,6 +62,7 @@ public class DestroyArmorEffectInfo : StatusEffectInfo
     {
         contentPlayer.applyEffect(this);
 
+        contentPlayer.addImmortalEffectToDictionary(this);
         contentPlayer.changeImmortalState(true);
 
 
@@ -72,6 +72,7 @@ public class DestroyArmorEffectInfo : StatusEffectInfo
             duration--;
         }
 
+        contentPlayer.removeImmortalEffectFromDictionary(this);
         contentPlayer.changeImmortalState(false);
 
         contentPlayer.removeEffect(this);

@@ -10,7 +10,7 @@ public class GiftInfo : BonusInfo
     [Header("Bonus parameters")]
 
     [SerializeField] float chanceGetHealth = 0.15f;
-    [SerializeField] int maxHealth = 10;
+    [SerializeField] int maxHealth = 9;
 
     [SerializeField] float chanceGetFish = 0.34f;
     [SerializeField] int amountFish = 25;

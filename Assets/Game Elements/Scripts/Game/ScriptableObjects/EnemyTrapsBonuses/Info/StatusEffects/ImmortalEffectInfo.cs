@@ -6,7 +6,6 @@ using UnityEngine;
 public class ImmortalEffectInfo : StatusEffectInfo
 {
 
-    private Coroutine effectCoroutine;
     int duration;
     public override void ApplyEffect(GameManager gameManager, ContentPlayer contentPlayer, out int duration)
     {
@@ -23,6 +22,7 @@ public class ImmortalEffectInfo : StatusEffectInfo
     {
         contentPlayer.applyEffect(this);
 
+        contentPlayer.addImmortalEffectToDictionary(this);
         contentPlayer.changeImmortalState(true);
 
 
@@ -32,6 +32,7 @@ public class ImmortalEffectInfo : StatusEffectInfo
             duration--;
         }
 
+        contentPlayer.removeImmortalEffectFromDictionary(this);
         contentPlayer.changeImmortalState(false);
 
         contentPlayer.removeEffect(this);

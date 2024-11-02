@@ -33,7 +33,7 @@ public class PathCounter : MonoBehaviour
     [SerializeField] private Sprite[] levelIcons;
 
     // Start is called before the first frame update
-    void Start()
+    public void Initialize()
     {
         n_stages = database.stageParameters.Count;
         for (int i = 0; i < n_stages; i++)
@@ -44,9 +44,17 @@ public class PathCounter : MonoBehaviour
         speedCount = gameManager.SpeedCount;
         currentStageDistance = activationDistances.First;
 
+    }
+
+    private void OnEnable()
+    {
         GlobalEventManager.OnGameOver += GameOver;
     }
 
+    private void OnDisable()
+    {
+        GlobalEventManager.OnGameOver -= GameOver;
+    }
     void unSubscribe()
     {
         GlobalEventManager.OnGameOver -= GameOver;

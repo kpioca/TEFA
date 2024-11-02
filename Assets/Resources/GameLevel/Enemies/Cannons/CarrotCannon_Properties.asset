@@ -13,16 +13,17 @@ MonoBehaviour:
   m_Name: CarrotCannon_Properties
   m_EditorClassIdentifier: 
   id: can_carr
+  type: 0
   levelOfCoolness: 2
   prefab: {fileID: 2039583289175195885, guid: e07921fcb691e1848bef8424e9effb4c, type: 3}
   sizeOfObjectPool: 8
-  icon: {fileID: 21300000, guid: ab73a6bb2342796499b83b387adb93d0, type: 3}
+  icon: {fileID: 21300000, guid: 7d44e60365972a140be27509767c67d3, type: 3}
   haveAttackDamage: 1
   visionZoneX: 18
-  visionZoneY: 7
+  visionZoneY: 14
   visionZoneZ: 43
   attackZoneX: 18
-  attackZoneY: 7
+  attackZoneY: 14
   attackZoneZ: 35
   bullets_Info:
   - {fileID: 11400000, guid: 721f51131f3d24d46974b530aa93a4a2, type: 2}

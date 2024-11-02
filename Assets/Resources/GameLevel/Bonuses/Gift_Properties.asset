@@ -13,17 +13,18 @@ MonoBehaviour:
   m_Name: Gift_Properties
   m_EditorClassIdentifier: 
   id: gift
+  type: 0
   levelOfCoolness: 2
   prefab: {fileID: 1699345274603802721, guid: b0d5766e5ff85ff4a919e021e721cfa7, type: 3}
   sizeOfObjectPool: 3
-  icon: {fileID: 21300000, guid: 7d69f4160b9b20341b7fefdc5f9c535b, type: 3}
+  icon: {fileID: 21300000, guid: 21ecaf2ee45147c4096a7fb8caba4bee, type: 3}
   durationSec: 0
   haveEffect: 0
   effectInfo: {fileID: 0}
   chanceGetHealth: 0.15
-  maxHealth: 8
+  maxHealth: 9
   chanceGetFish: 0.34
-  amountFish: 25
+  amountFish: 15
   chanceGetFood: 0.01
   amountFood: 1
   possibleBonuses:

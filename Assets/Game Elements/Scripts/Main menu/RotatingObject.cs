@@ -2,13 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RotatingObject : MonoBehaviour
+public class Rotator : MonoBehaviour
 {
     [SerializeField] private float speed = 10;
     [SerializeField] private float smooth = 0.025f;
+
+    Coroutine coroutine;
     void Start()
     {
-        StartCoroutine(RotatingCoroutine(this.gameObject, speed, smooth));
+        coroutine = StartCoroutine(RotatingCoroutine(this.gameObject, speed, smooth));
     }
 
     private IEnumerator RotatingCoroutine(GameObject gameObject, float speed = 10, float smooth = 0.05f)
@@ -19,5 +21,14 @@ public class RotatingObject : MonoBehaviour
             yield return new WaitForSeconds(smooth);
         }
     }
+
+    private void OnEnable()
+    {
+        if(coroutine != null)
+            StopCoroutine(coroutine);
+        StartCoroutine(RotatingCoroutine(this.gameObject, speed, smooth));
+    }
+
+    public void ResetRotation() => gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
 
 }

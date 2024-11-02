@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d6d5465936a81e48bcf5b8afc3724a5, type: 3}
+  m_Name: CatSkin 7
+  m_EditorClassIdentifier: 
+  <PrefabShop>k__BackingField: {fileID: 6018559539145061401, guid: 9f6a761bf3657fb4890fcb36c17f9b12,
+    type: 3}
+  <Name>k__BackingField: "\u0420\u043E\u0437\u0430"
+  <Icon>k__BackingField: {fileID: 21300000, guid: 02a6050e2c40445479d44916b6f1c6c4,
+    type: 3}
+  <Price>k__BackingField: 1250
+  <Rarity>k__BackingField: 1
+  <SkinType>k__BackingField: 7
+  <PrefabGame>k__BackingField: {fileID: 7354395452735635912, guid: d580f1225f10e3d46afc83b6431ccbd0,
+    type: 3}

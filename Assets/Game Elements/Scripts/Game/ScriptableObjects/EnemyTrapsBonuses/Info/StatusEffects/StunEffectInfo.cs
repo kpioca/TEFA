@@ -8,8 +8,6 @@ public class StunEffectInfo : StatusEffectInfo
     [Range(0f, 1f)]
     [SerializeField] private float percentSlowdown = 0.8f;
 
-    private Coroutine effectCoroutine;
-
     float startSpeedMove;
 
     float startHeightJump;
@@ -43,17 +41,20 @@ public class StunEffectInfo : StatusEffectInfo
         //
 
         startSpeedRoute = gameManager.SpeedRouteMovement;
+        float startAnimatorMoveMultiplier = contentPlayer.getAnimatorSpeedMultiplier();
 
         //change parameters
 
-        speedMove = speedMove * (1 - percentSlowdown);
-        heightJump = heightJump * (1 - percentSlowdown);
+        speedMove = startSpeedMove * (1 - percentSlowdown);
+        heightJump = startHeightJump * (1 - percentSlowdown);
+        float animatorMoveMultiplier = startAnimatorMoveMultiplier * (1 - percentSlowdown);
         //
 
         //calculate decreases
         decreaseSpeedMove = startSpeedMove - speedMove;
         decreaseHeightJump = startHeightJump - heightJump;
         decreaseSpeedRoute = startSpeedRoute;
+        float decreaseAnimatorMoveMultiplier = startAnimatorMoveMultiplier - animatorMoveMultiplier;
         //
 
 
@@ -64,6 +65,7 @@ public class StunEffectInfo : StatusEffectInfo
             gameManager.addDecrementControlValue("speedRoute", effectId, decreaseSpeedRoute);
         }
         gameManager.changePlayerMoveParameters(speedMove, heightJump);
+        contentPlayer.setAnimatorSpeedMultiplier(animatorMoveMultiplier);
 
         gameManager.player_Control.stopFall = true;
         //
@@ -71,6 +73,7 @@ public class StunEffectInfo : StatusEffectInfo
         //add decrements to dictionary
         gameManager.addDecrementControlValue("speedMove", effectId, decreaseSpeedMove);
         gameManager.addDecrementControlValue("heightJump", effectId, decreaseHeightJump);
+        gameManager.addDecrementControlValue("multiplierAnimator", effectId, decreaseAnimatorMoveMultiplier);
         //
 
         while (duration > 0)
@@ -83,9 +86,11 @@ public class StunEffectInfo : StatusEffectInfo
         gameManager.applyLastDecrementControlValues("speedMove", effectId);
         gameManager.applyLastDecrementControlValues("heightJump", effectId);
         gameManager.applyLastDecrementControlValues("speedRoute", effectId);
+        gameManager.applyLastDecrementControlValues("multiplierAnimator", effectId);
 
         decreaseSpeedMove = 0;
         decreaseHeightJump = 0;
+        decreaseAnimatorMoveMultiplier = 0;
 
         contentPlayer.removeEffect(this);
         gameManager.player_Control.stopFall = false;

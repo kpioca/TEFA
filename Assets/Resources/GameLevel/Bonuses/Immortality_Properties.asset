@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Immortality_Properties
   m_EditorClassIdentifier: 
   id: immort
+  type: 2
   levelOfCoolness: 3
   prefab: {fileID: 6178496456428993005, guid: 5975c5c86b2a7d74bbc25785f8ebd630, type: 3}
   sizeOfObjectPool: 3
-  icon: {fileID: 21300000, guid: eb7965263ee3a3e41a9802c7756bf277, type: 3}
+  icon: {fileID: 21300000, guid: 1b8f94bb709d10249bfa9bf13d58efd5, type: 3}
   durationSec: 10
   haveEffect: 1
   effectInfo: {fileID: 11400000, guid: 15df8662ca68f96489961491047cd7d2, type: 2}

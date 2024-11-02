@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ShopBackAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 8
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 8ae65055a8347f7488f9aecb660dd0c0, type: 3}
+    - {fileID: 2800000, guid: bc25fd6cddb735043b9d51d3430ea52b, type: 3}
+    - {fileID: 2800000, guid: 0f9b503c6bc02a94a9ba43981cb49463, type: 3}
+    - {fileID: 2800000, guid: bcf01badfe472344bae45d66ade6c009, type: 3}
+    - {fileID: 2800000, guid: 775c4fddff7b6644e9f896d9dd4f41ed, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - 8ae65055a8347f7488f9aecb660dd0c0: 21300000
+    - 0f9b503c6bc02a94a9ba43981cb49463: 21300000
+    - bc25fd6cddb735043b9d51d3430ea52b: 21300000
+    - bcf01badfe472344bae45d66ade6c009: 21300000
+    - 775c4fddff7b6644e9f896d9dd4f41ed: 21300000
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 8ae65055a8347f7488f9aecb660dd0c0, type: 3}
+  - {fileID: 21300000, guid: 0f9b503c6bc02a94a9ba43981cb49463, type: 3}
+  - {fileID: 21300000, guid: bc25fd6cddb735043b9d51d3430ea52b, type: 3}
+  - {fileID: 21300000, guid: bcf01badfe472344bae45d66ade6c009, type: 3}
+  - {fileID: 21300000, guid: 775c4fddff7b6644e9f896d9dd4f41ed, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - ShopItem_common_back
+  - ShopItem_epic_back
+  - ShopItem_legendary_back
+  - ShopItem_mythic_back
+  - ShopItem_rare_back
+  m_RenderDataMap: {}
+  m_Tag: ShopBackAtlas
+  m_IsVariant: 0

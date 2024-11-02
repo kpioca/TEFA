@@ -22,6 +22,10 @@ public class ResultMenu : MonoBehaviour
     public int levelValue;
     public int recordPathValue;
     public int recordLevel;
+
+    IPersistentData _persistentData;
+    IDataProvider _dataProvider;
+
     public void setPathCounter()
     {
         pathCounter.text = pathValue.ToString() + "<sprite=1>" + $"<sprite={levelValue+4}>";
@@ -52,19 +56,20 @@ public class ResultMenu : MonoBehaviour
         totalFishCounter.text = value.ToString() + "<sprite=2>";
     }
 
-    public void initRecordPath(GameDataManager gameDataManager)
+    public void Initialize(IDataProvider dataProvider, IPersistentData persistentData)
     {
-        SaveData saveData = new SaveData(0, 0, 0, 0);
-        gameDataManager.LoadDataGame(saveData);
-        recordPathValue = saveData.recordPath;
-        recordLevel = saveData.recordLevel;
-        allFish = saveData.fish;
-        allFood = saveData.food;
+        _persistentData = persistentData;
+        _dataProvider = dataProvider;
+
+        recordPathValue = _persistentData.saveData.RecordPath;
+        recordLevel = _persistentData.saveData.RecordLevel;
+        allFish = _persistentData.saveData.Fish;
+        allFood = _persistentData.saveData.Food;
 
         setRecordPath();
     }
 
-    public void setResult(int path, int level, int fish, int food, int multiplier, GameDataManager gameDataManager)
+    public void setResult(int path, int level, int fish, int food, int multiplier)
     {
         pathValue = path;
         levelValue = level;
@@ -91,7 +96,12 @@ public class ResultMenu : MonoBehaviour
         allFish += totalFish;
         allFood += food;
 
-        gameDataManager.SaveDataGame(new SaveData(recordPathValue, recordLevel, allFish, allFood));
+        _persistentData.saveData.RecordPath = recordPathValue;
+        _persistentData.saveData.RecordLevel = recordLevel;
+        _persistentData.saveData.Fish = allFish;
+        _persistentData.saveData.Food = allFood;
+
+        _dataProvider.Save();
     }
 
 

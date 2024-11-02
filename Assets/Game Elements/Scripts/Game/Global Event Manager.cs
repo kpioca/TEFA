@@ -11,11 +11,6 @@ public class GlobalEventManager: MonoBehaviour
     public static Action OnGameOver;
 
 
-
-    public void Start()
-    {
-    }
-
     public static void GameOver()
     {
         if (OnGameOver != null) OnGameOver.Invoke();

@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemy_Material: {fileID: 2100000, guid: e335df496fb84b641bf989d695a94406, type: 2}
   bullet_Material: {fileID: 2100000, guid: b7f9fcf257c4cd849978d12a4546c44f, type: 2}
+  icon: {fileID: 21300000, guid: dbc384543f4f4fe4880f9f73e1948353, type: 3}
+  stamp_material: {fileID: 2100000, guid: 042fd40079ea414429954601614fc17d, type: 2}
   multiplier: 1.5
   damage_Increase: 1
   speed_Multiplier: 2

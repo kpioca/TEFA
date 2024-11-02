@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ShopElementsAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 8
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 0e871656ce8da884297ed218ca45c58d, type: 3}
+    - {fileID: 2800000, guid: 64972f51d0e5fca47832b2f5fd9477c9, type: 3}
+    - {fileID: 2800000, guid: b07b2e09535b5f44688539709949683b, type: 3}
+    - {fileID: 2800000, guid: ef6eeb0853c9b3146be50427fa635bb6, type: 3}
+    - {fileID: 2800000, guid: dac5df1135dd2a24b9f4e5f657580d2c, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - dac5df1135dd2a24b9f4e5f657580d2c: 21300000
+    - 64972f51d0e5fca47832b2f5fd9477c9: 21300000
+    - 0e871656ce8da884297ed218ca45c58d: 21300000
+    - ef6eeb0853c9b3146be50427fa635bb6: 21300000
+    - b07b2e09535b5f44688539709949683b: 21300000
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: dac5df1135dd2a24b9f4e5f657580d2c, type: 3}
+  - {fileID: 21300000, guid: 64972f51d0e5fca47832b2f5fd9477c9, type: 3}
+  - {fileID: 21300000, guid: 0e871656ce8da884297ed218ca45c58d, type: 3}
+  - {fileID: 21300000, guid: ef6eeb0853c9b3146be50427fa635bb6, type: 3}
+  - {fileID: 21300000, guid: b07b2e09535b5f44688539709949683b, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Button_skin_buy 1
+  - Button_food_open
+  - Button_food
+  - Button_skins
+  - Button_skins_open
+  m_RenderDataMap: {}
+  m_Tag: ShopElementsAtlas
+  m_IsVariant: 0

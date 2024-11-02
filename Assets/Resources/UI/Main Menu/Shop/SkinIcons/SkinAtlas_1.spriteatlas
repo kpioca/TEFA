@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: SkinAtlas_1
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 8
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: fbf60dcff1ffdc147b62357a671db537, type: 3}
+    - {fileID: 2800000, guid: d7e85292c85dc8042941c8b3a8a78b51, type: 3}
+    - {fileID: 2800000, guid: c6c69a8ee693d8b48ae0ea475cdfc9c0, type: 3}
+    - {fileID: 2800000, guid: 716cae1f2d28dac4dbb86949dcc73ef3, type: 3}
+    - {fileID: 2800000, guid: 4b85e848530f500448ac06b45316a863, type: 3}
+    - {fileID: 2800000, guid: 2ac981b5cfda2f5478760b86e118e604, type: 3}
+    - {fileID: 2800000, guid: 8a19b87e6b617fc4e9b9a117a6afaf18, type: 3}
+    - {fileID: 2800000, guid: 02a6050e2c40445479d44916b6f1c6c4, type: 3}
+    - {fileID: 2800000, guid: 30decb4fb66be284a9640e96e69f327b, type: 3}
+    - {fileID: 2800000, guid: 034672b879b31da4d98beb4ac0be2679, type: 3}
+    - {fileID: 2800000, guid: b787d5835fa3d444f89847d01a6b26b9, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - d7e85292c85dc8042941c8b3a8a78b51: 21300000
+    - b787d5835fa3d444f89847d01a6b26b9: 21300000
+    - 2ac981b5cfda2f5478760b86e118e604: 21300000
+    - 4b85e848530f500448ac06b45316a863: 21300000
+    - 034672b879b31da4d98beb4ac0be2679: 21300000
+    - 02a6050e2c40445479d44916b6f1c6c4: 21300000
+    - 8a19b87e6b617fc4e9b9a117a6afaf18: 21300000
+    - c6c69a8ee693d8b48ae0ea475cdfc9c0: 21300000
+    - 716cae1f2d28dac4dbb86949dcc73ef3: 21300000
+    - 30decb4fb66be284a9640e96e69f327b: 21300000
+    - fbf60dcff1ffdc147b62357a671db537: 21300000
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: d7e85292c85dc8042941c8b3a8a78b51, type: 3}
+  - {fileID: 21300000, guid: b787d5835fa3d444f89847d01a6b26b9, type: 3}
+  - {fileID: 21300000, guid: 2ac981b5cfda2f5478760b86e118e604, type: 3}
+  - {fileID: 21300000, guid: 4b85e848530f500448ac06b45316a863, type: 3}
+  - {fileID: 21300000, guid: 034672b879b31da4d98beb4ac0be2679, type: 3}
+  - {fileID: 21300000, guid: 02a6050e2c40445479d44916b6f1c6c4, type: 3}
+  - {fileID: 21300000, guid: 8a19b87e6b617fc4e9b9a117a6afaf18, type: 3}
+  - {fileID: 21300000, guid: c6c69a8ee693d8b48ae0ea475cdfc9c0, type: 3}
+  - {fileID: 21300000, guid: 716cae1f2d28dac4dbb86949dcc73ef3, type: 3}
+  - {fileID: 21300000, guid: 30decb4fb66be284a9640e96e69f327b, type: 3}
+  - {fileID: 21300000, guid: fbf60dcff1ffdc147b62357a671db537, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Skin-1
+  - Skin-24
+  - Skin-5
+  - Skin-4
+  - Skin-9
+  - Skin-7
+  - Skin-6
+  - Skin-2
+  - Skin-3
+  - Skin-8
+  - Skin
+  m_RenderDataMap: {}
+  m_Tag: SkinAtlas_1
+  m_IsVariant: 0

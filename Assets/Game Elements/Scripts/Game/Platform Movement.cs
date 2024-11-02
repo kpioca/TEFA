@@ -4,23 +4,31 @@ using UnityEngine;
 
 public class PlatformMovement : MonoBehaviour
 {
-    [Header("Reference")]
-    [SerializeField] private GameManager manager;
-    [Header("Parameters")]
-    [SerializeField] private float speedMovement = 1f;
+    private GameManager manager;
+    private float speedMovement = 1f;
 
 
 
-    void Start()
+    public void Initialize(GameManager gameManager)
     {
         //setting parameters and references
-        manager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+        manager = gameManager;
         speedMovement = manager.SpeedRouteMovement;
+    }
+
+    // Update is called once per frame
+
+    private void OnEnable()
+    {
         GlobalEventManager.OnGameOver += GameOver;
         GlobalEventManager.OnChangeSpeedRouteMovement += ChangeSpeedMovement;
     }
 
-    // Update is called once per frame
+    private void OnDisable()
+    {
+        GlobalEventManager.OnGameOver -= GameOver;
+        GlobalEventManager.OnChangeSpeedRouteMovement -= ChangeSpeedMovement;
+    }
 
     void unSubscribe()
     {
