@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,5 +6,5 @@ using UnityEngine;
 public interface IDataProvider
 {
     void Save();
-    bool TryLoad();
+    void TryLoad(Action<string> callback);
 }

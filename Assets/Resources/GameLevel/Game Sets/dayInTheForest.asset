@@ -22,8 +22,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: db443f2f8c809ce429abbe87a3b46a32, type: 2}
   - {fileID: 11400000, guid: 603773d8a45802c41891ad74719c0e06, type: 2}
   - {fileID: 11400000, guid: 288796754b2c4f0478b46a9c8181b470, type: 2}
+  - {fileID: 11400000, guid: 2872ba8ff1bf177459a1727755a0481f, type: 2}
   traps:
   - {fileID: 11400000, guid: d1df209f3e5482c4db5149ceeb071dc4, type: 2}
+  - {fileID: 11400000, guid: d58eea82d6d9f204ea4d17345bfb5b6e, type: 2}
   bonuses:
   - {fileID: 11400000, guid: 6830d3dbf12f6824889a0385a9d2a423, type: 2}
   multiplier: 2

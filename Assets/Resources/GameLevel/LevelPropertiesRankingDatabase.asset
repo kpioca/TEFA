@@ -1,0 +1,263 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 341f18e20939a5b408d9aab1fd2572b8, type: 3}
+  m_Name: LevelPropertiesRankingDatabase
+  m_EditorClassIdentifier: 
+  enemy_properties:
+  - element: {fileID: 11400000, guid: 75bb605aa4137a0468c7ea79c1c97dea, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: 3c9f7b981a23d7c45be9745d5d58b933, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: 58057b5392eb88848bbd54a412abe464, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: 84b0cff53645bc54f9ebba9331fb1f78, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: db443f2f8c809ce429abbe87a3b46a32, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: 603773d8a45802c41891ad74719c0e06, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: bc424cc45aabc1f43b0fe561b8c685a7, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: 288796754b2c4f0478b46a9c8181b470, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: 40197d76e2a7d894c97da71616c5f31d, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: 5f3b645db4b40984396af142e59d1060, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: 6c498809195d54f43a93112fc1050a88, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: 26f5b364b30946f4e90b4ef23754cc8a, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: ccd159625dc283243a97813c83e9e120, type: 2}
+    checkbox: 1
+  traps_properties:
+  - element: {fileID: 11400000, guid: 30c3cab9c175b8e4da2b8371edeca811, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: d1df209f3e5482c4db5149ceeb071dc4, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: 66da89282f45194459007d4de6cd5387, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: f2ff9362949a1b44aa96b14f2701e588, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: 66297a52645238b4590dff6f13c48a98, type: 2}
+    checkbox: 1
+  bonuses_properties:
+  - element: {fileID: 11400000, guid: 6830d3dbf12f6824889a0385a9d2a423, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: d9b28af2ef38d014f8180d5f76f4cc00, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: e3bf9e0600e306a4ba3bcf91b01be704, type: 2}
+    checkbox: 1
+  islands_properties:
+  - id: isl_sm
+    sizeOfObjectPool: 8
+    prefab: {fileID: 9117749747347361857, guid: 26f624de280eac743b4a2f6c5a32a54c,
+      type: 3}
+  - id: isl_bg
+    sizeOfObjectPool: 8
+    prefab: {fileID: 993700720620467212, guid: d629407c155c702438b08f8a8330e2e1, type: 3}
+  - id: isl_tl
+    sizeOfObjectPool: 8
+    prefab: {fileID: 1948562549802670562, guid: aa9c7a6009d85364193c23b88534a981,
+      type: 3}
+  - id: isl_extraSm1
+    sizeOfObjectPool: 8
+    prefab: {fileID: 7059723060038819460, guid: 87546f580ccfc5f4684f20effa4a8e39,
+      type: 3}
+  - id: isl_extraSm2
+    sizeOfObjectPool: 8
+    prefab: {fileID: 5980390961650164005, guid: d0057a17726974442b38bb09369f586c,
+      type: 3}
+  - id: isl_extraBg1
+    sizeOfObjectPool: 8
+    prefab: {fileID: 831770553356407458, guid: 7d37a9fbdcce0d34f8bc22f83de2784e, type: 3}
+  - id: isl_extraBg2
+    sizeOfObjectPool: 8
+    prefab: {fileID: 3416485113611070442, guid: 837b8e36dded36a4ea26b3c5062f9922,
+      type: 3}
+  - id: isl_extraTl1
+    sizeOfObjectPool: 8
+    prefab: {fileID: 3990730355553209861, guid: 1b3ce234600f65a4f98c6aca02958eb6,
+      type: 3}
+  - id: isl_extraTl2
+    sizeOfObjectPool: 8
+    prefab: {fileID: 6712667479999565943, guid: a63ba3105b4464c4481192801ae39592,
+      type: 3}
+  roadParts_properties:
+  - id: road
+    sizeOfObjectPool: 4
+    prefab: {fileID: 4856883820555747928, guid: 3341279a12fd42e4c9bc1848d202d69e,
+      type: 3}
+  misc_properties: []
+  rPatterns:
+  - element: {fileID: 11400000, guid: ae76717ece468a24c9571855c63777cc, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: 8a842316f00ed2b4384c26eaf0af24ae, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: 4bbae1df1320f614a9eb174746f06a64, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: 0603b8c4c29ea934597895f1bc08ab5d, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: 3fddacac4fe20ad4d95cc03460885369, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: d152b37b0a528f84fad77525baa5e78e, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: 31c3ad4d19572fc40894d9816a56250b, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: 147a54266e36cab458ae2ef70ab3cc0a, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: 071319470d406004198763ed02830032, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: 9b1af833073540849bf5eb0c336e39cd, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: 17d2502582386da4ebd1f6aa98e4f779, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: dc41d6944b122674988be19420e2c495, type: 2}
+    checkbox: 1
+  modificators:
+  - element: {fileID: 11400000, guid: dfd9abb7f1fb98c4a9645807f8982fac, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: 3cadc1611b30d8642869e8ddfebfa6bb, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: b03471e4cc4f31246bf6a4464d323d68, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: da614105cbbf57e44bae61e948c334de, type: 2}
+    checkbox: 1
+  chanceModificator: 0.7
+  gameSets:
+  - element: {fileID: 11400000, guid: 2fec9b1228e9c024b9c2c02821b6d273, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: 805656c328380e34f97dd14a943f661f, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: 38c3f3ab4b6123245ba7a1e5a9f102e1, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: afa5fd6e675b0554a872702624d530fa, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: 4a02a9406afd1db4ea1803b86bbc0d07, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: 66c5ff97355ea2243a988a3f977633e0, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: 3d99e36a564eeb443a18b07a1f656a3e, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: 2f3925cf60bf42649b7f0776a887cfc3, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: 4783084253dd354449a3c3c0b9260d4b, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: 8fbffd27ca4fc0f4cab64206eba48390, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: f54724bf353acfd47ae38655978ac751, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: 2a7621e0b1dc91748a714d75a3641613, type: 2}
+    checkbox: 1
+  chanceSpawnGameSet: 1
+  stampInfos:
+  - element: {fileID: 11400000, guid: d94d307df0f356843a6e01aeba4039f1, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: 948046ffdf93fe4419cfb3bffd6fdf60, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: c7e7b02128d33944b8e4a3b801d695ca, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: fdfea0dd648d58a44a9c788411bb3c49, type: 2}
+    checkbox: 1
+  - element: {fileID: 11400000, guid: 19b779c582e361349bdbe9e7dd94bfcf, type: 2}
+    checkbox: 1
+  maxNumStamps: 6
+  chanceAppearanceStamp: 0.7
+  distanceZ_between_roads: 15.95
+  min_extraIslands: 1
+  max_extraIslands: 5
+  num_securePlatformsAtBegin: 2
+  num_allSpawnedPlatforms: 4
+  min_typeEnemy: 3
+  max_typeEnemy: 6
+  min_typeTraps: 2
+  max_typeTraps: 5
+  min_typeBonuses: 1
+  max_typeBonuses: 3
+  _stageParameters:
+  - min_Enemy_stage: 0
+    max_Enemy_stage: 1
+    min_Traps_stage: 0
+    max_Traps_stage: 2
+    min_Bonuses_stage: 0
+    max_Bonuses_stage: 1
+    chance_Bonuses_stage: 0.05
+    min_fishMoney_stage: 0
+    max_fishMoney_stage: 0
+    part_openItems_stage: 0.25
+    activationDistance_stage: 0
+  - min_Enemy_stage: 0
+    max_Enemy_stage: 2
+    min_Traps_stage: 1
+    max_Traps_stage: 4
+    min_Bonuses_stage: 0
+    max_Bonuses_stage: 1
+    chance_Bonuses_stage: 0.15
+    min_fishMoney_stage: 0
+    max_fishMoney_stage: 0
+    part_openItems_stage: 0.5
+    activationDistance_stage: 30
+  - min_Enemy_stage: 1
+    max_Enemy_stage: 3
+    min_Traps_stage: 2
+    max_Traps_stage: 4
+    min_Bonuses_stage: 0
+    max_Bonuses_stage: 2
+    chance_Bonuses_stage: 0.15
+    min_fishMoney_stage: 0
+    max_fishMoney_stage: 0
+    part_openItems_stage: 1
+    activationDistance_stage: 90
+  - min_Enemy_stage: 2
+    max_Enemy_stage: 4
+    min_Traps_stage: 2
+    max_Traps_stage: 4
+    min_Bonuses_stage: 0
+    max_Bonuses_stage: 2
+    chance_Bonuses_stage: 0.15
+    min_fishMoney_stage: 0
+    max_fishMoney_stage: 0
+    part_openItems_stage: 1
+    activationDistance_stage: 175
+  - min_Enemy_stage: 3
+    max_Enemy_stage: 5
+    min_Traps_stage: 3
+    max_Traps_stage: 5
+    min_Bonuses_stage: 0
+    max_Bonuses_stage: 2
+    chance_Bonuses_stage: 0.05
+    min_fishMoney_stage: 0
+    max_fishMoney_stage: 0
+    part_openItems_stage: 1
+    activationDistance_stage: 260
+  - min_Enemy_stage: 4
+    max_Enemy_stage: 6
+    min_Traps_stage: 4
+    max_Traps_stage: 6
+    min_Bonuses_stage: 0
+    max_Bonuses_stage: 2
+    chance_Bonuses_stage: 0.02
+    min_fishMoney_stage: 0
+    max_fishMoney_stage: 0
+    part_openItems_stage: 1
+    activationDistance_stage: 500
+  - min_Enemy_stage: 6
+    max_Enemy_stage: 6
+    min_Traps_stage: 5
+    max_Traps_stage: 7
+    min_Bonuses_stage: 0
+    max_Bonuses_stage: 2
+    chance_Bonuses_stage: 0.001
+    min_fishMoney_stage: 0
+    max_fishMoney_stage: 0
+    part_openItems_stage: 1
+    activationDistance_stage: 800

@@ -15,8 +15,13 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] TMP_Text priceUpgradeText;
     [SerializeField] Button upgradeButton;
 
+    [SerializeField] GameObject _settingsPanel;
+
     [SerializeField] GameObject _skinCategoryContent;
     [SerializeField] GameObject _foodCategoryContent;
+
+    [Header("LoginAndSignUpManager")]
+    [SerializeField] LoginAndSignUpManager _loginAndSignUpManager;
 
 
 
@@ -64,7 +69,17 @@ public class MainMenuManager : MonoBehaviour
     }
 
 
+    public void EnableSettingsPanel()
+    {
+        _settingsPanel.SetActive(true);
+        if(!_loginAndSignUpManager.IsInitializedGameSession)
+            _loginAndSignUpManager.InitializeGameSession();
+    }
 
+    public void DisableSettingsPanel()
+    {
+        _settingsPanel.SetActive(false);
+    }
     public void checkValues()
     {
         int value = 0;
@@ -120,6 +135,12 @@ public class MainMenuManager : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public void unlockGachaSkin(GachaItemView gachaItemView, SkinUnlocker skinUnlocker)
+    {
+        gachaItemView.Item.Accept(skinUnlocker);
+        _dataProvider.Save();
     }
 
     public void buyUpgradePoint(int value)
@@ -251,6 +272,19 @@ public class MainMenuManager : MonoBehaviour
         _dataProvider.Save();
     }
 
+    public bool spendFood(int difference)
+    {
+        if (food + difference >= 0)
+        {
+            food = food += difference;
+            _persistentData.saveData.Food = food;
+            changeFoodCounter(food);
+
+            _dataProvider.Save();
+            return true;
+        }
+        else return false;
+    }
     public void buyFood(int amount)
     {
         int price = 0;
@@ -281,7 +315,7 @@ public class MainMenuManager : MonoBehaviour
     public void StartGame()
     {
         _dataProvider.Save();
-        SceneManager.LoadSceneAsync(1);
+        SceneManager.LoadScene(1);
     }
 
     public void getRewardForAd(int amount)

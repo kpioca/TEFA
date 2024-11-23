@@ -16,7 +16,7 @@ MonoBehaviour:
   type: 0
   levelOfCoolness: 4
   prefab: {fileID: 7855831155646338418, guid: 6cc2709fb34dd8f42870c585c9c9c118, type: 3}
-  sizeOfObjectPool: 8
+  sizeOfObjectPool: 6
   icon: {fileID: 21300000, guid: 134adb9fb20440249bfd25f0be2061f8, type: 3}
   haveAttackDamage: 1
   visionZoneX: 18
@@ -30,5 +30,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ad20dcac33cd12248b1531e997a4871d, type: 2}
   - {fileID: 11400000, guid: 27a7cef06305ec0488ce89ff295a7191, type: 2}
   - {fileID: 11400000, guid: 3898f98deee6fe04eafbf392206f1458, type: 2}
-  sizeOfProjectilePool: 8
+  sizeOfProjectilePool: 6
   intervalBetweenShots: 0.5

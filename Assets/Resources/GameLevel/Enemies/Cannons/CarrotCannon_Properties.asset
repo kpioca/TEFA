@@ -16,7 +16,7 @@ MonoBehaviour:
   type: 0
   levelOfCoolness: 2
   prefab: {fileID: 2039583289175195885, guid: e07921fcb691e1848bef8424e9effb4c, type: 3}
-  sizeOfObjectPool: 8
+  sizeOfObjectPool: 6
   icon: {fileID: 21300000, guid: 7d44e60365972a140be27509767c67d3, type: 3}
   haveAttackDamage: 1
   visionZoneX: 18
@@ -28,7 +28,7 @@ MonoBehaviour:
   bullets_Info:
   - {fileID: 11400000, guid: 721f51131f3d24d46974b530aa93a4a2, type: 2}
   - {fileID: 11400000, guid: 1daff648cc02a60459ca997e32ded095, type: 2}
-  sizeOfProjectilePool: 16
+  sizeOfProjectilePool: 12
   chance_bulletCollapse: 0.5
   particlesBulletDestruction: {fileID: 586265465599792263, guid: 4da2a6208d2e728439684307cc1c1d1f,
     type: 3}

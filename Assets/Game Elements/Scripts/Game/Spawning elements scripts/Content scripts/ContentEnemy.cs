@@ -92,6 +92,11 @@ public class ContentEnemy : MonoBehaviour
         return (Cannon)enemy;
     }
 
+    public Enemy getEnemy()
+    {
+        return enemy;
+    }
+
     public Mage getMage()
     {
         return (Mage)enemy;

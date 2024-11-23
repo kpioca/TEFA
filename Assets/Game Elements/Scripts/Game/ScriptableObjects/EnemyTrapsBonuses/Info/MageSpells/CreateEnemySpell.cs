@@ -31,6 +31,8 @@ public class CreateEnemySpellInfo : MageSpellInfo
 
         enemyObj = spawnPlaces[k1].obj;
         enemyMark = spawnPlaces[k1].mark;
+
+        if(!enemyMark.spawnPlace.isFly)
         if (enemyMark.isTaken == true)
         {
             infoPieceOfPath.deleteEnemyElement(spawnPlaces[k1].num);

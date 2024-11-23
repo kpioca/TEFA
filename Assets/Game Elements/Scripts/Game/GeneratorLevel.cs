@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 using System;
 using System.Linq;
 using UnityEngine.UI;
@@ -51,6 +52,10 @@ public class GeneratorLevel : MonoBehaviour
     
 
     GeneratorLevelProperties generator;
+    [Header("Ranking")]
+    [SerializeField] LevelPropertiesDatabase _databaseForRanking;
+    [field: SerializeField] public bool _rankingIsActive { get; private set; }
+    private int _randomSeed = 0;
     [Header("References")]
     [SerializeField] LevelPropertiesDatabase database;
     [SerializeField] GameManager gameManager;
@@ -107,8 +112,13 @@ public class GeneratorLevel : MonoBehaviour
 
     List<Stamp> stamps;
 
-    public void Initialize()
+    public void Initialize(int randomSeed = 0)
     {
+        if (_rankingIsActive)
+        {
+            database = _databaseForRanking;
+            _randomSeed = randomSeed;
+        }
         init(out generator, database);
     }
 
@@ -144,7 +154,8 @@ public class GeneratorLevel : MonoBehaviour
         bool hasGameset = false;
         bool hasModificator = false;
 
-        generator = new GeneratorLevelProperties(database, out text, out gameSet, out chancesForRoulette);
+        generator = new GeneratorLevelProperties(database, out text, out gameSet, out chancesForRoulette, _randomSeed);
+
 
         if (text != "")
             hasGameset = true;
@@ -729,6 +740,7 @@ public class GeneratorLevel : MonoBehaviour
         List<Mark> temp_marks2;
         List<Mark> temp_marks3;
 
+
         n_extraIsl = UnityEngine.Random.Range(database.Min_extraIslands, database.Max_extraIslands + 1);
 
         n_e = UnityEngine.Random.Range(spawnParameters.min_enemies[n_stage], spawnParameters.max_enemies[n_stage] + 1);
@@ -752,6 +764,7 @@ public class GeneratorLevel : MonoBehaviour
         temp_marks1 = new List<Mark>();
         temp_marks2 = new List<Mark>();
         temp_marks3 = new List<Mark>();
+
 
         for (int i = 0; i < n_e; i++)
         {
@@ -829,12 +842,14 @@ public class GeneratorLevel : MonoBehaviour
         SpawnPlace spawnPlace = new SpawnPlace(temp, islandsMarks[t], num);
         info.Islands.Add(spawnPlace);
         islandsMarks[t].isTaken = true;
+        islandsMarks[t].spawnPlace = spawnPlace;
 
-        islandsMarks.RemoveAt(t);
-        spawnedIslandsMarks.Add(enemyOnIslMarks[t]);
         enemyOnIslMarks[t].isTaken = true;
         enemyOnIslMarks[t].spawnPlace = spawnPlace;
+        spawnedIslandsMarks.Add(enemyOnIslMarks[t]);
 
+
+        islandsMarks.RemoveAt(t);
         enemyOnIslMarks.RemoveAt(t);
     }
 
@@ -893,21 +908,39 @@ public class GeneratorLevel : MonoBehaviour
         int k, num;
         ContentEnemy infoElement;
         EnemyInfo element;
+        bool isFly = false;
 
         k = UnityEngine.Random.Range(0, spawnElementMarks.Count);
-        temp = spawnObject(getRandomElementFromList(openedSpawnElements, out num).Prefab, spawnElementMarks[k].obj.transform.position, spawnElementMarks[k].obj.transform.rotation, raw_road.transform);
+
+        float yCoord;
+
+        element = getRandomElementFromList(openedSpawnElements, out num);
+
+        if (element.IsCoordYChange)
+            yCoord = element.NewCoordY;
+        else yCoord = spawnElementMarks[k].obj.transform.position.y;
+        Vector3 position = new Vector3(spawnElementMarks[k].obj.transform.position.x, yCoord, spawnElementMarks[k].obj.transform.position.z);
+
+        temp = spawnObject(element.Prefab, position, spawnElementMarks[k].obj.transform.rotation, raw_road.transform);
         infoElement = temp.GetComponent<ContentEnemy>();
         infoElement.game_Manager = gameManager;
         infoElement.visionZone.turnToInitialState();
 
-        element = openedSpawnElements[num];
+
+        if (!element.HasSpawnIsland)
+        {
+            spawnElementMarks[k].spawnPlace.obj.SetActive(false);
+            isFly = true;
+        }
 
         int num2 = info.Enemies.Count;
-        SpawnPlace spawnPlace = new SpawnPlace(temp, spawnElementMarks[k], num2);
+        SpawnPlace spawnPlace = new SpawnPlace(temp, spawnElementMarks[k], num2, isFly);
         info.Enemies.Add(spawnPlace);
         spawnElementMarks[k].isTaken = true;
         spawnElementMarks[k].spawnPlace = spawnPlace;
         infoElement.setInfoSpawnElement(element, info, getStampForEnemy(element, stamps));
+
+        
 
         spawnElementMarks.RemoveAt(k);
     }

@@ -13,9 +13,14 @@ public class SaveData
     private int health;
     private int armor;
     private int upgradePoints;
+    private int saveDataFileId = 0;
+    private int rankingSeed;
 
     private CatSkinsEnum selectedCatSkinType;
     private List<CatSkinsEnum> openedCatSkinTypes;
+
+    private string login;
+    private string password;
 
 
     public int Fish
@@ -23,7 +28,7 @@ public class SaveData
         get => fish;
         set
         {
-            if(value < 0)
+            if (value < 0)
                 throw new ArgumentOutOfRangeException(nameof(value));
             fish = value;
         }
@@ -107,10 +112,38 @@ public class SaveData
         }
     }
 
+    public int RankingSeed
+    {
+        get => rankingSeed;
+        set
+        {
+            rankingSeed = value;
+        }
+    }
+
+    public int SaveDataFileId
+    {
+        get { return saveDataFileId; }
+        set { saveDataFileId = value; }
+    }
+
+    public string Login
+    {
+        get { return login; }
+        set { login = value; }
+    }
+
+    public string Password
+    {
+        get { return password; }
+        set { password = value; }
+    }
+
+
     public IEnumerable<CatSkinsEnum> OpenedCatSkinTypes => openedCatSkinTypes;
 
     [JsonConstructor]
-    public SaveData(int fish, int food, int recordPath, int recordLevel, int health, int armor, int upgradePoints, CatSkinsEnum selectedCatSkinType, List<CatSkinsEnum> openedCatSkinTypes)
+    public SaveData(int fish, int food, int recordPath, int recordLevel, int health, int armor, int upgradePoints, CatSkinsEnum selectedCatSkinType, List<CatSkinsEnum> openedCatSkinTypes, int saveDataFileId, int rankingSeed = 0, string login = "", string password = "")
     {
         Fish = fish;
         Food = food;
@@ -129,6 +162,11 @@ public class SaveData
             this.openedCatSkinTypes = new List<CatSkinsEnum>() { CatSkinsEnum.ginger };
             selectedCatSkinType = CatSkinsEnum.ginger;
         }
+        SaveDataFileId = saveDataFileId;
+        this.rankingSeed = rankingSeed;
+        Login = login;
+        Password = password;
+        
     }
 
     public SaveData()
@@ -142,7 +180,10 @@ public class SaveData
         upgradePoints = 0;
         openedCatSkinTypes = new List<CatSkinsEnum>() { CatSkinsEnum.ginger };
         selectedCatSkinType = CatSkinsEnum.ginger;
-
+        SaveDataFileId = 0;
+        rankingSeed = -1;
+        Login = "";
+        Password = "";
     }
 
 

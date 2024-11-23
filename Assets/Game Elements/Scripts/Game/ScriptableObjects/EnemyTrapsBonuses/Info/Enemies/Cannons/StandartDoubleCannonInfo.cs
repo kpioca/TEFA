@@ -15,6 +15,7 @@ public class StandartDoubleCannonInfo : CannonInfo
         float intervalBetweenShots = 0;
         StandartDoubleCannon cannon = new StandartDoubleCannon(this, out intervalBetweenShots, cannonObject, stamp);
         numParameters["intervalBetweenShots"] = intervalBetweenShots;
+        numParameters["n_shots"] = 2;
         return cannon;
     }
 }

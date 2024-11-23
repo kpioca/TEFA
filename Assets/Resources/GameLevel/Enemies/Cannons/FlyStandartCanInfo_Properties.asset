@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cc365c667bdf8e4199429cd311f9f19, type: 3}
+  m_Name: FlyStandartCanInfo_Properties
+  m_EditorClassIdentifier: 
+  id: can_fly_st
+  type: 2
+  levelOfCoolness: 3
+  prefab: {fileID: 479364771590143262, guid: 961843b429ccb25439b78c77862c4508, type: 3}
+  sizeOfObjectPool: 6
+  icon: {fileID: 21300000, guid: e0505f3453f9cec44b8e94b98fb3744e, type: 3}
+  haveAttackDamage: 1
+  visionZoneX: 18
+  visionZoneY: 13
+  visionZoneZ: 63
+  attackZoneX: 18
+  attackZoneY: 9.3
+  attackZoneZ: 53
+  attackStopZ: 1
+  isCoordYChange: 1
+  newCoordY: 7.26
+  hasSpawnIsland: 0
+  bullets_Info:
+  - {fileID: 11400000, guid: e04b36bd285c80448bf7caed2363015c, type: 2}
+  sizeOfProjectilePool: 12
+  spinningSpeed: 30
+  smooth: 0.01

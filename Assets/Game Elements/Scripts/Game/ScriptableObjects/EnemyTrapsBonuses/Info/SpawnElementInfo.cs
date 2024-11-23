@@ -9,6 +9,15 @@ public enum TypeSpawnElement
     Water,
     Sky
 }
+
+public class SpawnElementTypeComparer : IComparer<SpawnElementInfo>
+{
+    public int Compare(SpawnElementInfo x, SpawnElementInfo y)
+    {
+        return x.Type.CompareTo(y.Type);
+    }
+}
+
 public class SpawnElementInfo : ScriptableObject, IComparable<SpawnElementInfo>
 {
     [SerializeField] private protected string id;

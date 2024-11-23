@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
 using System.IO;
+using System;
 
 public class DataLocalProvider : IDataProvider
 {
@@ -14,7 +15,11 @@ public class DataLocalProvider : IDataProvider
 
     private string SavePath => Application.persistentDataPath;
     private string FullPath => Path.Combine(SavePath, $"{FileName}{SaveFileExtension}");
-    public DataLocalProvider(IPersistentData persistentData) => _persistentData = persistentData;
+
+    public DataLocalProvider(IPersistentData persistentData)
+    {
+        _persistentData = persistentData;
+    }
     public void Save()
     {
         File.WriteAllText(FullPath, JsonConvert.SerializeObject(_persistentData.saveData, Formatting.Indented, new JsonSerializerSettings
@@ -23,21 +28,27 @@ public class DataLocalProvider : IDataProvider
         }));
     }
 
-    public bool TryLoad()
+    public void TryLoad(Action<string> callback)
     {
         if (IsDataAlreadyExist() == false)
-            return false;
+        {
+            _persistentData.saveData = new SaveData();
+            Save();
+            callback("");
+            return;
+        }
 
         try
         {
             _persistentData.saveData = JsonConvert.DeserializeObject<SaveData>(File.ReadAllText(FullPath));
+            callback("");
         }
         catch
         {
-            return false;
+            _persistentData.saveData = new SaveData();
+            Save();
+            callback("");
         }
-        
-        return true;
     }
 
     public bool IsDataAlreadyExist() => File.Exists(FullPath);

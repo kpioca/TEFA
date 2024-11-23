@@ -20,7 +20,7 @@ public class ShopContent : ScriptableObject
     [SerializeField] private BackShopItem[] _backShopItems;
 
 
-    public IEnumerable<CatSkin> CatSkins => skinDatabase.CatSkins;
+    public IEnumerable<CatSkin> CatSkins => skinDatabase.ShopCatSkins;
 
     public Dictionary<RarityEnum, Sprite> backShopItems
     {
@@ -44,12 +44,4 @@ public class ShopContent : ScriptableObject
         }
     }
 
-    private void OnValidate()
-    {
-        var skinDuplicates = skinDatabase.CatSkins.GroupBy(item => item.SkinType)
-            .Where(array => array.Count() > 1);
-
-        if(skinDuplicates.Count() > 0)
-            throw new InvalidOperationException(nameof(skinDuplicates));
-    }
 }

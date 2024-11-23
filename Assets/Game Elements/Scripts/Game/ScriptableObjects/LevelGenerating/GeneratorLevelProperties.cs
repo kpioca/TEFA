@@ -42,9 +42,19 @@ public class GeneratorLevelProperties
 
     
 
-    public GeneratorLevelProperties(LevelPropertiesDatabase database, out string setName, out GameSet gameSet, out List<float>[] chances)
+    public GeneratorLevelProperties(LevelPropertiesDatabase database, out string setName, out GameSet gameSet, out List<float>[] chances, int randomSeed)
     {
         this.database = database;
+        if (randomSeed != 0)
+            Random.InitState(randomSeed);
+        setName = makeLevelProperties(out chances, out gameSet);
+    }
+
+    public GeneratorLevelProperties(LevelPropertiesDatabase database, string setID, out List<float>[] chances, int randomSeed)
+    {
+        this.database = database;
+        if (randomSeed != 0)
+            Random.InitState(randomSeed);
         setName = makeLevelProperties(out chances, out gameSet);
     }
 

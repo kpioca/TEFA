@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86566c627693bb04bacf7c1106d90231, type: 3}
+  m_Name: ReverseEffectInfo
+  m_EditorClassIdentifier: 
+  effectName: Reverse Effect
+  effectId: eff_re
+  effectMaterial: {fileID: 2100000, guid: 533d73362ee8c3e4e9217a6bcfe8f50d, type: 2}
+  durationSec: 4
+  haveTimer: 0

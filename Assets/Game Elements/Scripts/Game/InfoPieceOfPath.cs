@@ -20,17 +20,31 @@ public class Mark
     }
 }
 
+public class MarkConnection
+{
+    public Mark mark1;
+    public Mark mark2;
+
+    public MarkConnection(Mark Mark1, Mark Mark2)
+    {
+        mark1 = Mark1;
+        mark2 = Mark2;
+    }
+}
+
 public class SpawnPlace
 {
     public GameObject obj;
     public Mark mark;
     public int num;
+    public bool isFly;
 
-    public SpawnPlace(GameObject obj, Mark mark, int num)
+    public SpawnPlace(GameObject obj, Mark mark, int num, bool isFly = false)
     {
         this.obj = obj;
         this.mark = mark;
         this.num = num;
+        this.isFly = isFly;
     }
 }
 

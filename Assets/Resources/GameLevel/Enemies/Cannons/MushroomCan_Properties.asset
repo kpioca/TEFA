@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66a22bfc2864756449b0e1259260813d, type: 3}
+  m_Name: MushroomCan_Properties
+  m_EditorClassIdentifier: 
+  id: can_mush
+  type: 0
+  levelOfCoolness: 2
+  prefab: {fileID: 4348705956648011706, guid: f7ef427c95723564697a54fe80073812, type: 3}
+  sizeOfObjectPool: 6
+  icon: {fileID: 21300000, guid: 4c66d61138c2f4a4492e07cdc9c59fa8, type: 3}
+  haveAttackDamage: 1
+  visionZoneX: 18
+  visionZoneY: 14
+  visionZoneZ: 43
+  attackZoneX: 18
+  attackZoneY: 14
+  attackZoneZ: 25
+  attackStopZ: -5
+  isCoordYChange: 0
+  newCoordY: 0
+  hasSpawnIsland: 1
+  bullets_Info:
+  - {fileID: 11400000, guid: 161e051473b416b4f89af20f53b3df1a, type: 2}
+  sizeOfProjectilePool: 6

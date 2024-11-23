@@ -52,6 +52,8 @@ public class PlayerControl : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public bool isTargetChanged = false;
     public bool isJumpingEffectActivated = false;
 
+    private int reverseControls = 1;
+
     public void Initialize()
     {
         curr_camPos_num = 1;
@@ -72,7 +74,7 @@ public class PlayerControl : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             //camera_positions_x.Contains(camera_pos_x) && 
             if (!isMoving && !stopMove)
             {
-                if (eventData.delta.x > 0 && isPossibleToTakeNext(curr_camPos_num, 1, camera_positions))
+                if (eventData.delta.x * reverseControls > 0 && isPossibleToTakeNext(curr_camPos_num, 1, camera_positions))
                 {
                     if (!isJumping)
                     {
@@ -88,7 +90,7 @@ public class PlayerControl : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
                         isTargetChanged = true;
                     }
                 }
-                else if (eventData.delta.x < 0 && isPossibleToTakeNext(curr_camPos_num, -1, camera_positions))
+                else if (eventData.delta.x * reverseControls < 0 && isPossibleToTakeNext(curr_camPos_num, -1, camera_positions))
                 {
                     if (!isJumping)
                     {
@@ -107,7 +109,7 @@ public class PlayerControl : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             }
             else if (isMoving)
             {
-                if (eventData.delta.x > 0 && isPossibleToTakeNext(curr_camPos_num, 1, camera_positions))
+                if (eventData.delta.x * reverseControls > 0 && isPossibleToTakeNext(curr_camPos_num, 1, camera_positions))
                 {
                     if (!isFalling)
                     {
@@ -117,7 +119,7 @@ public class PlayerControl : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
                         isTargetChanged = true;
                     }
                 }
-                else if (eventData.delta.x < 0 && isPossibleToTakeNext(curr_camPos_num, -1, camera_positions))
+                else if (eventData.delta.x * reverseControls < 0 && isPossibleToTakeNext(curr_camPos_num, -1, camera_positions))
                 {
                     if (!isFalling)
                     {
@@ -450,6 +452,13 @@ public class PlayerControl : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         isJumping = false;
         isMoving = false;
         stopMove = false;
+    }
+
+    public void ReverseControls(bool state)
+    {
+        if (state)
+            reverseControls = -1;
+        else reverseControls = 1;
     }
 
     private bool isPossibleToTakeNext<T>(int curr_num, int increment, T[] array)

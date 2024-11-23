@@ -52,6 +52,18 @@ MonoBehaviour:
     m_Scale: 1.4
     m_Name: atlas_2_1
     m_HashCode: 411153672
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 2
+    m_Scale: 1.4
+    m_Name: atlas_2_2
+    m_HashCode: 411153675
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 3
+    m_Scale: 1.4
+    m_Name: atlas_2_3
+    m_HashCode: 411153674
   m_SpriteGlyphTable:
   - m_Index: 0
     m_Metrics:
@@ -85,6 +97,38 @@ MonoBehaviour:
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
     sprite: {fileID: 396453618, guid: b32dfda43b69813448ae37c9b65bc45b, type: 3}
+  - m_Index: 2
+    m_Metrics:
+      m_Width: 256
+      m_Height: 256
+      m_HorizontalBearingX: -0
+      m_HorizontalBearingY: 198.85
+      m_HorizontalAdvance: 256
+    m_GlyphRect:
+      m_X: 512
+      m_Y: 0
+      m_Width: 256
+      m_Height: 256
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+    sprite: {fileID: 1980103306, guid: b32dfda43b69813448ae37c9b65bc45b, type: 3}
+  - m_Index: 3
+    m_Metrics:
+      m_Width: 256
+      m_Height: 256
+      m_HorizontalBearingX: -0
+      m_HorizontalBearingY: 197.42
+      m_HorizontalAdvance: 256
+    m_GlyphRect:
+      m_X: 768
+      m_Y: 0
+      m_Width: 256
+      m_Height: 256
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+    sprite: {fileID: -1826774680, guid: b32dfda43b69813448ae37c9b65bc45b, type: 3}
   spriteInfoList: []
   fallbackSpriteAssets: []
 --- !u!21 &7485693546484447898

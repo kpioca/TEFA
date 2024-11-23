@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class ResultMenu : MonoBehaviour
 {
@@ -15,6 +16,12 @@ public class ResultMenu : MonoBehaviour
     [SerializeField] TMP_Text foodCounter;
     [SerializeField] TMP_Text totalFishCounter;
 
+    [Header("Leaderboard")]
+    [SerializeField] LeaderboardSubmitSystem leaderboardSystem;
+
+    [Header("Buttons")]
+    [SerializeField] Button[] buttons;
+
     private int allFish;
     private int allFood;
 
@@ -22,6 +29,8 @@ public class ResultMenu : MonoBehaviour
     public int levelValue;
     public int recordPathValue;
     public int recordLevel;
+
+    bool _isRankingActive;
 
     IPersistentData _persistentData;
     IDataProvider _dataProvider;
@@ -33,7 +42,9 @@ public class ResultMenu : MonoBehaviour
 
     public void setRecordPath()
     {
-        recordPathCounter.text = recordPathValue.ToString() + "<sprite=0>" + $"<sprite={recordLevel+4}>";
+        if (!_isRankingActive)
+            recordPathCounter.text = recordPathValue.ToString() + "<sprite=0>" + $"<sprite={recordLevel + 4}>";
+        else recordPathCounter.text = "--||--";
     }
 
     public void setFishCounter(int value)
@@ -56,10 +67,11 @@ public class ResultMenu : MonoBehaviour
         totalFishCounter.text = value.ToString() + "<sprite=2>";
     }
 
-    public void Initialize(IDataProvider dataProvider, IPersistentData persistentData)
+    public void Initialize(IDataProvider dataProvider, IPersistentData persistentData, bool isRankingActive)
     {
         _persistentData = persistentData;
         _dataProvider = dataProvider;
+        _isRankingActive = isRankingActive;
 
         recordPathValue = _persistentData.saveData.RecordPath;
         recordLevel = _persistentData.saveData.RecordLevel;
@@ -102,6 +114,13 @@ public class ResultMenu : MonoBehaviour
         _persistentData.saveData.Food = allFood;
 
         _dataProvider.Save();
+
+        if(_isRankingActive)
+        leaderboardSystem.InitializeSubmitRecord(pathValue, (bool callback) =>
+        {
+            foreach (Button button in buttons)
+                button.interactable = true;
+        });
     }
 
 

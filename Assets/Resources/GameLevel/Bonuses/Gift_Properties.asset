@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Gift_Properties
   m_EditorClassIdentifier: 
   id: gift
-  type: 0
+  type: 2
   levelOfCoolness: 2
   prefab: {fileID: 1699345274603802721, guid: b0d5766e5ff85ff4a919e021e721cfa7, type: 3}
   sizeOfObjectPool: 3

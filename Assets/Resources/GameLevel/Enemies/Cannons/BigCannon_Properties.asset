@@ -16,7 +16,7 @@ MonoBehaviour:
   type: 0
   levelOfCoolness: 1
   prefab: {fileID: 4547470945222992957, guid: d4f7f6455f97cb34fbe1b11a2d30a727, type: 3}
-  sizeOfObjectPool: 8
+  sizeOfObjectPool: 6
   icon: {fileID: 21300000, guid: f46da92a06cd1e14bb508657aa6865a9, type: 3}
   haveAttackDamage: 1
   visionZoneX: 18
@@ -25,6 +25,8 @@ MonoBehaviour:
   attackZoneX: 18
   attackZoneY: 14
   attackZoneZ: 20
+  attackStopZ: -5
+  hasSpawnIsland: 1
   bullets_Info:
   - {fileID: 11400000, guid: 27a4f93e3acb12048b7fdbd3e59316c3, type: 2}
-  sizeOfProjectilePool: 8
+  sizeOfProjectilePool: 6

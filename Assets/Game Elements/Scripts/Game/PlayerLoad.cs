@@ -31,6 +31,10 @@ public class PlayerLoad : MonoBehaviour
 
     public CatSkin GetSelectedSkin(CatSkinsEnum catSkin)
     {
-        return skinDatabase.CatSkins.Find(skin => skin.SkinType == catSkin);
+        CatSkin skin = skinDatabase.ShopCatSkins.Find(skin => skin.SkinType == catSkin);
+        if(skin != null)
+            return skin;
+        else skin = skinDatabase.GachaCatSkins.Find(skin => skin.SkinType == catSkin);
+        return skin;
     }
 }

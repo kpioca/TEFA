@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87d2000c38567bf4090c601c213154aa, type: 3}
   m_Name: SkinDatabase
   m_EditorClassIdentifier: 
-  <CatSkins>k__BackingField:
+  <ShopCatSkins>k__BackingField:
   - {fileID: 11400000, guid: 9c9d228020a22af489e73c748433656b, type: 2}
   - {fileID: 11400000, guid: ecd4747868f735c4582c6b9a8727d714, type: 2}
   - {fileID: 11400000, guid: c98b1ec0f08fc824ebdf8fd29cfb1682, type: 2}
@@ -24,3 +24,39 @@ MonoBehaviour:
   - {fileID: 11400000, guid: db52f04508cb66f47907d3c20fc4d23a, type: 2}
   - {fileID: 11400000, guid: eaad6fa104248654096771f7d4bcad5e, type: 2}
   - {fileID: 11400000, guid: 1faf5773537898c40b82c3ba55a62623, type: 2}
+  <GachaCatSkins>k__BackingField:
+  - {fileID: 11400000, guid: e538c57fd38e48e43a654b2c31b857d1, type: 2}
+  - {fileID: 11400000, guid: d7398939a067e8a4d90f513184bb817a, type: 2}
+  - {fileID: 11400000, guid: 7975f006870a95c44aae2c29af19a105, type: 2}
+  - {fileID: 11400000, guid: 21a42d991df80954da5dcbd1189a88bc, type: 2}
+  - {fileID: 11400000, guid: 660958fa92ac4d04ea03fc1b85a90862, type: 2}
+  - {fileID: 11400000, guid: 32644eabfd992484c88d1583aa56378b, type: 2}
+  - {fileID: 11400000, guid: ffecf813368c3784e8ba8811bd792a96, type: 2}
+  - {fileID: 11400000, guid: 30ec77a2a6bdd80459bd0aac045aa4d2, type: 2}
+  - {fileID: 11400000, guid: e2f02107d1eb3524f8adcdef7c45ca08, type: 2}
+  - {fileID: 11400000, guid: dafb7753dc1c90542864ee1491a303a7, type: 2}
+  - {fileID: 11400000, guid: 9ac7203bd41a2074bb529db79613f67e, type: 2}
+  - {fileID: 11400000, guid: 4e084d9cf5dc1334c85ec6b5f5f3b748, type: 2}
+  - {fileID: 11400000, guid: 2b9472921ca66224b894cd4cfc46c649, type: 2}
+  - {fileID: 11400000, guid: 8ee66dccb27ded945b8113b4869ff587, type: 2}
+  - {fileID: 11400000, guid: 3020e87ae87b7554d8e517dfe308e33d, type: 2}
+  <GachaRaritySkins>k__BackingField:
+  - Rarity: 1
+    chanceGacha: 0.75
+  - Rarity: 2
+    chanceGacha: 0.21
+  - Rarity: 3
+    chanceGacha: 0.04
+  <GachaCapsules>k__BackingField:
+  - Rarity: 1
+    capsuleObj: {fileID: 1877366590611510614, guid: a2617e7c86a1279419479f9510a3f708,
+      type: 3}
+  - Rarity: 2
+    capsuleObj: {fileID: 2680708898226472070, guid: 7a8b8cc96a1a17943bc91a7d6dac17d4,
+      type: 3}
+  - Rarity: 3
+    capsuleObj: {fileID: 7196043724154669501, guid: 4200e6b073e5da04fa01e256ace9ce2f,
+      type: 3}
+  - Rarity: 4
+    capsuleObj: {fileID: 4274989254355928119, guid: acd592da64b81504191b097cc105158a,
+      type: 3}

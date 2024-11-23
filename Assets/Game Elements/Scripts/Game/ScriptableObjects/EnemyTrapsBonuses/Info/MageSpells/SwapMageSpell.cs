@@ -23,27 +23,30 @@ public class SwapMageSpellInfo : MageSpellInfo
         Vector3 position1 = transform1.position;
         Vector3 position2 = transform2.position;
 
-        if (position1 != position2)
+        if (!enemies[k1].isFly & !enemies[k2].isFly)
         {
-            Mark mark1 = enemies[k1].mark;
-            Mark mark2 = enemies[k2].mark;
+            if (position1 != position2)
+            {
+                Mark mark1 = enemies[k1].mark;
+                Mark mark2 = enemies[k2].mark;
 
-            enemies[k1].obj.transform.position = position2;
-            enemies[k2].obj.transform.position = position1;
-            enemies[k1].mark = mark2;
-            enemies[k2].mark = mark1;
+                enemies[k1].obj.transform.position = position2;
+                enemies[k2].obj.transform.position = position1;
+                enemies[k1].mark = mark2;
+                enemies[k2].mark = mark1;
 
-            Vector3 direction1 = player.transform.position + new Vector3(0, 0, 0.3f) - movable1.transform.position;
-            Quaternion rotation1 = Quaternion.LookRotation(direction1);
+                Vector3 direction1 = player.transform.position + new Vector3(0, 0, 0.3f) - movable1.transform.position;
+                Quaternion rotation1 = Quaternion.LookRotation(direction1);
 
-            Vector3 direction2 = player.transform.position + new Vector3(0, 0, 0.3f) - movable2.transform.position;
-            Quaternion rotation2 = Quaternion.LookRotation(direction2);
+                Vector3 direction2 = player.transform.position + new Vector3(0, 0, 0.3f) - movable2.transform.position;
+                Quaternion rotation2 = Quaternion.LookRotation(direction2);
 
-            movable1.transform.rotation = rotation1;
-            movable2.transform.rotation = rotation2;
+                movable1.transform.rotation = rotation1;
+                movable2.transform.rotation = rotation2;
 
-            SpawnParticles(transform2, gameManager);
+                SpawnParticles(transform2, gameManager);
+            }
+            SpawnParticles(transform1, gameManager);
         }
-        SpawnParticles(transform1, gameManager);
     }
 }

@@ -31,6 +31,19 @@ public class EnemyInfo : SpawnElementInfo
     [SerializeField] private protected float attackZoneZ = 24f;
     public float AttackZoneZ => attackZoneZ;
 
+    [SerializeField] private protected float attackStopZ = -5f;
+    public float AttackStopZ => attackStopZ;
+
+    [Header("Spawn parameters")]
+    [SerializeField] private protected bool isCoordYChange = false;
+    public bool IsCoordYChange => isCoordYChange;
+    [SerializeField] private protected float newCoordY;
+    public float NewCoordY => newCoordY;
+
+    [Header("Spawn Island")]
+    [SerializeField] private protected bool hasSpawnIsland = true;
+    public bool HasSpawnIsland => hasSpawnIsland;
+
     public virtual Enemy createEnemy(GameObject enemyObject, Stamp stamp, GameObject[] objParameters, out Dictionary<string, float> numParameters)
     {
         numParameters = null;

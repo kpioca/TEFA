@@ -116,7 +116,7 @@ public class StageParameters
         get { return part_openItems_stage; }
         set { part_openItems_stage = value; }
     }
-    [Range(0, 500)]
+    [Range(0, 1000)]
     [SerializeField] private int activationDistance_stage = 0;
     public int ActivationDistance_stage
     {

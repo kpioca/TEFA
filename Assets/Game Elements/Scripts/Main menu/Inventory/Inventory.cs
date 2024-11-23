@@ -41,10 +41,16 @@ public class Inventory : MonoBehaviour
         List<CatSkin> skins = new List<CatSkin>();
         foreach (CatSkinsEnum cat in openedSkinsEnum)
         {
-            CatSkin skin = skinDatabase.CatSkins.Find(skin => skin.SkinType == cat);
-            if(skin != null)
+            CatSkin skin = skinDatabase.ShopCatSkins.Find(skin => skin.SkinType == cat);
+            if (skin != null)
                 skins.Add(skin);
-            else throw new ArgumentException(nameof(cat));
+            else
+            {
+                skin = skinDatabase.GachaCatSkins.Find(skin => skin.SkinType == cat);
+                if (skin != null)
+                    skins.Add(skin);
+                else throw new ArgumentException(nameof(cat));
+            }
         }
         return skins;
     }
@@ -62,7 +68,7 @@ public class Inventory : MonoBehaviour
 
     public CatSkin GetSelectedSkin(CatSkinsEnum selectedSkinEnum)
     {
-        return skinDatabase.CatSkins.Find(skin => skin.SkinType == selectedSkinEnum);
+        return skinDatabase.ShopCatSkins.Find(skin => skin.SkinType == selectedSkinEnum);
     }
 
     private void OnItemViewClicked(InventoryItemView item)

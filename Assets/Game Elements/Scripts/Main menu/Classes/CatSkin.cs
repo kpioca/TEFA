@@ -14,7 +14,22 @@ public enum CatSkinsEnum
     rose,
     caramel,
     noir,
-    sushi
+    sushi,
+    garland,
+    cow,
+    harry,
+    azure,
+    rain,
+    xc0000225,
+    aed,
+    palette,
+    cheese,
+    cutie,
+    kelvin,
+    winged,
+    joker,
+    glorp,
+    _42
 }
 [CreateAssetMenu(fileName = "CatSkin", menuName = "LevelProperties/Skins/Cat/New CatSkin")]
 public class CatSkin : ShopItem

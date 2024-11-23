@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,7 +18,7 @@ public class GameBootstrap : MonoBehaviour
 
     private void Start()
     {
-        InitializeData();
+        InitializeData((string callback) => { });
         InitializeResultMenu();
         InitializePlayer();
         InitializeGeneratorLevel();
@@ -28,21 +29,28 @@ public class GameBootstrap : MonoBehaviour
 
     }
 
-    private void InitializeData()
+    private void InitializeData(Action<string> callback)
     {
         _persistentData = new PersistentData();
         _dataProvider = new DataLocalProvider(_persistentData);
-        LoadDataOrInit();
+        LoadDataOrInit(callback);
     }
 
     private void InitializeGeneratorLevel()
     {
-        _generatorLevel.Initialize();
+        //
+        if (_generatorLevel._rankingIsActive)
+        {
+            int seed = _persistentData.saveData.RankingSeed;
+            _generatorLevel.Initialize(seed);
+        }
+        else _generatorLevel.Initialize();
+
     }
 
     private void InitializeResultMenu()
     {
-        _gameManager.resultMenu.Initialize(_dataProvider, _persistentData);
+        _gameManager.resultMenu.Initialize(_dataProvider, _persistentData, _generatorLevel._rankingIsActive);
     }
 
     private void InitializePathCounter()
@@ -66,9 +74,8 @@ public class GameBootstrap : MonoBehaviour
         _contentPlayer.Initialize(_gameManager, _effectTimer, _persistentData);
     }
 
-    private void LoadDataOrInit()
+    private void LoadDataOrInit(Action<string> callback)
     {
-        if (_dataProvider.TryLoad() == false)
-            _persistentData.saveData = new SaveData();
+        _dataProvider.TryLoad(callback);
     }
 }

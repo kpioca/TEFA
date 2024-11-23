@@ -24,18 +24,28 @@ public class Enemy : SpawnElement
     [SerializeField] private protected float attackZoneZ = 24f;
     public float AttackZoneZ => attackZoneZ;
 
+    [SerializeField] private protected float attackStopZ = -5f;
+    public float AttackStopZ => attackStopZ;
+
+    [Header("Spawn Island")]
+    [SerializeField] private protected bool hasSpawnIsland = true;
+    public bool HasSpawnIsland => hasSpawnIsland;
+
     private protected Stamp stamp;
     public GameObject instance { get; set; }
 
     public Enemy(EnemyInfo info, GameObject instance, Stamp stamp = null) : base(info)
     {
-        this.haveAttackDamage = info.HasAttackDamage;
-        this.visionZoneX = info.VisionZoneX;
-        this.visionZoneY = info.VisionZoneY;
-        this.visionZoneZ = info.VisionZoneZ;
-        this.attackZoneX = info.AttackZoneX;
-        this.attackZoneY = info.AttackZoneY;
-        this.attackZoneZ = info.AttackZoneZ;
+        haveAttackDamage = info.HasAttackDamage;
+        visionZoneX = info.VisionZoneX;
+        visionZoneY = info.VisionZoneY;
+        visionZoneZ = info.VisionZoneZ;
+        attackZoneX = info.AttackZoneX;
+        attackZoneY = info.AttackZoneY;
+        attackZoneZ = info.AttackZoneZ;
+        hasSpawnIsland = info.HasSpawnIsland;
+        attackStopZ = info.AttackStopZ;
+
         this.instance = instance;
         this.stamp = stamp;
     }

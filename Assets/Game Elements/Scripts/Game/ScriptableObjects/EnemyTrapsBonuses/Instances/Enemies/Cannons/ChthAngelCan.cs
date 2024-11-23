@@ -49,7 +49,6 @@ public class ChthAngelCan : Cannon
 
     private IEnumerator SpinningCoroutine(GameObject bullet, float speed = 10)
     {
-        float currentAngle;
         while (true)
         {
             //currentAngle = bullet.transform.rotation.eulerAngles.y;

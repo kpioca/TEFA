@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 using TMPro;
 
 [Serializable]
@@ -43,12 +44,11 @@ public class RouletteSpawnElements : MonoBehaviour
 
     public void startRoulette(List<EnemyInfo> currentEnemy, List<TrapInfo> currentTraps, List<BonusInfo> currentBonuses, List<Stamp> stamps, int multiplier)
     {
-        this.currentEnemy = currentEnemy;
-        this.currentTraps = currentTraps;
-        this.currentBonuses = currentBonuses;
+        this.currentEnemy = SortElements(currentEnemy);
+        this.currentTraps = SortElements(currentTraps);
+        this.currentBonuses = SortElements(currentBonuses);
         currentStamps = stamps;
         this.multiplier = multiplier;
-
 
         if (currentEnemy.Count <= enemyElements.Length && currentBonuses.Count <= bonusesElements.Length && currentTraps.Count <= trapsElements.Length)
         {
@@ -120,6 +120,15 @@ public class RouletteSpawnElements : MonoBehaviour
             layoutGroup.constraintCount = 2;
         }
         else layoutGroup.cellSize = cardSizes[5];
+    }
+
+    public List<T> SortElements<T>(List<T> spawnElements) where T: SpawnElementInfo
+    {
+        var spawnElementsSorted = from p in spawnElements 
+                                  orderby p.Type, p.LevelOfCoolness
+                                  select p;
+        spawnElements = spawnElementsSorted.ToList();
+        return spawnElements;
     }
     public void initialize()
     {

@@ -16,6 +16,7 @@ MonoBehaviour:
   levelOfCoolness: 3
   enemies:
   - {fileID: 11400000, guid: 40197d76e2a7d894c97da71616c5f31d, type: 2}
+  - {fileID: 11400000, guid: 4aedb714c348a574caab00ef2a7e312a, type: 2}
   traps:
   - {fileID: 11400000, guid: 66da89282f45194459007d4de6cd5387, type: 2}
   - {fileID: 11400000, guid: d1df209f3e5482c4db5149ceeb071dc4, type: 2}
