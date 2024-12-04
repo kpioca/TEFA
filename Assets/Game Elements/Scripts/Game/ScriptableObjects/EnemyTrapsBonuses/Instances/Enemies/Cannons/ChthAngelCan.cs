@@ -25,12 +25,12 @@ public class ChthAngelCan : Cannon
     public override void MoveToPos(MonoBehaviour toUseCoroutines, GameObject obj, Vector3 target, BulletInfo bulletInfo, float platformsSpeed, ContentBullet contentBullet)
     {
         float speedMultiplier = stamp == null ? 1 : stamp.getStampValue();
-        toUseCoroutines.StartCoroutine(MovementCoroutine(obj, target, bulletInfo.Speed * speedMultiplier + platformsSpeed, toUseCoroutines, contentBullet));
+        contentBullet.SetBulletCoroutine(toUseCoroutines.StartCoroutine(MovementCoroutine(obj, target, bulletInfo.Speed * speedMultiplier + platformsSpeed, toUseCoroutines, contentBullet)), toUseCoroutines);
     }
 
     private protected IEnumerator MovementCoroutine(GameObject obj, Vector3 target, float speed, MonoBehaviour toUseCoroutines, ContentBullet contentBullet)
     {
-        Coroutine spiningCoroutine = toUseCoroutines.StartCoroutine(SpinningCoroutine(obj, spinningSpeed));
+        Coroutine spiningCoroutine = contentBullet.StartCoroutine(SpinningCoroutine(obj, spinningSpeed));
         Vector3 start_pos = obj.transform.position;
 
         float runningTime = 0;
@@ -42,7 +42,7 @@ public class ChthAngelCan : Cannon
             obj.transform.position = Vector3.Lerp(start_pos, target, runningTime / totalRunningTime);
             yield return 1;
         }
-        toUseCoroutines.StopCoroutine(spiningCoroutine);
+        contentBullet.StopCoroutine(spiningCoroutine);
         if (contentBullet.gameObject.activeInHierarchy)
             contentBullet.Remove();
     }
@@ -51,6 +51,7 @@ public class ChthAngelCan : Cannon
     {
         while (true)
         {
+            Debug.Log("spinning");
             //currentAngle = bullet.transform.rotation.eulerAngles.y;
             bullet.transform.eulerAngles += new Vector3(0.0f, speed, 0.0f);
             //bullet.transform.eulerAngles -= new Vector3(speed/2f, 0.0f, 0.0f);

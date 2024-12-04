@@ -24,7 +24,7 @@ public class FrostyCannon : Cannon
     public override void MoveToPos(MonoBehaviour toUseCoroutines, GameObject obj, Vector3 target, BulletInfo bulletInfo, float platformsSpeed, ContentBullet contentBullet)
     {
         float speedMultiplier = stamp == null ? 1 : stamp.getStampValue();
-        toUseCoroutines.StartCoroutine(MovementCoroutine(obj, target, bulletInfo.Speed * speedMultiplier + platformsSpeed, contentBullet));
+        contentBullet.SetBulletCoroutine(toUseCoroutines.StartCoroutine(MovementCoroutine(obj, target, bulletInfo.Speed * speedMultiplier + platformsSpeed, contentBullet)), toUseCoroutines);
 
         //projectile_rb = obj.GetComponent<Rigidbody>();
         //projectile_rb.velocity = obj.transform.forward * (bulletInfo.Speed + platformsSpeed);

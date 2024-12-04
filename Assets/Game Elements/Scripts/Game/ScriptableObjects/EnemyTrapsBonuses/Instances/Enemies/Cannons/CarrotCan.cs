@@ -120,10 +120,9 @@ public class CarrotCan : Cannon
                     extraBullet1_2 = bulletsInfo[1].spawnBullet(extra_bulletInfo.Prefab, pos12, rotation1, null, stamp, out contentBullet[1]);
                     extraBullet1_3 = bulletsInfo[1].spawnBullet(extra_bulletInfo.Prefab, pos13, rotation1, null, stamp, out contentBullet[2]);
 
-
-                    toUseCoroutines.StartCoroutine(MovementExtraCoroutine(extraBullet1_1, target, speedExtra, Vector3.up, contentBullet[0]));
-                    toUseCoroutines.StartCoroutine(MovementExtraCoroutine(extraBullet1_2, target, speedExtra, Vector3.right, contentBullet[1]));
-                    toUseCoroutines.StartCoroutine(MovementExtraCoroutine(extraBullet1_3, target, speedExtra, Vector3.left, contentBullet[2]));
+                    contentBullet[0].SetBulletCoroutine(toUseCoroutines.StartCoroutine(MovementExtraCoroutine(extraBullet1_1, target, speedExtra, Vector3.up, contentBullet[0])), toUseCoroutines);
+                    contentBullet[1].SetBulletCoroutine(toUseCoroutines.StartCoroutine(MovementExtraCoroutine(extraBullet1_2, target, speedExtra, Vector3.right, contentBullet[1])), toUseCoroutines);
+                    contentBullet[2].SetBulletCoroutine(toUseCoroutines.StartCoroutine(MovementExtraCoroutine(extraBullet1_3, target, speedExtra, Vector3.left, contentBullet[2])), toUseCoroutines);
 
                 }
                 if (isActiveBullet2)
@@ -143,9 +142,9 @@ public class CarrotCan : Cannon
                     extraBullet2_3 = bulletsInfo[1].spawnBullet(extra_bulletInfo.Prefab, pos23, rotation2, null, stamp, out contentBullet[5]);
 
 
-                    toUseCoroutines.StartCoroutine(MovementExtraCoroutine(extraBullet2_1, target, speedExtra, Vector3.up, contentBullet[3]));
-                    toUseCoroutines.StartCoroutine(MovementExtraCoroutine(extraBullet2_2, target, speedExtra, Vector3.left, contentBullet[4]));
-                    toUseCoroutines.StartCoroutine(MovementExtraCoroutine(extraBullet2_3, target, speedExtra, Vector3.right, contentBullet[5]));
+                    contentBullet[3].SetBulletCoroutine(toUseCoroutines.StartCoroutine(MovementExtraCoroutine(extraBullet2_1, target, speedExtra, Vector3.up, contentBullet[3])), toUseCoroutines);
+                    contentBullet[4].SetBulletCoroutine(toUseCoroutines.StartCoroutine(MovementExtraCoroutine(extraBullet2_2, target, speedExtra, Vector3.left, contentBullet[4])), toUseCoroutines);
+                    contentBullet[5].SetBulletCoroutine(toUseCoroutines.StartCoroutine(MovementExtraCoroutine(extraBullet2_3, target, speedExtra, Vector3.right, contentBullet[5])), toUseCoroutines);
                 }
             }
         }

@@ -103,7 +103,7 @@ public class RainbowCannon : Cannon
     public virtual void MoveToPos(MonoBehaviour toUseCoroutines, GameObject obj, Vector3 target, float speed, float platformsSpeed, ContentBullet contentBullet)
     {
         float speedMultiplier = stamp == null ? 1 : stamp.getStampValue();
-        toUseCoroutines.StartCoroutine(MovementCoroutine(obj, target, speed * speedMultiplier + platformsSpeed, contentBullet));
+        contentBullet.SetBulletCoroutine(toUseCoroutines.StartCoroutine(MovementCoroutine(obj, target, speed * speedMultiplier + platformsSpeed, contentBullet)), toUseCoroutines);
 
         //projectile_rb = obj.GetComponent<Rigidbody>();
         //projectile_rb.velocity = obj.transform.forward * (bulletInfo.Speed + platformsSpeed);

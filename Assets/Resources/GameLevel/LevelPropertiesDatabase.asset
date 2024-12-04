@@ -65,37 +65,37 @@ MonoBehaviour:
     checkbox: 1
   islands_properties:
   - id: isl_sm
-    sizeOfObjectPool: 8
+    sizeOfObjectPool: 4
     prefab: {fileID: 9117749747347361857, guid: 26f624de280eac743b4a2f6c5a32a54c,
       type: 3}
   - id: isl_bg
-    sizeOfObjectPool: 8
+    sizeOfObjectPool: 4
     prefab: {fileID: 993700720620467212, guid: d629407c155c702438b08f8a8330e2e1, type: 3}
   - id: isl_tl
-    sizeOfObjectPool: 8
+    sizeOfObjectPool: 4
     prefab: {fileID: 1948562549802670562, guid: aa9c7a6009d85364193c23b88534a981,
       type: 3}
   - id: isl_extraSm1
-    sizeOfObjectPool: 8
+    sizeOfObjectPool: 4
     prefab: {fileID: 7059723060038819460, guid: 87546f580ccfc5f4684f20effa4a8e39,
       type: 3}
   - id: isl_extraSm2
-    sizeOfObjectPool: 8
+    sizeOfObjectPool: 4
     prefab: {fileID: 5980390961650164005, guid: d0057a17726974442b38bb09369f586c,
       type: 3}
   - id: isl_extraBg1
-    sizeOfObjectPool: 8
+    sizeOfObjectPool: 4
     prefab: {fileID: 831770553356407458, guid: 7d37a9fbdcce0d34f8bc22f83de2784e, type: 3}
   - id: isl_extraBg2
-    sizeOfObjectPool: 8
+    sizeOfObjectPool: 4
     prefab: {fileID: 3416485113611070442, guid: 837b8e36dded36a4ea26b3c5062f9922,
       type: 3}
   - id: isl_extraTl1
-    sizeOfObjectPool: 8
+    sizeOfObjectPool: 4
     prefab: {fileID: 3990730355553209861, guid: 1b3ce234600f65a4f98c6aca02958eb6,
       type: 3}
   - id: isl_extraTl2
-    sizeOfObjectPool: 8
+    sizeOfObjectPool: 4
     prefab: {fileID: 6712667479999565943, guid: a63ba3105b4464c4481192801ae39592,
       type: 3}
   roadParts_properties:

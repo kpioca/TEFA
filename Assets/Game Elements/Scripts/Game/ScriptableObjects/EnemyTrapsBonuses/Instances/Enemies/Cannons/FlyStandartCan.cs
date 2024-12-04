@@ -27,12 +27,12 @@ public class FlyStandartCan : Cannon
     public override void MoveToPos(MonoBehaviour toUseCoroutines, GameObject obj, Vector3 target, BulletInfo bulletInfo, float platformsSpeed, ContentBullet contentBullet)
     {
         float speedMultiplier = stamp == null ? 1 : stamp.getStampValue();
-        toUseCoroutines.StartCoroutine(MovementCoroutine(obj, target, bulletInfo.Speed * speedMultiplier + platformsSpeed, toUseCoroutines, contentBullet));
+        contentBullet.SetBulletCoroutine(toUseCoroutines.StartCoroutine(MovementCoroutine(obj, target, bulletInfo.Speed * speedMultiplier + platformsSpeed, toUseCoroutines, contentBullet)), toUseCoroutines);
     }
 
     private protected IEnumerator MovementCoroutine(GameObject obj, Vector3 target, float speed, MonoBehaviour toUseCoroutines, ContentBullet contentBullet)
     {
-        Coroutine spiningCoroutine = toUseCoroutines.StartCoroutine(SpinningCoroutine(obj, spinningSpeed, smooth));
+        Coroutine spiningCoroutine = contentBullet.StartCoroutine(SpinningCoroutine(obj, spinningSpeed, smooth));
         Vector3 start_pos = obj.transform.position;
 
         float runningTime = 0;
@@ -44,7 +44,7 @@ public class FlyStandartCan : Cannon
             obj.transform.position = Vector3.Lerp(start_pos, target, runningTime / totalRunningTime);
             yield return 1;
         }
-        toUseCoroutines.StopCoroutine(spiningCoroutine);
+        contentBullet.StopCoroutine(spiningCoroutine);
         if (contentBullet.gameObject.activeInHierarchy)
             contentBullet.Remove();
     }

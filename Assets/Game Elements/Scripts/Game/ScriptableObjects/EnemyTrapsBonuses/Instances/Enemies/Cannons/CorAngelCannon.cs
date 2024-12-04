@@ -24,7 +24,7 @@ public class CorAngelCannon : Cannon
     public override void MoveToPos(MonoBehaviour toUseCoroutines, GameObject obj, Vector3 target, BulletInfo bulletInfo, float platformsSpeed, ContentBullet contentBullet)
     {
         float speedMultiplier = stamp == null ? 1 : stamp.getStampValue();
-        toUseCoroutines.StartCoroutine(MovementCoroutine(obj, obj.transform.forward * 20, target, bulletInfo.Speed * speedMultiplier + platformsSpeed, 25, contentBullet));
+        contentBullet.SetBulletCoroutine(toUseCoroutines.StartCoroutine(MovementCoroutine(obj, obj.transform.forward * 20, target, bulletInfo.Speed * speedMultiplier + platformsSpeed, 25, contentBullet)), toUseCoroutines);
 
         //projectile_rb = obj.GetComponent<Rigidbody>();
         //projectile_rb.velocity = obj.transform.forward * (bulletInfo.Speed + platformsSpeed);

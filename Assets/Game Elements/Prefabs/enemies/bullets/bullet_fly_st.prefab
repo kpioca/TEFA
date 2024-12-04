@@ -108,6 +108,7 @@ GameObject:
   - component: {fileID: 5276476414458579859}
   - component: {fileID: 2867895035664944154}
   - component: {fileID: 1346148062653247506}
+  - component: {fileID: 2656984087180962017}
   m_Layer: 0
   m_Name: bullet_fly_st
   m_TagString: Untagged
@@ -180,3 +181,15 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &2656984087180962017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6145158154092915495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3be9d321b436fa24cb84a1f9e65d7c2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

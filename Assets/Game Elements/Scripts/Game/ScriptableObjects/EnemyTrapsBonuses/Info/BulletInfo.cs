@@ -36,6 +36,7 @@ public class BulletInfo : ScriptableObject
     public StatusEffectInfo EffectInfo => effectInfo;
 
 
+
     public GameObject spawnBullet(GameObject prefab, GameObject markGun, Transform parent, Stamp stamp, out ContentBullet contentBullet)
     {
         if(stamp == null)

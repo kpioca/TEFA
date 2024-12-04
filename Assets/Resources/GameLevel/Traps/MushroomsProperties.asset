@@ -16,7 +16,7 @@ MonoBehaviour:
   type: 0
   levelOfCoolness: 2
   prefab: {fileID: 2219313681617558114, guid: 21d92afb69764ed4aaf56506214b985d, type: 3}
-  sizeOfObjectPool: 10
+  sizeOfObjectPool: 3
   icon: {fileID: 21300000, guid: 80bd4c6b212108f4ca55ee3fe07ebc6e, type: 3}
   haveAttackDamage: 0
   attackDamage: 0

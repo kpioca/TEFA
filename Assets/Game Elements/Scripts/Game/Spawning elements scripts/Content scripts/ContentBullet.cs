@@ -13,6 +13,21 @@ public class ContentBullet : MonoBehaviour, IRemovable
     [SerializeField] private GameObject bulletMainObject;
     public GameObject BulletMainObject => bulletMainObject;
 
+    public Coroutine BulletCoroutine { get; set; }
+    public MonoBehaviour CoroutineStarter { get; set; }
+
+
+    public void OnDisable()
+    {
+        if (BulletCoroutine != null && CoroutineStarter != null)
+            CoroutineStarter.StopCoroutine(BulletCoroutine);
+    }
+
+    public void SetBulletCoroutine(Coroutine coroutine, MonoBehaviour starterCoroutine)
+    {
+        BulletCoroutine = coroutine;
+        CoroutineStarter = starterCoroutine;
+    }
     public void Remove()
     {
         StartCoroutine(RemoveCoroutine());

@@ -1,7 +1,7 @@
-﻿using System.Collections;
+﻿using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -53,7 +53,7 @@ public class PlayerControl : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public bool isJumpingEffectActivated = false;
 
     private int reverseControls = 1;
-
+    Sequence _animation;
     public void Initialize()
     {
         curr_camPos_num = 1;
@@ -162,55 +162,6 @@ public class PlayerControl : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             jumpingCoroutine = StartCoroutine(jumpEffect_Coroutine(speed_jump, speed_fall, height_jump, mainCamera.gameObject));
         }
     }
-    private IEnumerator moveToNextPos_Coroutine2(int curr_num, int increment, Vector3[] positions, float speed_move, float height_move, GameObject obj)
-    {
-        Vector3 start_pos = obj.transform.position;
-        Vector3 final_pos;
-        Vector3 pos = obj.transform.position;
-        Vector3 target_pos = positions[curr_num + increment];
-
-        float lowPoint = target_pos.y;
-        float highPoint = target_pos.y + height_move;
-
-        float x_distance = Mathf.Abs(target_pos.x - start_pos.x);
-
-        float runningTime;
-        float totalRunningTime;
-
-        isMoving = true;
-
-        final_pos = new Vector3(target_pos.x - (increment * x_distance / 2), highPoint, target_pos.z);
-
-        runningTime = 0;
-        totalRunningTime = Vector3.Distance(start_pos, final_pos) / speed_move;
-
-        while (runningTime < totalRunningTime)
-        {
-            runningTime += Time.deltaTime;
-            obj.transform.position = Vector3.Lerp(start_pos, final_pos, runningTime / totalRunningTime);
-            yield return 0;
-        }
-
-        obj.transform.position = final_pos;
-
-        start_pos = final_pos;
-        final_pos = new Vector3(target_pos.x, lowPoint, target_pos.z);
-
-        runningTime = 0;
-        totalRunningTime = Vector3.Distance(start_pos, final_pos) / speed_move;
-
-        while (runningTime < totalRunningTime)
-        {
-            runningTime += Time.deltaTime;
-            obj.transform.position = Vector3.Lerp(start_pos, final_pos, runningTime / totalRunningTime);
-            yield return 0;
-        }
-
-        obj.transform.position = final_pos;
-
-        isMoving = false;
-        curr_camPos_num = curr_num + increment;
-    }
 
     private IEnumerator moveToNextPos_Coroutine(GameObject obj)
     {
@@ -251,6 +202,7 @@ public class PlayerControl : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
         isMoving = false;
     }
+
 
     private IEnumerator fall_Coroutine(float speed_fall, GameObject obj)
     {
@@ -380,6 +332,8 @@ public class PlayerControl : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         isFalling = false;
         isJumpingEffectActivated = false;
     }
+
+
     private IEnumerator jump_Coroutine(float speed_jump, float speed_fall, float height_jump, GameObject obj)
     {
         Vector3 start_pos = obj.transform.position;
@@ -488,6 +442,11 @@ public class PlayerControl : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         height_jump = heightJump;
     }
 
+    public void KillAnimation(Sequence animation)
+    {
+        if (animation != null && animation.active)
+            animation.Kill();
+    }
     public void OnDrag(PointerEventData eventData)
     {
     }

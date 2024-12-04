@@ -54,7 +54,7 @@ public class MageBattle : Mage
 
     public virtual void MoveToPos(MonoBehaviour toUseCoroutines, GameObject obj, Vector3 target, BulletInfo bulletInfo, float platformsSpeed, ContentBullet contentBullet)
     {
-        toUseCoroutines.StartCoroutine(MovementCoroutine(obj, target, bulletInfo.Speed + platformsSpeed, contentBullet));
+        contentBullet.SetBulletCoroutine(toUseCoroutines.StartCoroutine(MovementCoroutine(obj, target, bulletInfo.Speed + platformsSpeed, contentBullet)), toUseCoroutines);
 
         //projectile_rb = obj.GetComponent<Rigidbody>();
         //projectile_rb.velocity = obj.transform.forward * (bulletInfo.Speed + platformsSpeed);

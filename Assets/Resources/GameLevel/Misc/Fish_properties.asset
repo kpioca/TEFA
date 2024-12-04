@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Fish_properties
   m_EditorClassIdentifier: 
   id: money_fish
-  sizeOfObjectPool: 20
+  sizeOfObjectPool: 10
   prefab: {fileID: 7732691636725382871, guid: 12a06a2fd4171274ebbb2a0e6fce130b, type: 3}
   chance: 1

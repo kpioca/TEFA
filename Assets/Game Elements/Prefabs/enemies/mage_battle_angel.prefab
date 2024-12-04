@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5121512806588014743}
   - component: {fileID: 3938391101037793131}
   - component: {fileID: 6810188694761683862}
+  - component: {fileID: 7033533153259738380}
   m_Layer: 0
   m_Name: mage_battle_angel-2
   m_TagString: Untagged
@@ -83,6 +84,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &7033533153259738380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2081490484957370544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3be9d321b436fa24cb84a1f9e65d7c2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3118497138363985002
 GameObject:
   m_ObjectHideFlags: 0
@@ -126,6 +139,7 @@ GameObject:
   - component: {fileID: 725180304464142382}
   - component: {fileID: 2142504454580991586}
   - component: {fileID: 4051074364287379730}
+  - component: {fileID: 4547888519722743356}
   m_Layer: 0
   m_Name: mage_battle_angel-3
   m_TagString: Untagged
@@ -198,6 +212,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &4547888519722743356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3127591220008667788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3be9d321b436fa24cb84a1f9e65d7c2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3718185621615173031
 GameObject:
   m_ObjectHideFlags: 0
@@ -422,6 +448,7 @@ GameObject:
   - component: {fileID: 762027001374685301}
   - component: {fileID: 1501969171862098236}
   - component: {fileID: 1797627705147757988}
+  - component: {fileID: 8954825303253718088}
   m_Layer: 0
   m_Name: mage_battle_angel-0
   m_TagString: Untagged
@@ -451,7 +478,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5507291937997407117}
-  m_Mesh: {fileID: -1545623178090923866, guid: c79540c7f6fb12a4cb1b72a553c29c1e, type: 3}
+  m_Mesh: {fileID: 3414422825769373967, guid: 373b6ef1837992a4f9204cc187b3da12, type: 3}
 --- !u!23 &1797627705147757988
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -472,7 +499,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ed2dde5be0283ab4b874c482384b9895, type: 2}
+  - {fileID: 2100000, guid: 08e1a4a5335714c45b9b32ea453fd950, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -494,6 +521,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &8954825303253718088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5507291937997407117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3be9d321b436fa24cb84a1f9e65d7c2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6788521403749693270
 GameObject:
   m_ObjectHideFlags: 0
@@ -505,6 +544,7 @@ GameObject:
   - component: {fileID: 2214244479261334296}
   - component: {fileID: 2565593235236952598}
   - component: {fileID: 1917933022628688060}
+  - component: {fileID: 5815009285252119949}
   m_Layer: 0
   m_Name: mage_battle_angel-4
   m_TagString: Untagged
@@ -534,7 +574,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6788521403749693270}
-  m_Mesh: {fileID: -4925621157972758622, guid: c79540c7f6fb12a4cb1b72a553c29c1e, type: 3}
+  m_Mesh: {fileID: -7689742492089106841, guid: 373b6ef1837992a4f9204cc187b3da12, type: 3}
 --- !u!23 &1917933022628688060
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -555,7 +595,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ed2dde5be0283ab4b874c482384b9895, type: 2}
+  - {fileID: 2100000, guid: 08e1a4a5335714c45b9b32ea453fd950, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -577,6 +617,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &5815009285252119949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6788521403749693270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3be9d321b436fa24cb84a1f9e65d7c2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7464500880190239116
 GameObject:
   m_ObjectHideFlags: 0
@@ -625,6 +677,7 @@ GameObject:
   - component: {fileID: 1982187492453850324}
   - component: {fileID: 1572117284354721900}
   - component: {fileID: 4438202337639734104}
+  - component: {fileID: 8786419079528035809}
   m_Layer: 0
   m_Name: mage_battle_angel-1
   m_TagString: Untagged
@@ -697,6 +750,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &8786419079528035809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7996647886676082183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3be9d321b436fa24cb84a1f9e65d7c2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8025246267219408666
 GameObject:
   m_ObjectHideFlags: 0

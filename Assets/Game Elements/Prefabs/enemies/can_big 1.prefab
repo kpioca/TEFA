@@ -71,6 +71,7 @@ MonoBehaviour:
   - {fileID: 3713105341011540035}
   animator: {fileID: 4907954241719369557}
   attackAnimationClip: {fileID: 7400000, guid: 64b55154d5034dd4aad3929c8aeb25ed, type: 2}
+  hasIdleAnimation: 0
 --- !u!1 &2216118544738290946
 GameObject:
   m_ObjectHideFlags: 0

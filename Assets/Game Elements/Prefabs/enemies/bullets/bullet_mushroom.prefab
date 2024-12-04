@@ -78,7 +78,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -178,7 +178,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a8204b8535342c84bbbc43d6a564d4de,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7069192578551381959}
   m_SourcePrefab: {fileID: 100100000, guid: a8204b8535342c84bbbc43d6a564d4de, type: 3}
 --- !u!1 &7228332207342116517 stripped
 GameObject:
@@ -186,6 +190,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 7534900449479582708}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7069192578551381959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7228332207342116517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3be9d321b436fa24cb84a1f9e65d7c2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &8006240655134426143 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a8204b8535342c84bbbc43d6a564d4de,

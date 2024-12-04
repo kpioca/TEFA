@@ -16,10 +16,10 @@ MonoBehaviour:
   type: 2
   levelOfCoolness: 1
   prefab: {fileID: 5433756176694221678, guid: df72efe880dce3c4e97744b1c26846c4, type: 3}
-  sizeOfObjectPool: 3
+  sizeOfObjectPool: 1
   icon: {fileID: 21300000, guid: e840b5002cebcd747933d8c2e65409d8, type: 3}
   durationSec: 0
   haveEffect: 0
   effectInfo: {fileID: 0}
-  max_armor: 3
+  max_add_armor: 3
   armor_value: 1
