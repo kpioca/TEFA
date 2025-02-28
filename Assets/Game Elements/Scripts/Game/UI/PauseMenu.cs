@@ -1,23 +1,24 @@
 using System.Collections;
-using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    [SerializeField] GameManager gameManager;
-    [SerializeField] GameObject pauseMenu;
+    [SerializeField] GameManager _gameManager;
+    [SerializeField] GameObject _pauseMenu;
+    [SerializeField] GameObject _pausePanel;
+    Sequence _animation;
 
-    IEnumerator PauseCoroutine()
-    {
-        pauseMenu.SetActive(true);
-        yield return new WaitForSeconds(0.3f);
-        Time.timeScale = 0;
-    }
+    
 
     public void PauseMenuActivate()
     {
-        pauseMenu.SetActive(true);
+        PauseGame();
+        _animation = DOTween.Sequence();
+        _animation.Append(_pausePanel.transform.DOScale(1f, 1f).From(0f))
+                  .SetUpdate(true);
+        _pauseMenu.SetActive(true);
     }
 
     public void PauseGame()
@@ -32,19 +33,28 @@ public class PauseMenu : MonoBehaviour
 
     public void PauseMenuClose()
     {
-        pauseMenu.SetActive(false);
-        Time.timeScale = 1;
+        if (_animation != null && !_animation.active)
+        {
+            _animation = DOTween.Sequence();
+            _animation.Append(_pausePanel.transform.DOScale(0f, 1f).From(1f))
+                      .SetUpdate(true)
+                      .OnComplete(() =>
+                      {
+                          _pauseMenu.SetActive(false);
+                          ResumeGame();
+                      });
+        }
     }
 
     public void RestartGame()
     {
-        gameManager.player_Control.enabled = false;
-        Animator animator = gameManager.contentPlayer.gameObject.GetComponent<Animator>();
+        _gameManager.player_Control.enabled = false;
+        Animator animator = _gameManager.contentPlayer.gameObject.GetComponent<Animator>();
         animator.enabled = false;
         animator.Rebind();
-        gameManager.resultMenu.setResult(gameManager.pathCounter.PathScore, gameManager.pathCounter.currentStageDistance.Value[1], gameManager.FishMoney, gameManager.Food, gameManager.FishMultiplier);
-        gameManager.StopAllCoroutines();
-        gameManager.unSubscribe();
+        _gameManager.resultMenu.setResult(_gameManager.pathCounter.PathScore, _gameManager.pathCounter.currentStageDistance.Value[1], _gameManager.FishMoney, _gameManager.Food, _gameManager.FishMultiplier);
+        _gameManager.StopAllCoroutines();
+        _gameManager.unSubscribe();
         GlobalEventManager.GameOver();
         ResumeGame();
         SceneManager.LoadSceneAsync(1);
@@ -52,13 +62,13 @@ public class PauseMenu : MonoBehaviour
 
     public void ReturnMainMenu()
     {
-        gameManager.player_Control.enabled = false;
-        Animator animator = gameManager.contentPlayer.gameObject.GetComponent<Animator>();
+        _gameManager.player_Control.enabled = false;
+        Animator animator = _gameManager.contentPlayer.gameObject.GetComponent<Animator>();
         animator.enabled = false;
         animator.Rebind();
-        gameManager.resultMenu.setResult(gameManager.pathCounter.PathScore, gameManager.pathCounter.currentStageDistance.Value[1], gameManager.FishMoney, gameManager.Food, gameManager.FishMultiplier);
-        gameManager.StopAllCoroutines();
-        gameManager.unSubscribe();
+        _gameManager.resultMenu.setResult(_gameManager.pathCounter.PathScore, _gameManager.pathCounter.currentStageDistance.Value[1], _gameManager.FishMoney, _gameManager.Food, _gameManager.FishMultiplier);
+        _gameManager.StopAllCoroutines();
+        _gameManager.unSubscribe();
         GlobalEventManager.GameOver();
         ResumeGame();
         SceneManager.LoadSceneAsync(0);

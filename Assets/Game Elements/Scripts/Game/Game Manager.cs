@@ -59,8 +59,6 @@ public class GameManager : MonoBehaviour
 
     bool isRestart = false;
     public int FishMultiplier { get; set; }
-    //[Header("Game")]
-    //[SerializeField] private bool isGameOver = false;
 
 
     IPersistentData _persistentData;
@@ -71,11 +69,6 @@ public class GameManager : MonoBehaviour
     public int FishMoney => fishMoney;
     [SerializeField] private int food = 0;
     public int Food => food;
-    //public bool IsGameOver
-    //{
-    //    get { return isGameOver; }
-    //    set { isGameOver = value; }
-    //}
 
     public float getPlatformSpeedForBullets()
     {
@@ -148,9 +141,7 @@ public class GameManager : MonoBehaviour
         changeHealth(_persistentData.saveData.Health);
         changeArmor(_persistentData.saveData.Armor);
 
-        //void start
         roads = generatorLevel.ready_partsOfPath;
-        //allDisable();
     }
 
     private void OnEnable()
@@ -171,7 +162,6 @@ public class GameManager : MonoBehaviour
 
     void GameOver()
     {
-        //isGameOver = true;
         playerControl.enabled = false;
         Animator animator = _contentPlayer.gameObject.GetComponent<Animator>();
         animator.enabled = false;
@@ -227,11 +217,6 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadSceneAsync(0);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void AddMoney(int amount = 1)
     {

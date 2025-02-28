@@ -37,8 +37,6 @@ public class PlayerControl : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         new Vector3(2,5.08f,-7.7f)
     };
 
-    private List<float> camera_positions_x = new List<float> { -2, 0, 2 };
-
     public int curr_camPos_num = 1;
     private Coroutine movementCoroutine;
     private Coroutine jumpingCoroutine;
@@ -53,7 +51,6 @@ public class PlayerControl : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public bool isJumpingEffectActivated = false;
 
     private int reverseControls = 1;
-    Sequence _animation;
     public void Initialize()
     {
         curr_camPos_num = 1;
@@ -67,11 +64,9 @@ public class PlayerControl : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
-        float camera_pos_x = mainCamera.transform.position.x;
 
         if ((Mathf.Abs(eventData.delta.x)) > (Mathf.Abs(eventData.delta.y)))
         {
-            //camera_positions_x.Contains(camera_pos_x) && 
             if (!isMoving && !stopMove)
             {
                 if (eventData.delta.x * reverseControls > 0 && isPossibleToTakeNext(curr_camPos_num, 1, camera_positions))
@@ -84,7 +79,6 @@ public class PlayerControl : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
                     }
                     else if (!isFalling)
                     {
-                        //isMoving = true;
                         curr_camPos_num++;
                         target = new Vector3(camera_positions[curr_camPos_num].x, target.y, camera_positions[curr_camPos_num].z);
                         isTargetChanged = true;
@@ -100,7 +94,6 @@ public class PlayerControl : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
                     }
                     else if (!isFalling)
                     {
-                        //isMoving = true;
                         curr_camPos_num--;
                         target = new Vector3(camera_positions[curr_camPos_num].x, target.y, camera_positions[curr_camPos_num].z);
                         isTargetChanged = true;
@@ -113,7 +106,6 @@ public class PlayerControl : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
                 {
                     if (!isFalling)
                     {
-                        //isMoving = true;
                         curr_camPos_num++;
                         target = camera_positions[curr_camPos_num];
                         isTargetChanged = true;
@@ -123,7 +115,6 @@ public class PlayerControl : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
                 {
                     if (!isFalling)
                     {
-                        //isMoving = true;
                         curr_camPos_num--;
                         target = camera_positions[curr_camPos_num];
                         isTargetChanged = true;
@@ -285,7 +276,6 @@ public class PlayerControl : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             yield return 0;
         }
 
-        //obj.transform.position = target;
 
         start_pos = target;
         target = new Vector3(start_pos.x, lowPoint, start_pos.z);
@@ -367,7 +357,6 @@ public class PlayerControl : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             yield return 0;
         }
 
-        //obj.transform.position = target;
 
         start_pos = target;
         target = new Vector3(start_pos.x, lowPoint, start_pos.z);
@@ -447,11 +436,14 @@ public class PlayerControl : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         if (animation != null && animation.active)
             animation.Kill();
     }
+
     public void OnDrag(PointerEventData eventData)
     {
+        
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        
     }
 }
