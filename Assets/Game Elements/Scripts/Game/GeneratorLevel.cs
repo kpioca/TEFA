@@ -7,6 +7,7 @@ using System.Linq;
 using UnityEngine.UI;
 using TMPro;
 using Unity.VisualScripting;
+using System.Threading.Tasks;
 
 
 public struct StagesSpawnParameters
@@ -119,7 +120,7 @@ public class GeneratorLevel : MonoBehaviour
             database = _databaseForRanking;
             _randomSeed = randomSeed;
         }
-        init(out generator, database);
+        init(database);
     }
 
     private void OnEnable()
@@ -143,7 +144,7 @@ public class GeneratorLevel : MonoBehaviour
         GlobalEventManager.OnGameOver -= unSubscribe;
     }
 
-    private void init(out GeneratorLevelProperties generator, LevelPropertiesDatabase database)
+    private void init(LevelPropertiesDatabase database)
     {
         string text = "";
         float rand_num1;
@@ -243,6 +244,7 @@ public class GeneratorLevel : MonoBehaviour
         gameManager.roads = ready_partsOfPath;
         gameManager.DisablePlatformMovement();
         rouletteSpawnElements.startRoulette(enemy_properties, traps_properties, bonuses_properties, stamps, gameManager.FishMultiplier);
+
     }
 
     public int getMultiplier(GameSet gameSet, List<Stamp> stamps, ModificatorInfo modificator)
@@ -328,7 +330,7 @@ public class GeneratorLevel : MonoBehaviour
 
         for (i = 0; i < n_securePlatforms; i++)
         {
-            temp_obj = assemblingReadyPieceOfPath(roadParts_properties[0].Prefab, openedEnemy, openedTraps, openedBonuses, misc, n_stage, true);
+            temp_obj =  assemblingReadyPieceOfPath(roadParts_properties[0].Prefab, openedEnemy, openedTraps, openedBonuses, misc, n_stage, true);
             placeObjectToPos(temp_obj, startPos + DistanceZ_between_roads * Vector3.forward * i, Quaternion.identity, null);
             temp_obj.GetComponent<BoxCollider>().enabled = false;
             partsOfPath.Add(temp_obj);
@@ -336,7 +338,7 @@ public class GeneratorLevel : MonoBehaviour
 
         for (; i < n_parts; i++)
         {
-            temp_obj = assemblingReadyPieceOfPath(roadParts_properties[0].Prefab, openedEnemy, openedTraps, openedBonuses, misc, n_stage);
+            temp_obj =  assemblingReadyPieceOfPath(roadParts_properties[0].Prefab, openedEnemy, openedTraps, openedBonuses, misc, n_stage);
             placeObjectToPos(temp_obj, startPos + DistanceZ_between_roads * Vector3.forward * i, Quaternion.identity, null);
             partsOfPath.Add(temp_obj);
         }
@@ -373,7 +375,7 @@ public class GeneratorLevel : MonoBehaviour
         float openedPartItems = stageParameters[new_stage].Part_openItems_stage;
         n_stage = changeStageGame(new_stage, out openedEnemy, out openedTraps, out openedBonuses, openedPartItems, enemy_properties, traps_properties, bonuses_properties);
     }
-    private void spawnNewPathWay()
+    public void spawnNewPathWay()
     {
         GameObject temp_obj;
         if(ready_partsOfPath[0].GetComponent<BoxCollider>().enabled == false)
@@ -382,7 +384,7 @@ public class GeneratorLevel : MonoBehaviour
         ready_partsOfPath.RemoveAt(0);
         int n = ready_partsOfPath.Count;
 
-        temp_obj = assemblingReadyPieceOfPath(roadParts_properties[0].Prefab, openedEnemy, openedTraps, openedBonuses, misc_properties, n_stage);
+        temp_obj =  assemblingReadyPieceOfPath(roadParts_properties[0].Prefab, openedEnemy, openedTraps, openedBonuses, misc_properties, n_stage);
         placeObjectToPos(temp_obj, ready_partsOfPath[n-1].transform.position + distZbetweenPlatforms * Vector3.forward, Quaternion.identity, null);;
         ready_partsOfPath.Add(temp_obj);
     }
@@ -711,6 +713,9 @@ public class GeneratorLevel : MonoBehaviour
 
 
         InfoPieceOfPath info = raw_road.GetComponent<InfoPieceOfPath>();
+        if(info.spawnPlatform.generatorLevel == null)
+        info.spawnPlatform.Initialize(this);
+
         PlatformMovement platformMovement = raw_road.GetComponent<PlatformMovement>();
         platformMovement.Initialize(gameManager);
 
@@ -1164,7 +1169,11 @@ public class GeneratorLevel : MonoBehaviour
 
         initObjectPool(islands);
         initObjectPool(roadParts);
+
         initObjectPool(misc);
+
+
+        Debug.Log("Initialization Of Pools Is Completed!");
     }
 
     private void initObjectPool<T>(List<T> listObjects) where T : SpawnElementInfo
@@ -1202,12 +1211,15 @@ public class GeneratorLevel : MonoBehaviour
         int n = listObjects.Count;
         int m = 0;
         List<GameObject> tempList = new List<GameObject>();
-
+        GameObject temp;
         for (int i = 0; i < n; i++)
         {
             m = listObjects[i].SizeOfObjectPool;
             for (int j = 0; j < m; j++)
-                tempList.Add(KhtPool.GetObject(listObjects[i].Prefab));
+            {
+                temp = KhtPool.GetObject(listObjects[i].Prefab);
+                tempList.Add(temp);
+            }
         }
         for (int i = 0; i < tempList.Count; i++) KhtPool.ReturnObject(tempList[i]);
     }

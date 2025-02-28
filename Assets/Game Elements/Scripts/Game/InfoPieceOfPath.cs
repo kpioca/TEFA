@@ -51,7 +51,8 @@ public class SpawnPlace
 
 public class InfoPieceOfPath : MonoBehaviour
 {
-    
+    [field: SerializeField] public SpawnNewPlatform spawnPlatform { get; private set; }
+
     public GameObject road_obj;
 
     public RoadGenerationPattern RPattern { get; private set; }

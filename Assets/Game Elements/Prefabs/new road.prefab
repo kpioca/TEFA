@@ -1843,6 +1843,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae355758c1fa5db4882cfec9a8932c70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <spawnPlatform>k__BackingField: {fileID: 805965918747707270}
   road_obj: {fileID: 4856883820555747928}
   marks_islandsSmall:
   - obj: {fileID: 6828307218713257704}
