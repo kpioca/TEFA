@@ -4,10 +4,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 using System;
 using System.Linq;
-using UnityEngine.UI;
 using TMPro;
-using Unity.VisualScripting;
-using System.Threading.Tasks;
 
 
 public struct StagesSpawnParameters
@@ -707,9 +704,8 @@ public class GeneratorLevel : MonoBehaviour
     {
         GameObject raw_road = spawnObject(road_prefab, null);
         RoadGenerationPattern rPattern;
-        GameObject temp;
         int n_e = 0, n_t = 0, n_b = 0, n_m = 0, n_extraIsl = 0;
-        int k, t, p;
+        int k;
 
 
         InfoPieceOfPath info = raw_road.GetComponent<InfoPieceOfPath>();

@@ -32,7 +32,6 @@ public class PathCounter : MonoBehaviour
     [Header("Level icons")]
     [SerializeField] private Sprite[] levelIcons;
 
-    // Start is called before the first frame update
     public void Initialize()
     {
         n_stages = database.stageParameters.Count;
