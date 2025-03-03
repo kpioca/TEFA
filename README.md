@@ -25,6 +25,7 @@
 2. Factory
 3. Visitor
 4. Entry Point
+
 Использованные технологии:
 1. DoTween
 2. Shader Graph
