@@ -29,3 +29,5 @@
 Использованные технологии:
 1. DoTween
 2. Shader Graph
+3. LootLocker SDK (облачные сохранения)
+4. YandexMobileAds
