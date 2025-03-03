@@ -25,6 +25,7 @@
 3. Visitor
 4. Entry Point
 
+Ссылка на игру: https://www.rustore.ru/catalog/app/com.RatGamesStudio.TEFA
 Использованные технологии:
 1. DoTween
 2. Shader Graph
